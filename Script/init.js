@@ -42,7 +42,7 @@ document.getElementById('QMain').innerHTML = questions[0].getHTML();
  * @param {Integer} number index of the element in answer selection
  * @param {HTMLElement} elem reference to the element clicked on
  */
-function selectAnswer(number, elem) {
+async function selectAnswer(number, elem) {
     questions[currentpage].option = number;
     console.log(questions[currentpage]);
     for (let el of elem.parentElement.children) {
@@ -50,6 +50,8 @@ function selectAnswer(number, elem) {
     }
     elem.classList.toggle('selected', true)
     checkNextButton();
+    await sleep(200);
+    document.getElementsByClassName('qMN-Next')[0].click();
 }
 
 /**
@@ -73,6 +75,7 @@ async function clickNext(elem) {
     if (elem.getAttribute('class').includes('deactivate')) {
         return
     }
+    if (currentpage == questions.length-1) return
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
     await sleep(800);
     document.getElementById('QMain').innerHTML = '';
@@ -81,9 +84,9 @@ async function clickNext(elem) {
     document.getElementById('QMain').children[0].classList.toggle('trans-right', true);
     await sleep(10);
     document.getElementById('QMain').children[0].classList.toggle('trans-right', false);
-
 }
 async function clickBack(elem) {
+    if (currentpage == 0) return;
     document.getElementById('QMain').children[0].classList.toggle('trans-right', true);
     await sleep(800);
     document.getElementById('QMain').innerHTML = '';
