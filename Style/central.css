@@ -11,7 +11,7 @@ body {
     top: 2.5%;
     left: 15px;
 }
-.mS-tabsList {
+.mS-tabsList, .mS-bottomList {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -39,11 +39,11 @@ body {
 .mST-element:hover {
     background-color: var(--MenuSidebar-hover);
 }
-.mST-element > p {
+.mST-element > p, .mSB-element > p {
     margin: 0;
     font-size: 20px;
 }
-.mST-element > img {
+.mST-element > img, .mSB-element > img {
     width: 25px;
     height: 25px;
     object-fit: contain;
@@ -54,6 +54,27 @@ body {
     height: 100%;
     margin-left: 235px;
     top: 0;
+}
+.mS-bottomList {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 20px;
+    top: auto;
+    transform: translateY(0);
+    gap: 10px;
+}
+.mSB-element > p {
+    font-size: 16px;
+}
+.mSB-element > img {
+    width: 20px;
+    height: 20px;
+}
+.mSB-element {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 @media (max-width: 1200px) {
