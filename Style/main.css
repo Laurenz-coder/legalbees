@@ -1,0 +1,47 @@
+body {
+    font-family: 'Inter';
+    background-color: #f9f9f9;
+}
+
+.qMChild {
+    position: relative;
+    width: 100%;
+}
+.qMHead {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0 0 0 0;
+}
+.qM-TopPart {
+    display: flex;
+    justify-content: space-between;
+}
+.qM-Navigation {
+    display: flex;
+    gap: 5px;
+}
+.qMN-Back {
+   border: solid 1px var(--main-color); 
+   border-radius: 5px;
+   padding: 5px 10px;
+   color: var(--main-color);
+}
+.qMN-Next {
+   border: solid 1px var(--main-color); 
+   border-radius: 5px;
+   padding: 5px 10px;
+   background-color: var(--main-color);
+   color: var(--white-color);
+}
+.qMDecision {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.qMDecision > div {
+    box-shadow: 3px 3px 8px #c1c1c1;
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}

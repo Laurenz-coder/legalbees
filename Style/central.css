@@ -1,0 +1,75 @@
+body {
+    font-family: 'Inter';
+}
+
+.mSideMenu {
+    background-color: var(--MenuSidebar);
+    position: fixed;
+    width: 220px;
+    border-radius: 20px;
+    height: 95%;
+    top: 2.5%;
+    left: 15px;
+}
+.mS-tabsList {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90%;
+    margin-left: 5%;
+}
+.mST-element {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    padding: 6px;
+    transition: all 0.2s;
+}
+.mST-element-active {
+    background-color: var(--main-color);
+    color: var(--white-text);
+}
+.mST-element-active > img {
+    filter: invert(99%) sepia(100%) saturate(0%) hue-rotate(86deg) brightness(108%) contrast(100%);
+}
+.mST-element:hover {
+    background-color: var(--MenuSidebar-hover);
+}
+.mST-element > p {
+    margin: 0;
+    font-size: 20px;
+}
+.mST-element > img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+.mMainContent {
+    position: absolute;
+    width: calc(100% - 235px);
+    height: 100%;
+    margin-left: 235px;
+    top: 0;
+}
+
+@media (max-width: 1200px) {
+    .mST-element > p {
+        display: none;
+    }
+    .mST-element {
+        justify-content: center;
+        width: 40px;
+        padding: 5px 1px;
+    }
+    .mS-tabsList {
+        margin-left: 0;
+        align-items: center;
+    }
+    .mSideMenu {
+        width: 80px;
+    }
+}
