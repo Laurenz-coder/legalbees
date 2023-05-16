@@ -3,6 +3,13 @@ body {
     background-color: #f9f9f9;
 }
 
+.qBack {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(100px,80%,1200px);
+    margin: auto;
+}
 .qMChild {
     position: relative;
     width: 100%;
@@ -16,27 +23,36 @@ body {
     display: flex;
     justify-content: space-between;
 }
+.qM-TopPart > img {
+    width: 100px;
+    border-radius: 50px;
+    height: 100px;
+    object-fit:cover;
+}
 .qM-Navigation {
     display: flex;
     gap: 5px;
+    align-items: flex-start;
 }
 .qMN-Back {
    border: solid 1px var(--main-color); 
    border-radius: 5px;
-   padding: 5px 10px;
+   padding: 5px 12px;
    color: var(--main-color);
+   cursor: pointer;
 }
 .qMN-Next {
    border: solid 1px var(--main-color); 
    border-radius: 5px;
-   padding: 5px 10px;
+   padding: 5px 12px;
    background-color: var(--main-color);
-   color: var(--white-color);
+   color: var(--white-text);
+   cursor: pointer;
 }
 .qMDecision {
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
 }
 .qMDecision > div {
@@ -44,4 +60,6 @@ body {
     padding: 10px 10px;
     border-radius: 5px;
     background-color: #fff;
+    cursor: pointer;
+    text-align: center;
 }

@@ -10,6 +10,7 @@ body {
     height: 95%;
     top: 2.5%;
     left: 15px;
+    transition: width 0.4s;
 }
 .mS-tabsList, .mS-bottomList {
     position: relative;
@@ -19,7 +20,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     width: 90%;
-    margin-left: 5%;
+    margin-left: 10px;
 }
 .mST-element {
     display: flex;
@@ -27,7 +28,8 @@ body {
     gap: 10px;
     border-radius: 6px;
     padding: 6px;
-    transition: all 0.2s;
+    transition: background-color 0.2s;
+    width: 188px;
 }
 .mST-element-active {
     background-color: var(--main-color);
@@ -36,12 +38,13 @@ body {
 .mST-element-active > img {
     filter: invert(99%) sepia(100%) saturate(0%) hue-rotate(86deg) brightness(108%) contrast(100%);
 }
-.mST-element:hover {
+.mST-element:hover, .mSB-element:hover {
     background-color: var(--MenuSidebar-hover);
 }
 .mST-element > p, .mSB-element > p {
     margin: 0;
     font-size: 20px;
+    filter: opacity(1);
 }
 .mST-element > img, .mSB-element > img {
     width: 25px;
@@ -63,6 +66,7 @@ body {
     top: auto;
     transform: translateY(0);
     gap: 10px;
+    width: 100%;
 }
 .mSB-element > p {
     font-size: 16px;
@@ -74,23 +78,66 @@ body {
 .mSB-element {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
+    border-radius: 6px;
+    padding: 6px;
+    transition: background-color 0.2s;
 }
 
 @media (max-width: 1200px) {
-    .mST-element > p {
-        display: none;
+    .mST-element > p, .mSB-element > p {
+        filter: opacity(0);
+        /* display: none; */
+        width: 0;
+        white-space: nowrap;
+        
     }
     .mST-element {
         justify-content: center;
         width: 40px;
         padding: 5px 1px;
+        gap: 0;
+
     }
-    .mS-tabsList {
-        margin-left: 0;
-        align-items: center;
+    
+    .mS-tabsList, .mS-bottomList {
+        margin-left: 18px;
+        /* align-items: center; */
+        gap: 22px;
+        transition: margin-left 0.2s;
     }
+        .mS-bottomList {
+            gap: 10px;
+        }
     .mSideMenu {
         width: 80px;
+    }
+    .mSideMenu:hover {
+        width: 220px;
+        align-items: left;
+    }
+    .mSideMenu:hover .mST-element > p,  .mSideMenu:hover .mSB-element > p {
+        display: block;
+        filter: opacity(1);
+        
+        transition: all 0.2s 0.2s;
+    }
+    .mSideMenu:hover .mS-tabsList, .mSideMenu:hover .mS-bottomList {
+        align-items: start;
+        margin-left: 10px;
+        gap: 20px;
+        
+    }
+    .mSideMenu:hover .mS-bottomList {
+        gap: 10px;
+
+    }
+    .mSideMenu:hover .mST-element,  .mSideMenu:hover .mSB-element {
+        align-items: start;
+        justify-content: start;
+        width: 188px;
+        padding: 6px;
+        gap: 5px;
+        transition: width 0.4s;
     }
 }
