@@ -9,10 +9,16 @@ body {
     transform: translateY(-50%);
     width: clamp(100px,80%,1200px);
     margin: auto;
+    /* background-color: aquamarine; */
+}
+.qMain {
+    filter: opacity(1);
+    
 }
 .qMChild {
     position: relative;
     width: 100%;
+    transition: filter 0.7s, transform 1.4s;
 }
 .qMHead {
     font-size: 30px;
@@ -55,11 +61,30 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
 }
-.qMDecision > div {
+.qMD-Element {
     box-shadow: 3px 3px 8px #c1c1c1;
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: #fff;
     cursor: pointer;
     text-align: center;
+    background-color: #fff;
+    border: 2px solid #fff;
+}
+.selected {
+    border-color: var(--main-color);
+    /* color: var(--white-text); */
+}
+.deactivate {
+    background-color: var(--grey);
+    border-color: var(--grey);
+    cursor: default;
+}
+.trans-right {
+    transform: translateX(150%);
+    filter: opacity(0);
+}
+.trans-left {
+    filter: opacity(0);
+    transition: filter 0.8s, transform 2s;
+    transform: translateX(-150%);
 }
