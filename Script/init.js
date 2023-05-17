@@ -4,10 +4,11 @@ class Question {
     rating = ['Very much','much','More or less','less','not at all', "can't say"];
     min;
     max;
-    constructor(type, question,id) {
+    constructor(type, question,topic,id) {
         this.type = type;
         this.question = question;
         this.id = id;
+        this.topic = topic;
     }
 
     getHTML() {
@@ -48,19 +49,28 @@ class Question {
     }
 }
 
-let q1 = new Question('rating','Are you interested in ESG?','q1');
-let q2 = new Question('rating','Hello?','q2');
-let q3 = new Question('custom','How many employees do you have in germany?','q3');
-q3.custom_answer = ['10-25','25-100','100-250','250-1000','>1000'];
-let q4 = new Question('slider','What is your yearly turnover?','q4');
-q4.min = 0;
-q4.max = 500;
+let q1 = new Question('rating','Are you interested in ESG?','general','q1');
+let q2 = new Question('rating','Hello?','general','q2');
+let q3 = new Question('rating','Hello?C','company','q3');
+let q4 = new Question('custom','How many employees do you have in germany?','company','q4');
+q4.custom_answer = ['10-25','25-100','100-250','250-1000','>1000'];
+let q5 = new Question('slider','What is your yearly turnover?','company','q5');
+q5.min = 0;
+q5.max = 500;
 
-let questions = [q1,q2,q3,q4];
+let questions = [q1,q2,q3,q4,q5];
 
 var currentpage = 0;
+var numGeneral = 0;
+var numCompany = 0;
 
 document.getElementById('QMain').innerHTML = questions[0].getHTML();
+var timeLeft = Math.round(((questions.length - currentpage) * 30) / 60);
+if (timeLeft == 1) {
+    document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minute remaining.";
+} else {
+    document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minutes remaining.";
+}
 
 /**
  * selects an answer on the current page and sets the question object accordingly
@@ -95,6 +105,11 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * click on button next to get next question
+ * @param {HTMLElement} elem reference to itself
+ * @returns 
+ */
 async function clickNext(elem) {
     // returns if user has not selected an element yet
     if (elem.getAttribute('class').includes('deactivate')) {
@@ -105,6 +120,24 @@ async function clickNext(elem) {
     await sleep(800);
     document.getElementById('QMain').innerHTML = '';
     currentpage++;
+    // increases progress bar
+    if (currentpage <= numGeneral) {
+        document.getElementById('QS-Bar1').style.width = (currentpage/numGeneral * 100) + '%'
+        if (currentpage == numGeneral) {
+            document.getElementsByClassName('qS-Text')[1].style = "font-weight: 600;";
+            document.getElementsByClassName('qS-Text')[0].style = "font-weight: 400;";
+        }
+    } else {
+        document.getElementById('QS-Bar2').style.width = ((currentpage - numGeneral)/numCompany * 100) + '%'
+    }
+    // predict remaining time
+    var timeLeft = Math.round(((questions.length - currentpage) * 30) / 60);
+    if (timeLeft == 1) {
+        document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minute remaining.";
+    } else {
+        document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minutes remaining.";
+    }
+
     document.getElementById('QMain').innerHTML = questions[currentpage].getHTML();
     if (questions[currentpage].type == 'slider') {
         activateSlider();
@@ -113,12 +146,29 @@ async function clickNext(elem) {
     await sleep(10);
     document.getElementById('QMain').children[0].classList.toggle('trans-right', false);
 }
+/**
+ * click on back button to get previous question
+ * @returns 
+ */
 async function clickBack() {
     if (currentpage == 0) return;
     document.getElementById('QMain').children[0].classList.toggle('trans-right', true);
     await sleep(800);
     document.getElementById('QMain').innerHTML = '';
     currentpage--;
+    console.log(currentpage)
+    console.log(numGeneral)
+    // decreases progress bar
+    if (currentpage <= numGeneral) {
+        document.getElementById('QS-Bar1').style.width = (currentpage/numGeneral * 100) + '%'
+        if (currentpage == numGeneral - 1) {
+            document.getElementsByClassName('qS-Text')[0].style = "font-weight: 600;";
+            document.getElementsByClassName('qS-Text')[1].style = "font-weight: 400;";
+        }
+        document.getElementById('QS-Bar2').style.width = '0%'
+    } else {
+        document.getElementById('QS-Bar2').style.width = ((currentpage - numGeneral)/numCompany * 100) + '%'
+    }
     document.getElementById('QMain').innerHTML = questions[currentpage].getHTML();
     checkNextButton();
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
@@ -127,6 +177,9 @@ async function clickBack() {
 
 }
 
+/**
+ * activates slider functionality, when a slider is part of a question
+ */
 function activateSlider() {
     document.getElementsByClassName('qMSlider')[0].oninput = function() {
         document.getElementsByClassName('qMInput')[0].value = document.getElementsByClassName('qMSlider')[0].value;
@@ -134,6 +187,7 @@ function activateSlider() {
         const tempSliderValue = document.getElementsByClassName('qMSlider')[0].value; 
         const progress = (tempSliderValue / document.getElementsByClassName('qMSlider')[0].max) * 100;
         document.getElementsByClassName('qMSlider')[0].style.background = `linear-gradient(to right, #7AA874 ${progress}%, #ccc ${progress}%)`;
+        checkNextButton();
     }
     document.getElementsByClassName('qMInput')[0].oninput = function() {
         document.getElementsByClassName('qMSlider')[0].value = document.getElementsByClassName('qMInput')[0].value;
@@ -141,7 +195,25 @@ function activateSlider() {
         const tempSliderValue = document.getElementsByClassName('qMInput')[0].value; 
         const progress = (tempSliderValue / document.getElementsByClassName('qMSlider')[0].max) * 100;
         document.getElementsByClassName('qMSlider')[0].style.background = `linear-gradient(to right, #7AA874 ${progress}%, #ccc ${progress}%)`;
+        checkNextButton();
     }
 }
+
+/**
+ * calculates the number of questions and their categories to properly distribute the bar length
+ */
+function prepareProgressBar() {
+    for (var i=0; i<questions.length;i++) {
+        if (questions[i].topic == 'general') {
+            numGeneral++;
+        } else {
+            numCompany++;
+        }
+    }
+    document.getElementsByClassName('qS-Left')[0].style.width = (numGeneral / (numGeneral + numCompany) * 100) + '%';
+    document.getElementsByClassName('qS-Right')[0].style.width = (numCompany / (numGeneral + numCompany) * 100) + '%';
+}
+
+prepareProgressBar();
 
 // activateSlider();
