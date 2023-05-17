@@ -92,6 +92,101 @@ body {
     transition: filter 0.8s, transform 2s;
     transform: translateX(-150%);
 }
+.qMInputHous {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 15px;
+}
+.qMInput {
+    text-decoration: none;
+    appearance: none;
+    border-radius: 5px;
+    border: 0px;
+    background-color: var(--secondary-back);
+    font-weight: 500;
+    font-size: 18px;
+    font-family: 'Inter';
+    padding: 5px 10px;
+    width: 80px;
+    text-align: center;
+}
+.qMSliderHous {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+input[type="range"] {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    width: 60%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 15px;
+    /*  overflow: hidden;  remove this line*/
+
+    /* New additions */
+    height: 6px;
+    background: #ccc;
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    height: 15px;
+    width: 15px;
+    background-color: var(--main-color);
+    border-radius: 50%;
+    border: none;
+
+    /* box-shadow: -407px 0 0 400px #f50; emove this line */
+    transition: .2s ease-in-out;
+}
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background-color: var(--main-color);
+    border-radius: 50%;
+    border: none;
+
+    /* box-shadow: -407px 0 0 400px #f50; emove this line */
+    transition: .2s ease-in-out;
+}
+
+/* Hover, active & focus Thumb: Webkit */
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 10px #7aa8742e
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px #7aa8742e
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px #7aa8742e
+}
+
+/* Hover, active & focus Thumb: Firfox */
+
+input[type="range"]::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 10px #7aa87414
+}
+
+input[type="range"]:active::-moz-range-thumb {
+    box-shadow: 0 0 0 13px #7aa87414
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 13px #7aa87414
+}
 
 @media (max-width: 600px) {
     .mobile {
