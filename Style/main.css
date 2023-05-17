@@ -23,7 +23,7 @@ body {
 .qMChild {
     position: relative;
     width: 100%;
-    transition: filter 0.7s, transform 1.4s;
+    transition: filter 0.3s, transform 0.4s;
 }
 .qMHead {
     font-size: 30px;
@@ -85,13 +85,13 @@ body {
     cursor: default;
 }
 .trans-right {
-    transform: translateX(150%);
+    transform: translateX(100%);
     filter: opacity(0);
 }
 .trans-left {
     filter: opacity(0);
-    transition: filter 0.8s, transform 2s;
-    transform: translateX(-150%);
+    /* transition: filter 0.6s, transform 1.5s; */
+    transform: translateX(-100%);
 }
 .qMInputHous {
     display: flex;

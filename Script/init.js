@@ -117,7 +117,7 @@ async function clickNext(elem) {
     }
     if (currentpage == questions.length-1) return
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
-    await sleep(800);
+    await sleep(400);
     document.getElementById('QMain').innerHTML = '';
     currentpage++;
     // increases progress bar
@@ -145,6 +145,7 @@ async function clickNext(elem) {
     document.getElementById('QMain').children[0].classList.toggle('trans-right', true);
     await sleep(10);
     document.getElementById('QMain').children[0].classList.toggle('trans-right', false);
+    checkNextButton();
 }
 /**
  * click on back button to get previous question
@@ -153,7 +154,7 @@ async function clickNext(elem) {
 async function clickBack() {
     if (currentpage == 0) return;
     document.getElementById('QMain').children[0].classList.toggle('trans-right', true);
-    await sleep(800);
+    await sleep(400);
     document.getElementById('QMain').innerHTML = '';
     currentpage--;
     console.log(currentpage)
