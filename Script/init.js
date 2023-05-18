@@ -65,12 +65,16 @@ var numGeneral = 0;
 var numCompany = 0;
 
 document.getElementById('QMain').innerHTML = questions[0].getHTML();
-var timeLeft = Math.round(((questions.length - currentpage) * 30) / 60);
-if (timeLeft == 1) {
-    document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minute remaining.";
-} else {
-    document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minutes remaining.";
+
+function predictRemTime() {
+    var timeLeft = Math.round(((questions.length - currentpage) * 30) / 60);
+    if (timeLeft == 1) {
+        document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minute remaining.";
+    } else {
+        document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minutes remaining.";
+    }
 }
+predictRemTime();
 
 /**
  * selects an answer on the current page and sets the question object accordingly
@@ -131,12 +135,7 @@ async function clickNext(elem) {
         document.getElementById('QS-Bar2').style.width = ((currentpage - numGeneral)/numCompany * 100) + '%'
     }
     // predict remaining time
-    var timeLeft = Math.round(((questions.length - currentpage) * 30) / 60);
-    if (timeLeft == 1) {
-        document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minute remaining.";
-    } else {
-        document.getElementsByClassName('qS-TimeLeft')[0].innerHTML = "Approximately " + timeLeft + " minutes remaining.";
-    }
+    predictRemTime();
 
     document.getElementById('QMain').innerHTML = questions[currentpage].getHTML();
     if (questions[currentpage].type == 'slider') {
