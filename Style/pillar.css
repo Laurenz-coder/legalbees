@@ -171,11 +171,12 @@
     border-radius: 15px;
     top: calc(2.5% - 15px);
     margin-top: 15px;
+    font-size: 14px;
 }
 
 .rR-Head {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 20px;
     padding-top: 10px;
     padding-left: 10px;
 }
@@ -211,8 +212,8 @@
     position: relative;
 }
 .rRQ-element > img {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 .rRQ-element > p {
