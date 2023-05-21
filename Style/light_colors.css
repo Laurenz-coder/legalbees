@@ -1,9 +1,15 @@
 :root {
     --main-color: #7AA874;
     --white-text: white;
+    --black-text: black;
     --secondary-text: #7e7e7e;
+    --tertiary-text: #acacac;
     --MenuSidebar: #f6f3ef;
     --MenuSidebar-hover: #E4DCCF;
     --grey: #B0A4A4;
+    --alt-back: #808080;
     --secondary-back: #ececec;
+    --tertiary-back: #e0e0e0;
+    --warning-color: #EBB02D;
+    --red-color: #CE5959;
 }

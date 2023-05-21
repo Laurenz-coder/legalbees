@@ -1,0 +1,270 @@
+.rClose {
+    position: absolute;
+    background-color: var(--tertiary-text);
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+    right: 20px;
+    top: 20px;
+}
+.rClose::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: black;
+    border-radius: 1.5px;
+    transform: rotate(45deg);
+    top: 16px;
+    left: 7px;
+}
+.rClose::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: black;
+    border-radius: 1.5px;
+    transform: rotate(-45deg);
+    top: 16px;
+    left: 7px;
+}
+.rQuickInfo {
+    display: flex;
+    margin-left: 2.5%;
+    margin-top: 20px;
+    gap: 10px;
+}
+.rQ-element {
+    background-color: var(--tertiary-back);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    border-radius: 10px;
+    height: 80px;
+    overflow: hidden;
+    justify-content: center;
+    min-width: 80px;
+}
+.rQ-Info:hover {
+    gap: 5px;
+}
+.rQE-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 6px;
+    min-width: 80px;
+}
+.rQE-left > img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+.rQE-left > p {
+    /* color: var(--warning-color); */
+    margin: 0;
+    margin-top: 2px;
+    font-size: 14px;
+}
+.rQ-Info > .rQE-left > p {
+    color: var(--warning-color);
+    margin: 0;
+    margin-top: 2px;
+    font-size: 14px;
+}
+.rQE-risk > .rQE-left > p {
+    color: var(--red-color);
+}
+.rQE-right {
+    max-width: 0px;
+    margin: 0px;
+    /* display: none; */
+    filter: opacity(0);
+    transition: max-width 0.4s;
+}
+.rQ-Info:hover .rQE-right, .rQE-risk:hover .rQE-right, .rQE-deadline:hover .rQE-right {
+    margin: 5px;
+    filter: opacity(1);
+    max-width: 180px;
+    display: block;
+}
+.rQ-Info:hover .rQE-right > p {
+    filter: opacity(1);
+    display: block;
+}
+.rQE-right > p {
+    font-size: 14px;
+    line-height: 15px;
+    width: 180px;
+}
+.rQE-update > p {
+    color: var(--secondary-text);
+}
+.rBack {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    background-color: var(--secondary-back);
+    margin-top: 2.5%;
+    margin-left: 2.5%;
+    border-radius: 25px;
+    overflow-y: scroll;
+}
+.rHead {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.rSpacer {
+    height: 20px;
+}
+
+
+.rFuture {
+    background: linear-gradient(90deg, rgba(235, 176, 45, 1) 0%, rgba(247, 219, 106, 1) 100%);
+    position: relative;
+    width: 95%;
+    margin: auto;
+    border-radius: 12px;
+    margin-top: 30px;
+    border: 2px solid linear-gradient(90deg, rgba(235, 176, 45, 1) 0%, rgba(247, 219, 106, 1) 100%);
+    padding: 3px;
+}
+.rFuture > div {
+    background-color: var(--tertiary-back);
+    position: relative;
+    margin: 0;
+    border-radius: 10px;
+}
+.rFuture > div > p, .rElement > p {
+    margin: 10px;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+.rFuture > div > h2, .rElement > h2 {
+    font-weight: 500;
+    margin: 0 0 0 5px;
+    padding-top: 10px;
+    
+}
+.rElement {
+    background: var(--tertiary-back);
+    position: relative;
+    width: 95%;
+    margin: auto;
+    border-radius: 12px;
+    margin-top: 30px;
+    padding: 3px;
+}
+
+/* ------------------- Regulation overview ------------------- */
+.rRegu {
+    position: relative;
+    width: 95%;
+    margin: auto;
+    background-color: var(--secondary-back);
+    border-radius: 15px;
+    top: calc(2.5% - 15px);
+    margin-top: 15px;
+}
+
+.rR-Head {
+    font-weight: 500;
+    font-size: 24px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.rR-implemented {
+    position: absolute;
+    display: flex;
+    right: 10px;
+    top: 10px;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background-color: var(--tertiary-back);
+}
+.rR-implemented > img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+.rR-implemented > p {
+    font-size: 14px;
+    margin: 0;
+    color: var(--main-color);
+}
+.rRQ-element {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 7px;
+    background-color: var(--tertiary-back);
+    border-radius: 8px;
+    color: var(--secondary-text);
+    position: relative;
+}
+.rRQ-element > img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+.rRQ-element > p {
+    margin: 0;
+}
+.rRQ-Info {
+    color: var(--warning-color);
+}
+.rRQE-risk {
+    color: var(--red-color);
+}
+.rR-text {
+    margin-left: 20px;
+    padding-bottom: 20px;
+    margin-right: 20px;
+}
+.rR-QuickInfo {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--white-text);
+    background-color: var(--alt-back);
+    padding: 3px 5px;
+    border-radius: 5px;
+    margin: 0;
+    transform: translateY(calc(-100% - 5px));
+    white-space: nowrap;
+    /* box-shadow: 2px 2px 5px #909090; */
+    filter: opacity(0);
+    transition: all 0.3s;
+}
+
+.tooltip::before {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    /* At the bottom of the tooltip */
+    left: 20px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--alt-back) transparent transparent transparent;
+}
+.rRQ-element:hover .tooltip {
+    visibility: visible;
+    filter: opacity(1);
+}

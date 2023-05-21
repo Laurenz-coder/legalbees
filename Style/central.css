@@ -58,6 +58,7 @@ body {
     margin-left: 235px;
     top: 0;
     overflow: hidden;
+    overflow-y: scroll;
 }
 .mS-bottomList {
     display: flex;
