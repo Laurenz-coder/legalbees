@@ -34,7 +34,7 @@
 .rQuickInfo {
     display: flex;
     margin-left: 2.5%;
-    margin-top: 20px;
+    margin-top: 5px;
     gap: 10px;
 }
 .rQ-element {
@@ -104,15 +104,27 @@
 .rQE-update > p {
     color: var(--secondary-text);
 }
-.rBack {
+/* .rBack {
     position: absolute;
-    width: 95%;
+    width: calc(95% - 60px);
     height: 95%;
     background-color: var(--secondary-back);
     margin-top: 2.5%;
     margin-left: 2.5%;
     border-radius: 25px;
     overflow-y: scroll;
+} */
+
+/* ---------- old version start --------------*/
+.rScrollable {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 75px);
+    margin-top: 20px;
+    overflow-y: scroll;
+}
+.rScrollable::-webkit-scrollbar {
+    display: none;
 }
 .rHead {
     font-size: 28px;
@@ -146,11 +158,16 @@
     margin-bottom: 0;
     padding-bottom: 10px;
 }
-.rFuture > div > h2, .rElement > h2 {
+.rFuture > div > h2  {
     font-weight: 500;
     margin: 0 0 0 5px;
     padding-top: 10px;
     
+}
+.rE-Head>h2 {
+    font-weight: 500;
+    margin: 0 0 0 0;
+
 }
 .rElement {
     background: var(--tertiary-back);
@@ -160,6 +177,154 @@
     border-radius: 12px;
     margin-top: 30px;
     padding: 3px;
+}
+.rE-Head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 10px 0 0 5px;
+
+}
+.rE-Head > div {
+    background-color: rgba(0, 0, 0, 0.16);
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rE-Head > div > img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+.rScrollBar {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--tertiary-back);
+    width: 60px;
+    height: 30%;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+}
+.rS-ScrollIndicator {
+    background-color: var(--main-color);
+    position: relative;
+    height: 0%;
+    width: 6px;
+    border-radius: 3px;
+}
+
+/* ---------- old version end --------------*/
+
+.rBack {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 140px);
+    margin-top: 120px;
+    margin-left: 0px;
+    border-radius: 25px;
+    overflow-y: scroll;
+}
+.rTopDetail {
+    position: fixed;
+    width: 100%;
+    height: 120px;
+    background-color: var(--secondary-back);
+    left: 0;
+}
+.rTHous {
+    position: absolute;
+    margin-left: 235px;
+    margin-top: 26px;
+    width: calc(100% - 235px);
+
+}
+.rTHous > h2 {
+    margin: 15px 0 0 20px;
+    font-size: 26px;
+}
+.rTH-LinkList {
+    margin: 10px 0 0 20px;
+    display: flex;
+    gap: 20px;
+}
+.rTH-LinkList > p {
+    padding: 3px 5px;
+    /* background-color: var(--tertiary-back);
+    color: var(--secondary-text); */
+    border-radius: 5px;
+    margin: 0;
+    font-weight: 500;
+    width: auto;
+}
+.rTH-element {
+    background-color: var(--tertiary-back);
+    color: var(--secondary-text);
+
+}
+.rTH-element-active {
+    background-color: var(--main-color);
+    color: var(--white-text);
+}
+
+.rElement {
+    background: none;
+    position: relative;
+    width: 95%;
+    margin-left: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    padding: 3px;
+}
+.rE-Head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 10px 0 0 0px;
+
+}
+
+.rE-Head>div {
+    background-color: rgba(0, 0, 0, 0.16);
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rE-Head>div>img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+.rElement>p {
+    margin: 10px;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+.rE-Update {
+    margin-top: 20px;
+}
+
+.rEU-Element {
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+}
+.rEU-Element > p {
+    margin: 0;
+}
+.rEU-Element > div {
+    font-weight: 500;
+    font-size: 18px;
 }
 
 /* ------------------- Regulation overview ------------------- */
@@ -172,13 +337,14 @@
     top: calc(2.5% - 15px);
     margin-top: 15px;
     font-size: 14px;
+    max-width: 1000px;
 }
 
 .rR-Head {
     font-weight: 500;
     font-size: 20px;
     padding-top: 10px;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 .rR-implemented {
     position: absolute;
