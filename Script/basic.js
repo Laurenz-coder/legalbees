@@ -2,18 +2,17 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function test() {
-    document.getElementsByClassName('chatClientMessage')[0].classList.toggle('chatSent');
-    var message = document.getElementsByClassName('chatClientMessage')[0];
-    var input = document.getElementsByClassName('cBB-Input')[0];
-    console.log(input.getBoundingClientRect())
-    console.log(message.getBoundingClientRect())
-    // console.log(input.parentElement.parentElement.getBoundingClientRect())
-}
-
+/**
+ * send chat request to openai
+ * @param {String} question 
+ * @returns 
+ */
 const fetchRequest = async (question) => 
 	await (await fetch('/.netlify/functions/chatbot?question=' + question)).json();
 
+/**
+ * sends message to openai, waits for answer and displays answer as well as message
+ */
 async function sendMessage() {
     var input = document.getElementsByClassName('cBB-Input')[0];
     let text = document.getElementById('ChatInput').innerText;
@@ -59,4 +58,30 @@ async function sendMessage() {
 
 
 
+}
+
+/**
+ * removes or adds placeholder of chatbox
+ * @param {String} focus whether user clicks in or out of text field
+ * @param {HTMLElement} elem self reference
+ */
+async function clearPlaceholder(focus, elem) {
+    var placeholder = 'Ask us anything..'
+    if (focus == 'lost') {
+        if (elem.innerText == '') {
+            for (var i=0; i<placeholder.length;i++) {
+                elem.innerHTML += placeholder[i];
+                await sleep(20);
+            }
+        }
+    } else {
+        if (elem.innerText == placeholder) {
+            elem.innerHTML = '';
+        }
+        
+    }
+}
+
+function toggleChatBox() {
+    document.getElementsByClassName('chatBoxHous')[0].classList.toggle('chatClosed')
 }

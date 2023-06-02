@@ -157,20 +157,23 @@
         </div>
     </div>
     <div class="chatBoxHous">
+        <div class="chatBoxCover" onclick="toggleChatBox()">
+            <img src="" alt="">
+        </div>
         <div class="cB-Top">
             Ask esjungle
-            <div class="Close"></div>
+            <div class="Close" onclick="toggleChatBox()"></div>
         </div>
         <div class="cB-Chat" id="ChatArea">
-            <div class="cBC-Bot">
+            <!-- <div class="cBC-Bot">
                 <div class="chatBotImage">
                     <img alt="">
                 </div>
                 <div class="chatBotMessage">Hekklweocubwe oweihow oweuhfouwe owheof ouwehfou owheofuw.</div>
             </div>
-            <div class="chatClientMessage">oweinrvowinvc woep pwien pwemdin woeinf odivg powje.</div>
+            <div class="chatClientMessage">oweinrvowinvc woep pwien pwemdin woeinf odivg powje.</div> -->
             <div class="cB-Bottom">
-                <div class="cBB-Input" contenteditable="true" id="ChatInput">wefwefew</div>
+                <div class="cBB-Input" contenteditable="true" id="ChatInput" onblur="clearPlaceholder('lost', this)" onfocus="clearPlaceholder('active', this)">Ask us anything..</div>
                 <div class="cBB-Send" onclick="sendMessage()">
                     <img src="/IMG/paperplane.png" alt="">
                 </div>

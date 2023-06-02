@@ -92,8 +92,8 @@ body {
 /* --------- Chat Box -------------*/
 .chatBoxHous {
     position: fixed;
-    right: 10px;
-    bottom: 10px;
+    right: 20px;
+    bottom: 20px;
     background-color: rgb(255, 255, 255);
     height: 600px;
     width: 400px;
@@ -104,6 +104,7 @@ body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.296);
+    transition: all 0.4s;
 }
 .cB-Bottom {
     /* position: absolute; */
@@ -170,6 +171,7 @@ body {
     border-radius: 17.5px;
     right: 5px;
     top: 5px;
+    cursor: pointer;
 }
 
 .Close::after {
@@ -253,6 +255,35 @@ body {
     width: 330px;
     transition: all 0s;
     opacity: 0;
+}
+.chatClosed {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+.chatBoxCover {
+    display: none;
+}
+.chatClosed .chatBoxCover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: var(--chat-main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.chatClosed .chatBoxCover > img {
+    content: url('/IMG/text.bubble.png');
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(352deg) brightness(105%) contrast(101%);
 }
 
 
