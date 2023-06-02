@@ -39,8 +39,24 @@ async function sendMessage() {
     document.getElementsByClassName('chatClientMessage')[lastElem].classList.toggle('chatSent', false);
 
 
-
     fetchRequest(text).then(data => {
 		console.log(data) 
+        var answer = document.createElement('div');
+        answer.className = 'cBC-Bot answerSent';
+        var answerChild = document.createElement('div');
+        answerChild.appendChild(document.createElement('img'));
+        answerChild.className = 'chatBotImage';
+        var answerBot = document.createElement('div');
+        answerBot.className = 'chatBotMessage';
+        answerBot.innerHTML = 'Hello, how can I help you?';
+        answer.appendChild(answerChild);
+        answer.appendChild(answerBot);
+        chatbox.insertBefore(answer, chatbox.children[chatbox.children.length - 1]);
+        // await sleep(100);
+        answer.classList.toggle('answerSent', false);
+        console.log(answer)
     });
+
+
+
 }

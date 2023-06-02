@@ -204,6 +204,7 @@ body {
     display: flex;
 }
 .chatBotImage > img {
+    content: url('/IMG/network@4x.png');
     width: 25px;
     height: 25px;
     object-fit: contain;
@@ -215,6 +216,13 @@ body {
     align-items: flex-end;
     margin-left: 10px;
     margin-top: 10px;
+    transition: all 0.3s;
+    opacity: 1;
+}
+.answerSent {
+    transform: translateX(-100px);
+    opacity: 0;
+    transition: all 0s;
 }
 .chatBotMessage {
     max-width: 250px;
