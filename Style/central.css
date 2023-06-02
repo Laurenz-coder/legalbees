@@ -89,6 +89,164 @@ body {
     width: 188px;
 }
 
+/* --------- Chat Box -------------*/
+.chatBoxHous {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.108);
+    height: 600px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.296);
+}
+.cB-Bottom {
+    /* position: absolute; */
+    bottom: 0px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    position: sticky;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.208);
+}
+.cBB-Send > img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    filter: invert(61%) sepia(10%) saturate(1148%) hue-rotate(66deg) brightness(99%) contrast(88%);
+}
+.cBB-Input {
+    width: 340px;
+    min-height: 30px;
+    max-height: 200px;
+    overflow: auto;
+    border: 2px solid var(--chat-main-color);
+    border-radius: 15px;
+    padding: 5px;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+.cB-Chat {
+    bottom: 0;
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+    overflow-y: scroll;
+}
+.cB-Chat> :first-child {
+    margin-top: auto !important;
+    /* use !important to prevent breakage from child margin settings */
+}
+.cB-Chat> :last-child {
+    padding-bottom: 10px;
+    /* use !important to prevent breakage from child margin settings */
+}
+.cB-Top {
+    background-color: var(--chat-main-color);
+    height: 45px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    color: var(--white-text);
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.Close {
+    position: absolute;
+    /* background-color: var(--tertiary-text); */
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+    right: 5px;
+    top: 5px;
+}
+
+.Close::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: var(--white-text);
+    border-radius: 1.5px;
+    transform: rotate(45deg);
+    top: 16px;
+    left: 7px;
+}
+
+.Close::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: var(--white-text);
+    border-radius: 1.5px;
+    transform: rotate(-45deg);
+    top: 16px;
+    left: 7px;
+}
+.chatBotImage {
+    padding: 3px;
+    background-color: var(--secondary-back);
+    border-radius: 14px;
+    display: flex;
+}
+.chatBotImage > img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    filter: invert(61%) sepia(10%) saturate(1148%) hue-rotate(66deg) brightness(99%) contrast(88%);
+}
+.cBC-Bot {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.chatBotMessage {
+    max-width: 250px;
+    background-color: var(--secondary-back);
+    padding: 5px;
+    border-radius: 8px;
+}
+.chatClientMessage {
+    position: relative;
+    max-width: 300px;
+    width: auto;
+    background-color: var(--chat-main-color);
+    color: var(--white-text);
+    padding: 5px;
+    border-radius: 8px;
+    float: right;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 10px;
+    transition: transform 0.4s, margin-right 0.4s, opacity 0.1s 0s, width 0.2s;
+    bottom: auto;
+    opacity: 1;
+}
+.chatSent {
+    /* transform: translateY(424px); */
+    margin-right: 50px;
+    max-width: 340px;
+    width: 330px;
+    transition: all 0s;
+    opacity: 0;
+}
+
 
 
 @media (max-width: 1200px) {
