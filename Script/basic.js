@@ -11,8 +11,8 @@ function test() {
     // console.log(input.parentElement.parentElement.getBoundingClientRect())
 }
 
-const fetchRequest = async (formation) => 
-	await (await fetch('/.netlify/functions/chatbot')).json();
+const fetchRequest = async (question) => 
+	await (await fetch('/.netlify/functions/chatbot?question=' + question)).json();
 
 async function sendMessage() {
     var input = document.getElementsByClassName('cBB-Input')[0];
@@ -40,7 +40,7 @@ async function sendMessage() {
 
 
 
-    fetchRequest('test').then(data => {
+    fetchRequest(text).then(data => {
 		console.log(data) 
     });
 }
