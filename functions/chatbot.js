@@ -7,7 +7,7 @@ const openai = new OpenAIApi(configuration);
 
 
 exports.handler = async function(event, context, callback) {
-	// return;
+	return;
     console.log(event.queryStringParameters.question);
 	const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
