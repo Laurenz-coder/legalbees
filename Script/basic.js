@@ -28,7 +28,7 @@ async function sendMessage() {
     chatbox.scrollTo(0, chatbox.scrollHeight)
     var message = document.getElementsByClassName('chatSent')[0];
     var dist = input.getBoundingClientRect().top - message.getBoundingClientRect().top;
-    // document.getElementById('ChatInput').innerHTML = '';
+    document.getElementById('ChatInput').innerHTML = '';
     console.log(dist)
     await sleep(10);
     document.getElementsByClassName('chatSent')[0].setAttribute('style', 'transform: translateY(' + dist + 'px);');
