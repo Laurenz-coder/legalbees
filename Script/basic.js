@@ -48,7 +48,7 @@ async function sendMessage() {
         answerChild.className = 'chatBotImage';
         var answerBot = document.createElement('div');
         answerBot.className = 'chatBotMessage';
-        answerBot.innerHTML = 'Hello, how can I help you?';
+        answerBot.innerHTML = data.message;
         answer.appendChild(answerChild);
         answer.appendChild(answerBot);
         chatbox.insertBefore(answer, chatbox.children[chatbox.children.length - 1]);
