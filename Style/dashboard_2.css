@@ -1,0 +1,385 @@
+* {
+    box-sizing: border-box;
+    outline: 0;
+    text-decoration: none;
+}
+
+
+
+.mC-main-area {
+    flex: 7;
+    position: relative;
+}
+
+
+
+.mMainContent {
+    margin-top: 1.4rem;
+}
+
+.mM-date {
+    display: inline-block;
+    background: var(--grey);
+    border-radius: 25px;
+    margin-top: 1rem;
+    padding: 0.5rem 1.6rem;
+}
+
+.mM-date>input[type="date"] {
+    background: transparent;
+    color: black;
+}
+
+.mM-insights-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+}
+
+.box-layout {
+    background-color: var(--secondary-back);
+    padding: 1.8rem;
+    border-radius: 25px;
+    margin-top: 1rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all 500ms ease-in;
+}
+
+.mM-insights-pillars>a>div {
+    background-color: var(--secondary-back);
+    padding: 1.8rem;
+    border-radius: 25px;
+    margin-top: 1rem;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    transition: all 500ms ease-in;
+}
+
+.mM-insights-pillars>div:hover {
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.mM-insights-pillars>div span {
+    background: var(--main-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--white-text);
+    font-size: 2rem;
+}
+
+.mM-insights-pillars>div.mMI-governance span {
+    background: var(--governance);
+}
+
+.mM-insights-pillars>div.mMI-social span {
+    background: var(--grey);
+}
+
+.mM-insights-pillars>div .mMIG-content-area,
+.mMIE-content-area,
+.mMIS-content-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mM-insights-pillars h3 {
+    margin: 1rem 0 0 0;
+}
+
+
+.progress-chart {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+.progress-chart svg {
+    width: 92px;
+    height: 92px;
+}
+
+.progress-chart svg circle {
+    fill: none;
+    stroke: var(--main-color);
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 110;
+    stroke-dashoffset: 92;
+}
+
+.mM-insights-pillars .mMI-social svg circle {
+    stroke: var(--grey);
+    stroke-dashoffset: 50;
+    stroke-dasharray: 250;
+}
+
+.mM-insights-pillars .mMI-governance svg circle {
+    stroke: var(--governance);
+    stroke-dashoffset: 50;
+    stroke-dasharray: 250;
+}
+
+.mMIEC-progress-number {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.mM-insights-pillars text {
+    text-anchor: middle;
+
+}
+
+
+
+.mM-insights-pillars .progress-chart p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+}
+
+/* ========================== Recent News ==================== */
+
+.mM-recent-news {
+    margin-top: 2rem;
+
+}
+
+.mM-recent-news>h2 {
+    margin-bottom: 0.8rem;
+}
+
+.mM-recent-news table {
+    background: var(--secondary-back);
+    width: 100%;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    padding: 1.8rem;
+    transition: all 300ms ease;
+    margin: 25px 0;
+
+}
+
+.mM-recent-news table:hover {
+    box-shadow: none;
+}
+
+.mM-recent-news tbody td {
+    height: 2.8rem;
+    border-bottom: 1px solid var(--grey);
+}
+
+.mM-recent-news tbody tr:last-child td {
+    border: none;
+}
+
+
+
+.mM-recent-news a {
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+    color: var(--grey);
+}
+
+.mMR-warning-tag.high {
+    /* Styles for the "Very high" warning level */
+    background-color: #ff778256;
+    border-radius: 5px;
+    color: var(--color-high-importance);
+}
+
+.mMR-warning-tag.medium {
+    /* Styles for the "High" warning level */
+
+    color: var(--color-medium-importance);
+}
+
+.mMR-warning-tag.low {
+    /* Styles for other warning levels */
+    color: var(--color-low-importance);
+}
+
+/* ========================== Status Overview ==================== */
+
+.mC-status-bar {
+
+    /* Additional styles for mRightSidebar */
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mCS-status-graph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 3;
+    position: relative;
+}
+
+
+.mCS-child {
+    height: 100%;
+}
+
+.mCS-improvment-suggestions {
+    flex: 1;
+}
+
+.mCS-comparison-area {
+    flex: 1;
+}
+
+.mCSS-status-header {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.mCSS-status-header>span {
+    padding-right: 10px;
+    padding-left: 10px;
+    background: var(--main-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--white-text);
+    font-size: 2rem;
+}
+
+.mCSS-status-header>h2 {
+    padding-left: 10px;
+}
+
+
+.bottom-container {
+    flex: 3;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.enviroment-circle,
+.governance-circle,
+.social-circle {
+
+    flex-grow: 2;
+    fill: none;
+    stroke: var(--secondary-text);
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 110;
+    stroke-dashoffset: 92;
+
+}
+
+.enviroment-circle {
+    stroke: var(--main-color);
+}
+
+.governance-circle {
+    stroke: var(--governance);
+    stroke-dashoffset: 50;
+    stroke-dasharray: 250;
+}
+
+
+.mCSS-progress-chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    align-items: center;
+    justify-items: center;
+}
+
+.mCSS-progress-chart svg {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
+
+.mCSS-chart-legend {
+    margin-left: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.legend-element {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+
+
+}
+
+.mCSS-chart-legend .legend-element:nth-child(1) .material-symbols-outlined {
+    background: var(--main-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--white-text);
+    font-size: 2rem;
+}
+.mCSS-chart-legend .legend-element:nth-child(2) .material-symbols-outlined {
+    background: var(--governance);
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--white-text);
+    font-size: 2rem;
+}
+
+.mCSS-chart-legend .legend-element:nth-child(3) .material-symbols-outlined {
+    background: var(--grey);
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--white-text);
+    font-size: 2rem;
+}
+
+
+
+.chart-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================== graph ==================== */
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: inline;
+}

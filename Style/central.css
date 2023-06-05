@@ -2,6 +2,10 @@ body {
     font-family: 'Inter';
 }
 
+h3{
+    font-size: 1rem;
+}
+
 .mSideMenu {
     background-color: var(--MenuSidebar);
     position: fixed;
