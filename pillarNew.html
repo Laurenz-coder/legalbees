@@ -68,13 +68,14 @@
             <div class="rTHous">
                 <h2>Lieferketten Gesetz</h2>
                 <div class="rTH-LinkList">
-                    <p class="rTH-element rTH-element-active">Overview</p>
+                    <p class="rTH-element rTH-element-active" onclick="selectTab('rOverview', this)">Overview</p>
                     <p class="rTH-element">Deep dive</p>
                     <p class="rTH-element">Risk analysis</p>
+                    <p class="rTH-element" onclick="selectTab('rForum', this)">Forum</p>
                 </div>
             </div>
         </div>
-        <div class="rBack">
+        <div class="rBack rOverview tabActive">
             <div class="rR-QuickInfo" style="margin-top: 32px;">
                 <div class="rRQ-element rRQ-Info">
                     <img src="/IMG/warning.yellow.png" alt="">
@@ -151,6 +152,144 @@
                     <div class="rEU-Element">
                         <input type="checkbox" name="" id="">
                         <p>Create excel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rBack rForum ">
+            <div class="rF-tab" name="ThreadList" >
+                <div class="rF-thread-top">
+                    <div class="rF-thread-search">
+                        <div contenteditable="true">Search threads..</div>
+                        <img src="/IMG/magnifyingglass.png" alt="">
+                    </div>
+                    <div class="rF-thread-create">
+                        <img src="/IMG/plus.png" alt="">
+                        <div>Create thread</div>
+                    </div>
+                </div>
+                <div class="rF-Thread" onclick="openThread('LieferkettenThread')">
+                    <div class="rFT-Left">
+                        <div class="rFTL-AnsweredNot">
+                            
+                            <p>9 answers</p>
+                        </div>
+                        <div class="rFTL-Stat">
+                            <img src="/IMG/person.2.fill.png" alt="">
+                            <p>10 members</p>
+                        </div>
+                        <div class="rFTL-Stat">
+                            <img src="/IMG/heart.fill.png" alt="">
+                            <p>100 likes</p>
+                        </div>
+                    </div>
+                    <div class="rFT-right">
+                        <h2>How do I implement the Lieferketten Gesetz</h2>
+                        <p>I am wondering how to implement it in this industry..</p>
+                        <div>
+                            <div class="rFTR-subleft">
+                                <div>Industry</div>
+                            </div>
+                            <div class="rFTR-subright">
+                                <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="">
+                                <div>Leo <strong>from</strong> Littlefoot AG</div>
+                                <p>asked Jun 4, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rF-Thread">
+                    <div class="rFT-Left">
+                        <div class="rFTL-Answered">
+                            <img src="/IMG/checkmark.png" alt="">
+                            <p>2 answers</p>
+                        </div>
+                        <div class="rFTL-Stat">
+                            <img src="/IMG/person.2.fill.png" alt="">
+                            <p>15 members</p>
+                        </div>
+                        <div class="rFTL-Stat">
+                            <img src="/IMG/heart.fill.png" alt="">
+                            <p>69 likes</p>
+                        </div>
+                    </div>
+                    <div class="rFT-right">
+                        <h2>How do I implement the Lieferketten Gesetz</h2>
+                        <p>I am wondering how to implement it in this industry..</p>
+                        <div>
+                            <div class="rFTR-subleft">
+                                <div>Industry</div>
+                            </div>
+                            <div class="rFTR-subright">
+                                <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="">
+                                <div>Leo <strong>from</strong> Littlefoot AG</div>
+                                <p>asked Jun 4, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rF-tab tab-to-right" name="LieferkettenThread" style="display: none;">
+                <div class="rF-ForumHead">
+                    <div class="rFF-back">
+                        <img src="/IMG/arrow.left.png" alt="" onclick="leaveThread('LieferkettenThread')">
+                    </div>
+                    <div class="rFF-Hub">
+                        <div class="rFFH-Top">
+                            <p>How do I implement the Lieferketten Gesetz</p>
+                            <div>Thread</div>
+                        </div>
+                        <div class="rFFH-Bottom">
+                            <img src="/IMG/person.3.fill.png" alt="">
+                            <p>10 Members</p>
+                            <div></div>
+                            <p>6 online</p>
+                        </div>
+                    </div>
+                    <div class="rF-forumLike" onclick="likeMessage(this)">
+                        <img src="/IMG/heart.fill.png" alt="" class="rFMMCL-heart">
+                        <p>100</p>
+                    </div>
+                </div>
+                <div class="rF-MessageArea">
+                    <div class="rFM-Message messageOwn">
+                        <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="">
+                        <div class="rFMM-Content">
+                            <div class="rFMMC-Info">
+                                <div>Leo</div>
+                                <p>11:24 Uhr</p>
+                            </div>
+                            <div class="rFMMC-text">Hello how are you?</div>
+                            <div class="rFMMC-text">I want to talk about...</div>
+                        </div>
+                    </div>
+                    <div class="rFM-Message">
+                        <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="">
+                        <div class="rFMM-Content">
+                            <div class="rFMMC-Info">
+                                <div>Leo</div>
+                                <p>11:24 Uhr</p>
+                            </div>
+                            <div class="rFMMC-text">Hello how are you? apsdnpa</div>
+                            <div class="rFMMC-text">I want to talk about... piwenid apisnpin</div>
+                            <div class="rFMMC-sub">
+                                <div class="rFMMC-like" onclick="likeMessage(this)">
+                                    <img src="/IMG/heart.fill.png" alt="" class="rFMMCL-heart">
+                                    <p>0</p>
+                                </div>
+                                <div class="rFMMC-solved">
+                                    <p>Mark as solved</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thread-message-spacer" style="flex: 1;"></div>
+                <div class="thread-Message-Bottom">
+                    <div class="cBB-Input" contenteditable="true" id="ChatInput" onblur="clearPlaceholder('lost', this)"
+                        onfocus="clearPlaceholder('active', this)">Ask us anything..</div>
+                    <div class="cBB-Send" onclick="sendMessage()">
+                        <img src="/IMG/paperplane.png" alt="">
                     </div>
                 </div>
             </div>
