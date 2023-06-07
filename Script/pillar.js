@@ -59,3 +59,18 @@ async function openThread(reference) {
     el.classList.toggle('tab-to-right', false);
 
 }
+
+function checkCheckBox(identifier) {
+    var list = document.getElementsByName(identifier);
+    var total = 0;
+    var clicked = 0;
+    for (let el of list) {
+        if (el.checked == true) {
+            clicked++;
+        }
+        total++;
+    }
+    perc = Math.round(clicked / total * 100)
+    document.getElementById('Check' + identifier + 'Bar').style.width = perc + '%';
+    document.getElementById('Check' + identifier + 'Number').innerHTML = perc + '%';
+}

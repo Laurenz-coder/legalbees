@@ -71,6 +71,7 @@
                     <p class="rTH-element rTH-element-active" onclick="selectTab('rOverview', this)">Overview</p>
                     <p class="rTH-element">Deep dive</p>
                     <p class="rTH-element">Risk analysis</p>
+                    <p class="rTH-element" onclick="selectTab('rChecklist', this)">Checklist</p>
                     <p class="rTH-element" onclick="selectTab('rUpdates', this)">Updates</p>
                     <p class="rTH-element" onclick="selectTab('rForum', this)">Forum</p>
                 </div>
@@ -177,18 +178,42 @@
                     </div>
                     <h2>Checklist</h2>
                 </div>
-                <div class="rE-Check">
-                    <div class="rEU-Element">
-                        <input type="checkbox" name="" id="">
-                        <p>Gather list of all suplliers</p>
+                <div class="cList" onclick="checkCheckBox('Internal')">
+                    <div class="cL-element">
+                        <div class="cLE-checkbox">
+                            <input type="checkbox" name="Internal" id="Itm1">
+                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                            <div class="cLEC-cover"></div>
+                            <label for="Itm1"></label>
+                        </div>
+                        <label class="cLE-label" for="Itm1">Check Suppliers</label>
                     </div>
-                    <div class="rEU-Element">
-                        <input type="checkbox" name="" id="">
-                        <p>Contact suppliers</p>
+                    <div class="cL-element">
+                        <div class="cLE-checkbox">
+                            <input type="checkbox" name="Internal" id="Itm2">
+                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                            <div class="cLEC-cover"></div>
+                            <label for="Itm2"></label>
+                        </div>
+                        <label class="cLE-label" for="Itm2">Check Suppliers</label>
                     </div>
-                    <div class="rEU-Element">
-                        <input type="checkbox" name="" id="">
-                        <p>Create excel</p>
+                    <div class="cL-element">
+                        <div class="cLE-checkbox">
+                            <input type="checkbox" name="Internal" id="Itm3">
+                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                            <div class="cLEC-cover"></div>
+                            <label for="Itm3"></label>
+                        </div>
+                        <label class="cLE-label" for="Itm3">Check Suppliers</label>
+                    </div>
+                    <div class="cL-element">
+                        <div class="cLE-checkbox">
+                            <input type="checkbox" name="Internal" id="Itm4">
+                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                            <div class="cLEC-cover"></div>
+                            <label for="Itm4"></label>
+                        </div>
+                        <label class="cLE-label" for="Itm4">Check Suppliers</label>
                     </div>
                 </div>
             </div>
@@ -421,6 +446,100 @@
                     </div>
                 </div>
                 
+            </div>
+        </div>
+        <div class="rBack rChecklist ">
+            <div class="cHeader">
+                <p>Internal</p>
+                <div class="cProgress">
+                    <div class="cP-track"></div>
+                    <div class="cP-bar" id="CheckInternalBar"></div>
+                </div>
+                <div class="cProgressNumber" id="CheckInternalNumber">0%</div>
+            </div>
+            <div class="cList" onclick="checkCheckBox('Internal')">
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Internal" id="Itm1">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="Itm1"></label>
+                    </div>
+                    <label class="cLE-label" for="Itm1">Check Suppliers</label>
+                </div>
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Internal" id="Itm2">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="Itm2"></label>
+                    </div>
+                    <label class="cLE-label" for="Itm2">Check Suppliers</label>
+                </div>
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Internal" id="Itm3">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="Itm3"></label>
+                    </div>
+                    <label class="cLE-label" for="Itm3">Check Suppliers</label>
+                </div>
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Internal" id="Itm4">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="Itm4"></label>
+                    </div>
+                    <label class="cLE-label" for="Itm4">Check Suppliers</label>
+                </div>
+            </div>
+            <div class="cHeader">
+                <p>Suppliers</p>
+                <div class="cProgress">
+                    <div class="cP-track"></div>
+                    <div class="cP-bar" id="CheckSuplierBar"></div>
+                </div>
+                <div class="cProgressNumber" id="CheckSuplierNumber">0%</div>
+            </div>
+            <div class="cList" onclick="checkCheckBox('Suplier')">
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Suplier" id="SItm1">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="SItm1"></label>
+                    </div>
+                    <label class="cLE-label" for="SItm1">Check Suppliers</label>
+                </div>
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Suplier" id="SItm2">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="SItm2"></label>
+                    </div>
+                    <label class="cLE-label" for="SItm2">Check Suppliers</label>
+                </div>
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Suplier" id="SItm3">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="SItm3"></label>
+                    </div>
+                    <label class="cLE-label" for="SItm3">Check Suppliers</label>
+                </div>
+                <div class="cL-element">
+                    <div class="cLE-checkbox">
+                        <input type="checkbox" name="Suplier" id="SItm4">
+                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
+                        <div class="cLEC-cover"></div>
+                        <label for="SItm4"></label>
+                    </div>
+                    <label class="cLE-label" for="SItm4">Check Suppliers</label>
+                </div>
             </div>
         </div>
     </div>
