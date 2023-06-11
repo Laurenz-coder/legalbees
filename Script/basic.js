@@ -17,21 +17,19 @@ var messagehist = [];
  * sends message to openai, waits for answer and displays answer as well as message
  */
 async function sendMessage() {
-    var input = document.getElementsByClassName('cBB-Input')[0];
-    let text = document.getElementById('ChatInput').innerText;
+    var input = document.getElementById('ChatInpuwe');
+    let text = document.getElementById('ChatInpuwe').innerText;
     var newMessage = document.createElement('div');
     newMessage.innerHTML = text;
     newMessage.className = 'chatClientMessage';
     var chatbox = document.getElementById('ChatArea')
     chatbox.insertBefore(newMessage, chatbox.children[chatbox.children.length - 1]);
     let widthEl = newMessage.getBoundingClientRect().width - 10;
-    console.log(newMessage.offsetWidth)
     newMessage.classList.toggle('chatSent', true)
     chatbox.scrollTo(0, chatbox.scrollHeight)
     var message = document.getElementsByClassName('chatSent')[0];
     var dist = input.getBoundingClientRect().top - message.getBoundingClientRect().top;
-    document.getElementById('ChatInput').innerHTML = '';
-    console.log(dist)
+    document.getElementById('ChatInpuwe').innerHTML = '';
     await sleep(10);
     document.getElementsByClassName('chatSent')[0].setAttribute('style', 'transform: translateY(' + dist + 'px);');
     await sleep(10);
@@ -48,20 +46,20 @@ async function sendMessage() {
 
     // add assistant answer with loading bubbles
     var answer = document.createElement('div');
-        answer.className = 'cBC-Bot answerSent';
-        var answerChild = document.createElement('div');
-        answerChild.appendChild(document.createElement('img'));
-        answerChild.className = 'chatBotImage';
-        var answerBot = document.createElement('div');
-        answerBot.className = 'chatBotMessage';
-        answerBot.innerHTML = '<div class="dot-pulse"></div>';
-        answer.appendChild(answerChild);
-        answer.appendChild(answerBot);
-        chatbox.insertBefore(answer, chatbox.children[chatbox.children.length - 1]);
-        // await sleep(100);
-        answer.classList.toggle('answerSent', false);
+    answer.className = 'cBC-Bot answerSent';
+    var answerChild = document.createElement('div');
+    answerChild.appendChild(document.createElement('img'));
+    answerChild.className = 'chatBotImage';
+    var answerBot = document.createElement('div');
+    answerBot.className = 'chatBotMessage';
+    answerBot.innerHTML = '<div class="dot-pulse"></div>';
+    answer.appendChild(answerChild);
+    answer.appendChild(answerBot);
+    chatbox.insertBefore(answer, chatbox.children[chatbox.children.length - 1]);
+    await sleep(100);
+    answer.classList.toggle('answerSent', false);
 
-
+    return
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer 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");
     myHeaders.append("Content-Type", "application/json");
