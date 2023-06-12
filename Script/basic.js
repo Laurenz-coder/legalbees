@@ -59,7 +59,6 @@ async function sendMessage() {
     await sleep(100);
     answer.classList.toggle('answerSent', false);
 
-    return
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer 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");
     myHeaders.append("Content-Type", "application/json");
