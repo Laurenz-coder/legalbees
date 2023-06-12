@@ -988,10 +988,6 @@
 .cLE-checkbox>input:checked ~ .cLEC-cover {
     transform: translate(25px);
 }
-.cLE-checkbox > input:checked {
-    width: 75px;
-    opacity: 1;
-}
 .cLE-label {
     font-size: 18px;
     cursor: pointer;
