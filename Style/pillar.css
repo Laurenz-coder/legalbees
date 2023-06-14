@@ -983,14 +983,14 @@
     background-color: white;
     margin: 0;
     left: 0;
+    transform: translate(0);
     transition: transform 0.4s;
 }
-.cLE-checkbox>input:checked ~ .cLEC-cover {
+/* .cLE-checkbox>input:checked ~ .cLEC-cover {
     transform: translate(25px);
-}
-.cLE-checkbox > input:checked {
-    width: 75px;
-    opacity: 1;
+} */
+input[type="checkbox"]:checked ~ .cLEC-cover {  
+    transform: translate(25px);
 }
 .cLE-label {
     font-size: 18px;
