@@ -16,6 +16,8 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="/Style/light_colors.css">
     <link rel="stylesheet" href="/Style/central.css">
+    <link rel="stylesheet" href="/Style/pillar.css">
+
     <link rel="stylesheet" href="/Style/dashboard_2.css">
 
 </head>
@@ -65,63 +67,47 @@
 
     <!-------------BEGINNING OF MAIN CONTENT AREA------------->
     <div class="mMainContent">
-        <div class="container">
-            <h1>Dashboard</h1>
+        <div class="rTopDetail">
+            <div class="rTHous">
+                <h2>Dashboard Übersicht</h2>
+                <div class="notification-bar">
+                    <button type="button" class="icon-button">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="icon-button__badge">2+</span>
+                    </button>
+                    <button type="button" class="icon-button">
+                        <span class="material-symbols-outlined">mail</span>
+                        <span class="icon-button__badge">2+</span>
+                    </button>
+                    <div class="vertical"></div>
+                    <div class="user-login">
+                        <span class="user-login">Hans Entertainment</span>
+                        <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt=""
+                            class="profile-picture">
+                    </div>
 
-            <div class="mC-status-bar box-layout">
-                <div class="mCSS-status-header">
-                    <span class="material-symbols-rounded">
-                        speed
-                    </span>
-                    <h2>ESG Score</h2>
+
                 </div>
-                <div class="mCS-status-graph mCS-child">
-                    
-                    <div class="bottom-container">
-                        <div class="mCSS-progress-chart">
-                            <div class="chart-container">
-                                <canvas id="myChart"></canvas>
-                            </div>
+            </div>
+        </div>
+        <div class="rBack rOverview tabActive">
+            <div class="mC-status-bar">
 
+                <div class="mCS-left-container  box-layout">
 
-                        </div>
-                        <div class="mCSS-chart-legend">
-                            <div class="legend-element">
-                                <span class="material-symbols-outlined">
-                                    eco
-                                </span>
-                                <h3>Enviroment</h3>
-                            </div>
-                            <div class="legend-element">
-                                <span class="material-symbols-outlined">
-                                    gavel
-                                </span>
-                                <h3>Governance</h3>
-                            </div>
-                            <div class="legend-element">
-                                <span class="material-symbols-outlined">
-                                    handshake
-                                </span>
-                                <h3>Social</h3>
-                            </div>
-                        </div>
+                    <div class="chart-container">
+                        <canvas id="doughnut-chart"></canvas>
                     </div>
                 </div>
-                <div class="vertical"></div>
-                <div class="mCS-improvment-suggestions mCS-child">test</div>
-                <div class="vertical"></div>
-                <div class="mCS-comparison-area mCS-child">test</div>
-
-                <div class="mMIEC-text-area">
-
+                <div class="mCS-middle-container box-layout">
+                    <div class="mCS-improvment-suggestions mCS-child">test</div>
+                                   
+                </div>
+                <div class="mCS-right-container box-layout">
+                    <div class="mCS-comparison-area mCS-child">test</div>
                 </div>
 
-
-
-
-
             </div>
-
             <div class="mC-main-area">
                 <h2> Overview</h2>
                 <div class="mM-insights-pillars">
@@ -135,7 +121,7 @@
 
                         <div class="mMIE-content-area">
                             <div class="mMIEC-text-area">
-                                <h3>Enviroment</h3>
+                                <h3>EU Taxonomy</h3>
                                 <h1>24 / 30</h1>
                             </div>
                             <div class="mMIEC-progress-chart progress-chart">
@@ -160,7 +146,7 @@
 
                         <div class="mMIG-content-area">
                             <div class="mMIGC-text-area">
-                                <h3>Governance</h3>
+                                <h3>Corporate sustainability reporting (CSRD)</h3>
                                 <h1>24 / 30</h1>
                             </div>
                             <div class="mMIGC-progress-chart progress-chart">
@@ -186,7 +172,7 @@
 
                         <div class="mMIS-content-area">
                             <div class="mMISC-text-area">
-                                <h3>Social</h3>
+                                <h3>CSDDD</h3>
                                 <h1>24 / 30</h1>
                             </div>
                             <div class="mMISC-progress-chart progress-chart">
@@ -202,68 +188,81 @@
                         </div>
 
                     </div>
-                    <!--END OF SOCIAL PILLAR-->
+                    
 
                 </div>
 
                 <!-------------BEGINNING OF Table CONTENT AREA------------->
-                <div class="mM-recent-news">
-                    <h2>Recent News</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Regulation</th>
-                                <th>Regulation Class</th>
-                                <th>Importance</th>
-                                <th>Date</th>
-                                <th>Short description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Corporate Sustainabilty Reporting Directive (CSRD)</td>
-                                <td>General</td>
-                                <td class="mMR-warning-tag">high</td>
-                                <td>23.10.2024</td>
-                                <td>Lorem Ipsum bla bla bla</td>
-                                <td>Details</td>
-                            </tr>
-                            <tr>
-                                <td>Blabliblub</td>
-                                <td>Enviromental</td>
-                                <td class="mMR-warning-tag">medium</td>
-                                <td>23.10.2025</td>
-                                <td>Lorem Ipsum bla bla bla</td>
-                                <td>Details</td>
-                            </tr>
-                            <tr>
-                                <td>tadadada</td>
-                                <td>Governance</td>
-                                <td class="mMR-warning-tag">low</td>
-                                <td>23.10.2025</td>
-                                <td>Lorem Ipsum bla bla bla</td>
-                                <td>Details</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <a href="#">Show all</a>
-                </div>
+
                 <!-------------END OF Table CONTENT AREA------------->
             </div>
-            <!-------------END OF MAIN CONTENT AREA------------->
 
-            <!-------------BEGINNING OF RIGHT SIDEBAR------------->
+            <div class="mM-recent-news">
 
+                <h2>Recent News</h2>
+                <table class="box-layout">
+                    <thead>
+                        <tr>
+                            <th>Regulation</th>
+                            <th>Regulation Class</th>
+                            <th>Importance</th>
+                            <th>Date</th>
+                            <th>Short description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Corporate Sustainabilty Reporting Directive (CSRD) <div></div>
+                            </td>
+                            <td>General</td>
+                            <td>
+                                <p class="mMR-warning-tag">high</p>
+                            </td>
+                            <td>23.10.2024</td>
+                            <td>Lorem Ipsum bla bla bla<div></div>
+                            </td>
 
-            <!-------------BEGINNING OF RIGHT SIDEBAR CONTENT AREA------------->
+                        </tr>
+                        <tr>
+                            <td>Blabliblub<div></div>
+                            </td>
+                            <td>Enviromental</td>
+                            <td>
+                                <p class="mMR-warning-tag">medium</p>
+                            </td>
+                            <td>23.10.2025</td>
+                            <td>Lorem Ipsum bla bla bla<div></div>
+                            </td>
 
+                        </tr>
+                        <tr>
+                            <td>tadadada<div></div>
+                            </td>
+                            <td>Governance</td>
+                            <td>
+                                <p class="mMR-warning-tag">low</p>
+                            </td>
+                            <td>23.10.2025</td>
+                            <td>Lorem Ipsum bla bla bla<div></div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="#" style="margin-top: 10px;">Show all</a>
+            </div>
         </div>
+        <!-------------END OF MAIN CONTENT AREA------------->
+
+        <!-------------BEGINNING OF RIGHT SIDEBAR------------->
+
+
+        <!-------------BEGINNING OF RIGHT SIDEBAR CONTENT AREA------------->
+
+    </div>
 
 </body>
-<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js "></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/helpers.min.js"
-    integrity="sha512-JG3S/EICkp8Lx9YhtIpzAVJ55WGnxT3T6bfiXYbjPRUoN9yu+ZM+wVLDsI/L2BWRiKjw/67d+/APw/CDn+Lm0Q=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
 <script src="/Script/dashboard.js"></script>
 
 

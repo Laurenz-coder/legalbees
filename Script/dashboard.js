@@ -1,3 +1,4 @@
+
 // Get all the <td> elements with the class "mMR-warning-tag"
 const warningTags = document.querySelectorAll('.mMR-warning-tag');
 
@@ -16,78 +17,137 @@ warningTags.forEach((tag) => {
   }
 });
 
-const ctx = document.getElementById('myChart').getContext('2d');
+const col = [
+  
+  
+  "#CE5959",
+  "#ffbb55",
+  "#7D9177"];
+
+
+const data = {
+  labels: ['bad', 'medium', 'Wed'],
+  datasets: [{
+    label: 'Weekly Sales',
+    data: [50,30,20],
+    backgroundColor: col,
+    borderWidth: 1,
+    circumference: 180,
+    rotation: 270,
+    cutout: "85%",
+    needleValue: 0,
+    borderRadius: 30
+  }]
+};
+
+const gaugeNeedle = {
+  id: "gaugeNeedle",
+  afterDatasetsDraw(chart, args, plugins) {
+    const { ctx, data } = chart;
+
+    ctx.save();
+    console.log(chart.getDatasetMeta(0).data);
+    const xCenter = chart.getDatasetMeta(0).data[0].x;
+    const yCenter = chart.getDatasetMeta(0).data[0].y;
+    const outRad = chart.getDatasetMeta(0).data[0].outerRadius;
+    const innerRad = chart.getDatasetMeta(0).data[0].innerRadius;
+    const widthSlice = (outRad - innerRad) / 2;
+    const radius = 15;
+    const angle = Math.PI / 180;
+
+    const needleValue = data.datasets[0].needleValue;
+
+    const dataTotal = data.datasets[0].data.reduce((a, b) =>
+      a + b, 0);
+
+    const circumference = (((chart.getDatasetMeta(0).data[0].circumference / Math.PI) /
+      data.datasets[0].data[0]) * needleValue);
+
+
+    ctx.translate(xCenter, yCenter);
+    ctx.rotate(Math.PI * (circumference + 1.5));
+
+    //needle
+    ctx.beginPath();
+    ctx.strokeStyle = "grey";
+    ctx.fillStyle = "grey";
+    ctx.lineWidth = 1;
+    ctx.moveTo(0 - 15, 0);
+    ctx.lineTo(0, 0 - innerRad - widthSlice);
+    ctx.lineTo(0 + 15, 0);
+    ctx.stroke();
+    ctx.stroke();
+    ctx.fill();
+
+    // dot
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, angle * 360, false);
+    ctx.fill();
+
+    ctx.restore();
+
+
+
+  }
+}
+
+// gaugeFlowMeter
+const gaugeFlowMeter = {
+  id: "gaugeFlowMeter",
+  afterDatasetsDraw(chart, args, plugins) {
+    const { ctx, data } = chart;
+
+    ctx.save()
+    const needleValue = data.datasets[0].needleValue;
+    const xCenter = chart.getDatasetMeta(0).data[0].x;
+    const yCenter = chart.getDatasetMeta(0).data[0].y;
+    const circumference = (((chart.getDatasetMeta(0).data[0].circumference / Math.PI) /
+      data.datasets[0].data[0]) * needleValue);
+
+    const perc = circumference * 100;
+
+    // flowmeter
+
+    ctx.font = "bold 30px sans-serif";
+    ctx.fillStyle = "grey";
+    ctx.textAlign = "center";
+    ctx.fillText(`${perc.toFixed(0)}%`, xCenter, yCenter + 40);
+
+
+
+  }
+}
 
 
 
 
-
-Chart.defaults.elements.arc.borderWidth = 0;
-Chart.defaults.datasets.doughnut.cutout = '85%';
-
-var chartInstance = new Chart(document.getElementById("myChart"), {
+// config 
+const config = {
   type: 'doughnut',
-  data: {
-    labels: [
-      'Governance',
-      'Social',
-      'Enviroment',
-      
-    ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [50, 20, 10],
-      backgroundColor: [
-        '#655be9',
-        '#B0A4A4',
-        '#7AA874',
-        
-      ]
-    }]
-  },
+  data,
   options: {
-    responsive: true,
+    layout: {
+      padding: {
+        bottom: 50
+      }
+    },
+
     maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false
+      },
+      tooltip: {
+        enabled: false
       }
-    }},
-
-  plugins: [{
-    
-    afterUpdate: function(chart) {
-      const arcs = chart.getDatasetMeta(0).data;
-
-      arcs.forEach(function(arc) {
-        arc.round = {
-          x: (chart.chartArea.left + chart.chartArea.right) / 2,
-          y: (chart.chartArea.top + chart.chartArea.bottom) / 2,
-          radius: (arc.outerRadius + arc.innerRadius) / 2,
-          thickness: (arc.outerRadius - arc.innerRadius) / 2,
-          backgroundColor: arc.options.backgroundColor
-        }
-      });
-    },
-    afterDraw: (chart) => {
-      const {
-        ctx,
-        canvas
-      } = chart;
-
-      chart.getDatasetMeta(0).data.forEach(arc => {
-        const startAngle = Math.PI / 2 - arc.startAngle;
-        const endAngle = Math.PI / 2 - arc.endAngle;
-
-        ctx.save();
-        ctx.translate(arc.round.x, arc.round.y);
-        ctx.fillStyle = arc.options.backgroundColor;
-        ctx.beginPath();
-        ctx.arc(arc.round.radius * Math.sin(endAngle), arc.round.radius * Math.cos(endAngle), arc.round.thickness, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-      });
     }
-  }]
-});
+  },
+  plugins: [gaugeNeedle, gaugeFlowMeter]
+};
+
+// render init block
+const myChart = new Chart(
+  document.getElementById('doughnut-chart').getContext("2d"),
+  config
+);
+

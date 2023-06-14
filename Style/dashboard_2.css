@@ -4,35 +4,94 @@
     text-decoration: none;
 }
 
+/* ========================== Top bar ==================== */
+.rTHous {
+    display: flex;
+
+}
+
+.notification-bar {
+    position: absolute;
+    right: 0;
+    margin-right: 12px;
+    display: flex;
+    gap: 1.6rem;
+    background-color: none;
+    border-radius: 50%;
+}
+
+.notification-bar>.vertical {
+    height: auto;
+    border-left: 2px solid rgb(149, 143, 143);
+
+}
 
 
-.mC-main-area {
-    flex: 7;
+
+.icon-button {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #333333;
+    background: #dddddd;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+}
+
+.icon-button:hover {
+    cursor: pointer;
+}
+
+.icon-button:active {
+    background: #cccccc;
+}
+
+.icon-button__badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.user-login{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-login>img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
 
 
-.mMainContent {
-    margin-top: 1.4rem;
-}
 
-.mM-date {
-    display: inline-block;
-    background: var(--grey);
-    border-radius: 25px;
-    margin-top: 1rem;
-    padding: 0.5rem 1.6rem;
-}
 
-.mM-date>input[type="date"] {
-    background: transparent;
-    color: black;
+
+
+.rBack {
+    overflow: hidden;
+    height: calc(100% - 148px);
+    
 }
 
 .mM-insights-pillars {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    
     gap: 1.6rem;
 }
 
@@ -40,9 +99,8 @@
     background-color: var(--secondary-back);
     padding: 1.8rem;
     border-radius: 25px;
-    margin-top: 1rem;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
     transition: all 500ms ease-in;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 .mM-insights-pillars>a>div {
@@ -85,6 +143,10 @@
 
 .mM-insights-pillars h3 {
     margin: 1rem 0 0 0;
+}
+
+.mC-main-area{
+    margin: 40px 20px 0 20px;
 }
 
 
@@ -157,7 +219,7 @@
 /* ========================== Recent News ==================== */
 
 .mM-recent-news {
-    margin-top: 2rem;
+    margin: 40px 20px 0 20px;
 
 }
 
@@ -169,11 +231,12 @@
     background: var(--secondary-back);
     width: 100%;
     text-align: center;
-    border-radius: 25px;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
-    padding: 1.8rem;
-    transition: all 300ms ease;
-    margin: 25px 0;
+    border-radius: 1.8rem;
+    transition: all 500ms ease-in;
+    border-collapse: collapse;
+    overflow: hidden;
+
+
 
 }
 
@@ -181,16 +244,32 @@
     box-shadow: none;
 }
 
+thead {
+    width: 100%;
+    height: 10%;
+}
+
+th {
+    padding: 1rem;
+    background-color: var(--accent-updates);
+    border-collapse: collapse;
+
+
+
+}
+
+
+
 .mM-recent-news tbody td {
-    height: 2.8rem;
+    height: 3.3rem;
     border-bottom: 1px solid var(--grey);
+
+
 }
 
 .mM-recent-news tbody tr:last-child td {
     border: none;
 }
-
-
 
 .mM-recent-news a {
     text-align: center;
@@ -199,35 +278,62 @@
     color: var(--grey);
 }
 
+td>p {
+
+    padding: .4rem 0;
+    border-radius: 2rem;
+    width: 50%;
+    margin: auto auto;
+
+}
+
 .mMR-warning-tag.high {
     /* Styles for the "Very high" warning level */
-    background-color: #ff778256;
-    border-radius: 5px;
-    color: var(--color-high-importance);
+    background-color: red;
 }
 
 .mMR-warning-tag.medium {
     /* Styles for the "High" warning level */
-
-    color: var(--color-medium-importance);
+    background-color: var(--color-medium-importance);
 }
 
 .mMR-warning-tag.low {
     /* Styles for other warning levels */
-    color: var(--color-low-importance);
+    background-color: var(--color-low-importance);
 }
+
+
+
+tr:not(thead tr):hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+
 
 /* ========================== Status Overview ==================== */
 
 .mC-status-bar {
-
+    display: grid;
+   
     /* Additional styles for mRightSidebar */
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    height: 300px;
+    grid-template-columns: 1fr 0.75fr 0.75fr;
+    /* Create three equal-width columns */
+    grid-template-rows: auto;
+    /* Automatically adjust row height based on content */
+    gap: 3rem;
+    /* Add gap between grid items */
+    margin: 40px 20px 0 20px;
 }
+
+.mC-status-bar>div:hover {
+    box-shadow: none;
+    cursor: pointer;
+}
+
 
 .mCS-status-graph {
     display: flex;
@@ -238,25 +344,13 @@
     position: relative;
 }
 
-
-.mCS-child {
-    height: 100%;
-}
-
-.mCS-improvment-suggestions {
-    flex: 1;
-}
-
-.mCS-comparison-area {
-    flex: 1;
-}
-
 .mCSS-status-header {
     width: 100%;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    height: (100% - 120px);
 
 }
 
@@ -271,17 +365,27 @@
 }
 
 .mCSS-status-header>h2 {
-    padding-left: 10px;
+    margin-left: 10px;
+
 }
 
 
-.bottom-container {
-    flex: 3;
-    display: flex;
-    width: 100%;
+
+.mCS-child {
     height: 100%;
-    position: relative;
 }
+
+.mCS-improvment-suggestions {
+    flex: 1;
+}
+
+.mCS-comparison-area {
+    flex: 1;
+}
+
+
+
+
 
 .enviroment-circle,
 .governance-circle,
@@ -328,7 +432,7 @@
 
 }
 
-.mCSS-chart-legend {
+.mCSBC-legend {
     margin-left: 10px;
     flex: 1;
     display: flex;
@@ -347,14 +451,15 @@
 
 }
 
-.mCSS-chart-legend .legend-element:nth-child(1) .material-symbols-outlined {
+.mCSBC-legend .legend-element:nth-child(1) .material-symbols-outlined {
     background: var(--main-color);
     padding: 0.5rem;
     border-radius: 50%;
     color: var(--white-text);
     font-size: 2rem;
 }
-.mCSS-chart-legend .legend-element:nth-child(2) .material-symbols-outlined {
+
+.mCSBC-legend .legend-element:nth-child(2) .material-symbols-outlined {
     background: var(--governance);
     padding: 0.5rem;
     border-radius: 50%;
@@ -362,7 +467,7 @@
     font-size: 2rem;
 }
 
-.mCSS-chart-legend .legend-element:nth-child(3) .material-symbols-outlined {
+.mCSBC-legend .legend-element:nth-child(3) .material-symbols-outlined {
     background: var(--grey);
     padding: 0.5rem;
     border-radius: 50%;
@@ -372,23 +477,59 @@
 
 
 
-.chart-container {
-    width: 100%;
+
+.mCSB-chart-area {
+
+    display: flex;
+    grid-template-columns: 2fr 1fr;
+    /* Create three equal-width columns */
+    grid-template-rows: auto;
+    /* Automatically adjust row height based on content */
+    gap: 10px;
+    /* Add gap between grid items */
+    padding: 10px;
+}
+
+.mCSB-chart-area>div {
+
+    background-color: black;
+}
+
+
+.mCS-left-container,
+.mCS-right-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
 }
+
+
+
+
 
 /* ========================== graph ==================== */
 
-canvas {
+.chart-container {
+    position: relative;
     width: 100%;
     height: 100%;
-    display: inline;
 
 }
 
+.chart-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+}
+
+
 .vertical {
-    border-left: 2px solid black;
+    border-left: 2px solid rgb(149, 143, 143);
     height: 200px;
-    
     left: 50%;
 }
