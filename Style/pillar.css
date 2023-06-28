@@ -129,7 +129,7 @@
     margin: 0;
     border-radius: 10px;
 }
-.rFuture > div > p, .rElement > p {
+.rFuture > div > p, .rElement > p, #OverviewText {
     margin: 10px;
     margin-bottom: 0;
     padding-bottom: 10px;
@@ -420,6 +420,27 @@
 .rRQ-element:hover .tooltip {
     visibility: visible;
     filter: opacity(1);
+}
+.checklistInOverview {
+    display: flex;
+    gap: 20px;
+    margin-left: 10px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.circ-elem {
+    text-align: center;
+}
+svg > image {
+    filter: var(--main-color-filter);
+}
+
+.circ-elem>p {
+    margin: 0;
+    margin-top: -5px;
+    font-weight: 500;
+    font-size: 22px;
 }
 
 /* ------------ Forum --------------*/
@@ -1046,8 +1067,7 @@ input[type="checkbox"]:checked ~ .cLEC-cover {
     width: clamp(300px,100%,800px);
     margin: auto;
     position: relative;
-    margin-top: 50%;
-    transform: translateY(-50%);
+    margin-top: 360px;
     text-align: center;
 }
 .lB-header {
@@ -1244,4 +1264,30 @@ input[type="checkbox"]:checked ~ .cLEC-cover {
     100% {
         transform: rotate(-360deg);
     }
+}
+
+/* -------------- Loading View --------------*/
+#LoadingView {
+    position: absolute;
+    top: 120px; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000061;
+}
+.loadingView {
+    background-color: #fff;
+    width: 340px;
+    height: 240px;
+    margin: auto;
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+    text-align: center;
+    border-radius: 20px;
+}
+.loadingView > p {
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+    font-size: 20px;
 }

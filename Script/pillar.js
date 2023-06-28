@@ -1,3 +1,6 @@
+var loadedsites = [];
+
+
 function getScrollProgress() {
     const winScroll = document.getElementById("ScrollContainer").scrollTop + 1;
     const winHeight = document.getElementById("ScrollContainer").scrollHeight - document.getElementById("ScrollContainer").clientHeight;
@@ -136,7 +139,7 @@ function loadThreads() {
       "model": "gpt-3.5-turbo",
       "messages": message,
       "frequency_penalty": 1,
-      "temperature": 0
+      "temperature": 0.4
     });
     
     var requestOptions = {
@@ -161,6 +164,11 @@ function loadThreads() {
         res = res.split(",\n   }").join('}');
         res = res.split('"\n      "').join('","');
         res = res.split("```").join('');
+        res = res.split(`"'`).join('"');
+        res = res.split(`'"`).join('"');
+        res = res.split("summary:").join('"summary":');
+        res = res.split(/(?<=[a-zA-Z\.?])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
+
         console.log(res);
         var resobj = JSON.parse(res);
         var elem = document.getElementsByName('ThreadList')[0];
@@ -190,11 +198,11 @@ function loadThreads() {
 // number of elements in checklist checked
 var numtotal = 0;
 var numchecked = 0;
-function loadChecklist() {
+function loadChecklist(secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'Can you create a checklist for the CSRD and provide the answer in a structured JSON array? It should have the variable category and checklist. Every checklist should contain an array of 5 objects. Each object has the variable checkpoint which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories.'
+        "content": 'Can you create a checklist for the CSRD and provide the answer in a structured JSON array? It should have the variable category and list. Every list should contain an array of 5 elements. Each element is a string which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories. the JSON object must be complete'
     }]
 
 
@@ -205,8 +213,9 @@ function loadChecklist() {
     var raw = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": message,
-      "frequency_penalty": 1,
-      "temperature": 0
+      "frequency_penalty": 0,
+      "temperature": 0.4,
+      "max_tokens": 1000
     });
     
     var requestOptions = {
@@ -219,57 +228,71 @@ function loadChecklist() {
     fetch("https://api.openai.com/v1/chat/completions", requestOptions)
     .then(response => response.json())
     .then(result => {
-        console.log(result)
-
-        console.log(result.choices[0].message.content);
-        var res = result.choices[0].message.content;
-        res.split('\n').join('')
-        // res = res.replace(/\\/g, '');
-        res = res.replace(/“|”/g, '"');
-        // res = res.replace("'", '"');
-        res = res.split(",\n  }").join('}');
-        res = res.split(",\n   }").join('}');
-        res = res.split('"\n      "').join('","');
-        res = res.split('Checklist').join('checklist');
-        res = res.split('Checkpoint').join('checkpoint');
-        res = res.split("```").join('');
-        res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
-        console.log(res);
-        var resobj = JSON.parse(res);
-        resobj = resobj.categories
-        var elem = document.getElementsByClassName('rChecklist')[0];
-        var count = 0;
-        var overviewList = [];
-        for (let obj of resobj) {
-
-            var str = '<div class="cHeader"><p>' + obj.category + '</p><div class="cProgress"><div class="cP-track"></div><div class="cP-bar" id="CheckBar' + count + '"></div></div><div class="cProgressNumber" id="CheckNumber' + count + '">0%</div></div><div class="cList" onclick="checkCheckBox(' + count + ')">'
-            var seccount = 0
-            for (let ele of obj.checklist) {
-                var addon = '';
-                var randCheck = Math.floor(Math.random() * 3) + 1;
-                if (randCheck == 3) {
-                    addon = 'checked';
-                    numchecked++;
-                } else if (overviewList.length < 4) {
-                    overviewList.push([ele.checkpoint, count + 'Itm' + seccount]);
+        try {
+            
+            console.log(result)
+    
+            console.log(result.choices[0].message.content);
+            var res = result.choices[0].message.content;
+            res.split('\n').join('')
+            // res = res.replace(/\\/g, '');
+            res = res.replace(/“|”/g, '"');
+            // res = res.replace("'", '"');
+            res = res.split(",\n  }").join('}');
+            res = res.split(",\n   }").join('}');
+            res = res.split('"\n      "').join('","');
+            res = res.split('Checklist').join('checklist');
+            res = res.split('Checkpoint').join('checkpoint');
+            res = res.split("```").join('');
+            res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
+            console.log(res);
+            var resobj = JSON.parse(res);
+            resobj = resobj.checklist;
+            var elem = document.getElementsByClassName('rChecklist')[0];
+            var count = 0;
+            var overviewList = [];
+            for (let obj of resobj) {
+    
+                var str = '<div class="cHeader"><p>' + obj.category + '</p><div class="cProgress"><div class="cP-track"></div><div class="cP-bar" id="CheckBar' + count + '"></div></div><div class="cProgressNumber" id="CheckNumber' + count + '">0%</div></div><div class="cList" onclick="checkCheckBox(' + count + ')">'
+                var seccount = 0
+                for (let ele of obj.list) {
+                    var addon = '';
+                    var randCheck = Math.floor(Math.random() * 3) + 1;
+                    if (randCheck == 3) {
+                        addon = 'checked';
+                        numchecked++;
+                    } else if (overviewList.length < 4) {
+                        overviewList.push([ele, count + 'Itm' + seccount]);
+                    }
+                    str += '<div class="cL-element"><div class="cLE-checkbox"><input type="checkbox" name="Check' + count + '" id="' + count + 'Itm' + seccount + '" ' + addon + '><img src="/IMG/checkmark.png" alt="" class="cLEC-img"><div class="cLEC-cover"></div><label for="' + count + 'Itm' + seccount + '"></label></div><label class="cLE-label" for="' + count + 'Itm' + seccount + '">' + ele + '</label></div>'
+                    seccount++;
+                    numtotal++;
                 }
-                str += '<div class="cL-element"><div class="cLE-checkbox"><input type="checkbox" name="Check' + count + '" id="' + count + 'Itm' + seccount + '" ' + addon + '><img src="/IMG/checkmark.png" alt="" class="cLEC-img"><div class="cLEC-cover"></div><label for="' + count + 'Itm' + seccount + '"></label></div><label class="cLE-label" for="' + count + 'Itm' + seccount + '">' + ele.checkpoint + '</label></div>'
-                seccount++;
-                numtotal++;
+                str += '</div>';
+                elem.innerHTML += str;
+                checkCheckBox(count);
+                count++;
             }
-            str += '</div>';
-            elem.innerHTML += str;
-            checkCheckBox(count);
-            count++;
+            var seccount = 0;
+            for (let el of overviewList) {
+                seccount++;
+                document.getElementsByName('OverviewChecklist')[0].innerHTML += '<div class="cL-element" ><div class="cLE-checkbox"><input type="checkbox" name="Check' + count + '" id="' + count + 'Itm' + seccount + '"><img src="/IMG/checkmark.png" alt="" class="cLEC-img"><div class="cLEC-cover"></div><label for="' + count + 'Itm' + seccount + '" onclick="overviewCheck(' + "'" + el[1] + "'" + ')"></label></div><label class="cLE-label" for="' + count + 'Itm' + seccount + '" onclick="overviewCheck(' + "'" + el[1] + "'" + ')">' + el[0] + '</label></div>'
+            }
+            console.log(JSON.parse(res));
+            loaded++;
+            loadOverviewChecklist(Math.round(numchecked/numtotal*100));
+            updatedLoader();
+        } catch (error) {
+            console.log(error)
+            if (secondtime != undefined) {
+                loadChecklist(true);
+            } else {
+                console.log('second time failed with checklist')
+                loaded++;
+                updatedLoader();
+            }
+            return;
         }
-        var seccount = 0;
-        for (let el of overviewList) {
-            seccount++;
-            document.getElementsByName('OverviewChecklist')[0].innerHTML += '<div class="cL-element" ><div class="cLE-checkbox"><input type="checkbox" name="Check' + count + '" id="' + count + 'Itm' + seccount + '"><img src="/IMG/checkmark.png" alt="" class="cLEC-img"><div class="cLEC-cover"></div><label for="' + count + 'Itm' + seccount + '" onclick="overviewCheck(' + "'" + el[1] + "'" + ')"></label></div><label class="cLE-label" for="' + count + 'Itm' + seccount + '" onclick="overviewCheck(' + "'" + el[1] + "'" + ')">' + el[0] + '</label></div>'
-        }
-        console.log(JSON.parse(res));
-        loaded++;
-        updatedLoader();
         // messagehist.push(result.choices[0].message);
     })
 
@@ -278,7 +301,7 @@ function loadUpdates() {
 
     var message = [{
         "role": "user",
-        "content": 'give a list of recent updates of CSRD in a JSON array. it should contain the variable date in the format DD:MM:YYYY. It should also contain the variable message. This should describe the update in 1 to 3 words. It should also contain the variable update which describes the actual updates in two sentences. Lastly it should contain the variable link which contains a link for further information.'
+        "content": 'give a list of recent changes the directive CSRD in a JSON array. it should contain the variable date in the format DD:MM:YYYY. It should also contain the variable message. This should describe the update in 1 to 3 words. It should also contain the variable update which describes the actual updates in two sentences.'
     }]
 
 
@@ -289,8 +312,9 @@ function loadUpdates() {
     var raw = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": message,
-      "frequency_penalty": 1,
-      "temperature": 0
+      "frequency_penalty": 0,
+      "temperature": 0.4,
+      max_tokens: 1000
     });
     
     var requestOptions = {
@@ -319,10 +343,13 @@ function loadUpdates() {
         res = res.split('link:').join('"link" :');
         res = res.split('update:').join('"update" :');
         res = res.split('-').join(':');
-        res = res.split("'").join('"');
+        res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
         res = res.split("```").join('');
         console.log(res);
         var resobj = JSON.parse(res);
+        if (resobj.changes != undefined) {
+            resobj = resobj.changes;
+        }
         var elem = document.getElementById('MainTimeLine');
         elem.innerHTML = '';
         var elemOv = document.getElementById('OverviewTimeLine');
@@ -335,9 +362,9 @@ function loadUpdates() {
             }
             var dmonth = month[Number(date[1])-1];
             console.log('hey')
-            elem.innerHTML += '<div class="uT-updates"><div class="uTU-element"><div class="uTUE-date"><div>' + date[0] + ' ' + dmonth + '</div><div>' + date[2] + '</div></div><div class="uTUE-line"></div><div class="uTUE-dot"></div><div class="uTUE-contentBack"><div class="uTUE-content"><p>' + obj.message + '</p><div>' + obj.update + '</div><a href="' + obj.link + '">more info</a></div></div></div></div>';
+            elem.innerHTML += '<div class="uT-updates"><div class="uTU-element"><div class="uTUE-date"><div>' + date[0] + ' ' + dmonth + '</div><div>' + date[2] + '</div></div><div class="uTUE-line"></div><div class="uTUE-dot"></div><div class="uTUE-contentBack"><div class="uTUE-content"><p>' + obj.message + '</p><div>' + obj.update + '</div><a href="google.com">more info</a></div></div></div></div>';
             if (count < 2) {
-                elemOv.innerHTML += '<div class="uT-updates"><div class="uTU-element"><div class="uTUE-date"><div>' + date[0] + ' ' + dmonth + '</div><div>' + date[2] + '</div></div><div class="uTUE-line"></div><div class="uTUE-dot"></div><div class="uTUE-contentBack"><div class="uTUE-content"><p>' + obj.message + '</p><div>' + obj.update + '</div><a href="' + obj.link + '">more info</a></div></div></div></div>';
+                elemOv.innerHTML += '<div class="uT-updates"><div class="uTU-element"><div class="uTUE-date"><div>' + date[0] + ' ' + dmonth + '</div><div>' + date[2] + '</div></div><div class="uTUE-line"></div><div class="uTUE-dot"></div><div class="uTUE-contentBack"><div class="uTUE-content"><p>' + obj.message + '</p><div>' + obj.update + '</div><a href="google.com">more info</a></div></div></div></div>';
             }
 
             count++;
@@ -349,7 +376,7 @@ function loadUpdates() {
     })
 
 }
-function loadRisks() {
+function loadRisks(secondtime) {
 
     var message = [{
         "role": "user",
@@ -364,8 +391,9 @@ function loadRisks() {
     var raw = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": message,
-      "frequency_penalty": 1,
-      "temperature": 0
+      "frequency_penalty": 0,
+      "temperature": 0.4,
+      max_tokens: 1000
     });
     
     var requestOptions = {
@@ -378,34 +406,57 @@ function loadRisks() {
     fetch("https://api.openai.com/v1/chat/completions", requestOptions)
     .then(response => response.json())
     .then(result => {
-        console.log(result)
+        try {
+            console.log(result)
+    
+            console.log(result.choices[0].message.content);
+            var res = result.choices[0].message.content;
+            res.split('\n').join('')
+            // res = res.replace(/\\/g, '');
+            res = res.replace(/“|”/g, '"');
+            // res = res.replace("'", '"');
+            res = res.split(",\n  }").join('}');
+            res = res.split(",\n   }").join('}');
+            res = res.split('"\n      "').join('","');
+            res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
+            res = res.split("```").join('');
+            res = res.split("brief description").join('brief_description');
+            res = res.split("financial risks").join('financial_risks');
+            res = res.split("financial risk").join('financial_risk');
+            console.log(res);
+            var resobj = JSON.parse(res);
+            if (resobj.risks != undefined) {
+                resobj = resobj.risks;
+            } else if (resobj.potential_risks != undefined) {
+                resobj = resobj.potential_risks;
+            }
 
-        console.log(result.choices[0].message.content);
-        var res = result.choices[0].message.content;
-        res.split('\n').join('')
-        // res = res.replace(/\\/g, '');
-        res = res.replace(/“|”/g, '"');
-        // res = res.replace("'", '"');
-        res = res.split(",\n  }").join('}');
-        res = res.split(",\n   }").join('}');
-        res = res.split('"\n      "').join('","');
-        res = res.split("'").join('"');
-        res = res.split("```").join('');
-        console.log(res);
-        var resobj = JSON.parse(res);
-        console.log(resobj);
-        var elem = document.getElementsByClassName('rRiskAssesment')[0];
-        elem.innerHTML = '';
-        for (let obj of resobj.potential_risks) {
-            elem.innerHTML += '<div class="dBlock"><div class="dB-header">' + obj.title + '</div><div class="dB-answer">' + obj.brief_description + '</div><div class="dB-question">Consequences</div><div class="dB-answer">' + obj.financial_risk + '</div></div>';
-
+            console.log(resobj);
+            var elem = document.getElementsByClassName('rRiskAssesment')[0];
+            elem.innerHTML = '';
+            for (let obj of resobj) {
+                elem.innerHTML += '<div class="dBlock"><div class="dB-header">' + obj.title + '</div><div class="dB-answer">' + obj.brief_description + '</div><div class="dB-question">Consequences</div><div class="dB-answer">' + obj.financial_risk + '</div></div>';
+    
+            }
+            loaded++;
+            updatedLoader();
+            
+        } catch (error) {
+            console.log(error)
+            return;
+            if (secondtime != undefined) {
+                loadRisks(true);
+            } else {
+                console.log('second time failed with risks')
+                loaded++;
+                updatedLoader();
+            }
+            return;
         }
-        loaded++;
-        updatedLoader();
     })
 
 }
-function loadDeepDive() {
+function loadDeepDive(secondtime) {
 
     var message = [{
         "role": "user",
@@ -565,49 +616,63 @@ function loadDeepDive() {
         fetch("https://api.openai.com/v1/chat/completions", requestOptions)
         .then(response => response.json())
         .then(result => {
-            console.log(result)
-            console.log(JSON.parse(result.choices[0].message.function_call.arguments));
-            var answer = JSON.parse(result.choices[0].message.function_call.arguments);
-            var elem = document.getElementsByClassName('rDeepDive')[0];
-            if (result.choices[0].message.function_call.name != "get_timeline") {
-                var str = '<div class="dBlock">';
-                if (result.choices[0].message.function_call.name == 'get_current_backinfo') {
-                    str += '<div class="dB-header">Background Info</div>'
-                    str += '<div class="dB-question">' + answer.question + '</div><div class="dB-answer">' + answer.answer + '</div>'
-                } else {
-                    if (result.choices[0].message.function_call.name == 'get_goals_and_requirements') { 
-                        str += '<div class="dB-header">Goals and Requirements</div>'
-                    } else if (result.choices[0].message.function_call.name == 'get_development') {
-                        str += '<div class="dB-header">Development</div>'
-                    }
-                    var ansList = answer.answer_sec.split('- ');
-                    console.log(ansList)
-                    var extendstr = '';
-                    if (ansList.length > 1) {
-                        extendstr = '<ul>';
-                        for (var i=1; i<ansList.length;i++) {
-                            extendstr += '<li>' + ansList[i] + '</li>';
-                        }
-                        extendstr += '</ul>';
+            try {
+                console.log(result)
+                console.log(JSON.parse(result.choices[0].message.function_call.arguments));
+                var answer = JSON.parse(result.choices[0].message.function_call.arguments);
+                var elem = document.getElementsByClassName('rDeepDive')[0];
+                if (result.choices[0].message.function_call.name != "get_timeline") {
+                    var str = '<div class="dBlock">';
+                    if (result.choices[0].message.function_call.name == 'get_current_backinfo') {
+                        str += '<div class="dB-header">Background Info</div>'
+                        str += '<div class="dB-question">' + answer.question + '</div><div class="dB-answer">' + answer.answer + '</div>'
+                        document.getElementById('OverviewText').innerHTML = answer.answer;
                     } else {
-                        extendstr = answer.answer_sec
+                        if (result.choices[0].message.function_call.name == 'get_goals_and_requirements') { 
+                            str += '<div class="dB-header">Goals and Requirements</div>'
+                        } else if (result.choices[0].message.function_call.name == 'get_development') {
+                            str += '<div class="dB-header">Development</div>'
+                        }
+                        var ansList = answer.answer_sec.split('- ');
+                        console.log(ansList)
+                        var extendstr = '';
+                        if (ansList.length > 1) {
+                            extendstr = '<ul>';
+                            for (var i=1; i<ansList.length;i++) {
+                                extendstr += '<li>' + ansList[i] + '</li>';
+                            }
+                            extendstr += '</ul>';
+                        } else {
+                            extendstr = answer.answer_sec
+                        }
+                        str += '<div class="dB-question">' + answer.question + '</div><div class="dB-answer">' + answer.answer + '</div><div class="dB-question">' + answer.question_sec + '</div><div class="dB-answer">' + extendstr + '</div>'
+    
                     }
-                    str += '<div class="dB-question">' + answer.question + '</div><div class="dB-answer">' + answer.answer + '</div><div class="dB-question">' + answer.question_sec + '</div><div class="dB-answer">' + extendstr + '</div>'
-
+                    str += '</div>'
+                    elem.innerHTML += str;
+                } else {
+                    elem.innerHTML += "not implemented get timeline";
                 }
-                str += '</div>'
-                elem.innerHTML += str;
-            } else {
-                elem.innerHTML += "not implemented get timeline";
+                loaded++;
+                updatedLoader();
+                
+            } catch (error) {
+                console.log(error)
+                if (secondtime != undefined) {
+                    loadDeepDive(true);
+                } else {
+                    console.log('second time failed with deepdive')
+                    loaded++;
+                    updatedLoader();
+                }
+                return;
             }
-            loaded++;
-            updatedLoader();
         })
     }
 
 
 }
-function loadDeadline() {
+function loadDeadline(secondtime) {
 
     var message = [{
         "role": "user",
@@ -669,41 +734,54 @@ function loadDeadline() {
     fetch("https://api.openai.com/v1/chat/completions", requestOptions)
     .then(response => response.json())
     .then(result => {
-        console.log(result)
-        console.log(JSON.parse(result.choices[0].message.function_call.arguments));
-        var answer = JSON.parse(result.choices[0].message.function_call.arguments);
-        document.getElementsByClassName('rQE-deadline')[0].children[1].innerHTML = answer.deadline;
-        document.getElementsByClassName('rQE-deadline')[0].children[2].innerHTML = 'Deadline: ' + answer.deadline;
-        if (!answer.voluntary) {
-            document.getElementsByClassName('rRQE-voluntary')[0].style.display = 'none';
-
+        try {
+            console.log(result)
+            console.log(JSON.parse(result.choices[0].message.function_call.arguments));
+            var answer = JSON.parse(result.choices[0].message.function_call.arguments);
+            document.getElementsByClassName('rQE-deadline')[0].children[1].innerHTML = answer.deadline;
+            document.getElementsByClassName('rQE-deadline')[0].children[2].innerHTML = 'Deadline: ' + answer.deadline;
+            if (!answer.voluntary) {
+                document.getElementsByClassName('rRQE-voluntary')[0].style.display = 'none';
+    
+            }
+            var elem = document.getElementsByClassName('rRQE-risk')[0];
+            switch (answer.risk) {
+                case "low":
+                    elem.children[1].innerHTML = 'Low Risk';
+                    elem.children[0].setAttribute('class', 'imggreen');
+                    break;
+                case "mid":
+                    elem.children[1].innerHTML = 'Medium Risk';
+                    elem.children[0].setAttribute('class', 'imgyellow');
+                    break;
+                case "high":
+                    elem.children[1].innerHTML = 'High Risk';
+                    elem.children[0].setAttribute('class', 'imgred');
+                    break;
+            
+                default:
+                    break;
+            }
+            loaded++;
+            updatedLoader();
+            
+        } catch (error) {
+            console.log(error)
+            if (secondtime != undefined) {
+                loadDeadline(true);
+            } else {
+                console.log('second time failed with deadline')
+                loaded++;
+                updatedLoader();
+            }
+            return;
         }
-        var elem = document.getElementsByClassName('rRQE-risk')[0];
-        switch (answer.risk) {
-            case "low":
-                elem.children[1].innerHTML = 'Low Risk';
-                elem.children[0].setAttribute('class', 'imggreen');
-                break;
-            case "mid":
-                elem.children[1].innerHTML = 'Medium Risk';
-                elem.children[0].setAttribute('class', 'imgyellow');
-                break;
-            case "high":
-                elem.children[1].innerHTML = 'High Risk';
-                elem.children[0].setAttribute('class', 'imgred');
-                break;
-        
-            default:
-                break;
-        }
-        loaded++;
-        updatedLoader();
     })
 
 
 }
 async function loadForum(summary, question) {
-
+    document.getElementsByClassName('mMainContent')[0].innerHTML += '<div id="LoadingView"><div class="loadingView"><p>Loading...</p></div></div>'
     document.getElementsByClassName('rFFH-Top')[0].innerHTML = '<p>' + summary + '</p><div>Thread</div>';
     var messageArea = document.getElementsByClassName('rF-MessageArea')[0];
     messageArea.innerHTML = '<div class="rFM-Message messageOwn"><img src="/IMG/Profile/profile3.jpg" alt=""><div class="rFMM-Content"><div class="rFMMC-Info"><div>Leo</div><p>11:24 Uhr</p></div><div class="rFMMC-text">' + summary + '</div><div class="rFMMC-text">' + question + '</div></div></div>';
@@ -735,6 +813,7 @@ async function loadForum(summary, question) {
     fetch("https://api.openai.com/v1/chat/completions", requestOptions)
     .then(response => response.json())
     .then(result => {
+        document.getElementById('LoadingView').remove();
         console.log(result)
 
         console.log(result.choices[0].message.content);
@@ -782,18 +861,72 @@ async function loadForum(summary, question) {
 }
 
 function loadAll() {
+    var fromstorage = JSON.parse(localStorage.getItem('loadedsites'));
+    if (fromstorage != undefined) {
+        loadedsites = fromstorage;
+        for (let el of loadedsites) {
+            if (el.directive == 'CSRD') {
+                document.getElementsByClassName('mMainContent')[0].innerHTML = el.site;
+                numchecked = el.numchecked;
+                numtotal = el.numtotal;
+            }
+        }
+        console.log("%cDirective has already been loaded", "color: #7D9177; font-size: 20px;");
+        return;
+    }
     loadThreads();
     loadUpdates();
     loadChecklist();
     loadDeadline();
     loadDeepDive();
     loadRisks();
-    console.log("hey");
 }
 
 function updatedLoader() {
     document.getElementById('LoadingBar').style.width = Math.round(loaded/allelements * 100) + '%';
     if (loaded/allelements == 1) {
+        console.log("%cLoaded all", "color: blue; font-size: 20px;");
         document.getElementsByClassName('rLoading')[0].classList.toggle('tabActive', false);
+        loadedsites.push({
+            directive: "CSRD",
+            numchecked: numchecked,
+            numtotal: numtotal,
+            site: document.getElementsByClassName('mMainContent')[0].innerHTML
+        })
+        localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
     }
 }
+
+
+function loadOverviewChecklist(progress) {
+    var stroke_width = 8
+    var width = 120
+    var heigth = 120
+    var strokeColor = '#7D9177'
+    var text = progress + '%'
+    let angle = (progress / 100) * (2*Math.PI);
+    let radius = (width - 2*stroke_width) /2;
+    var x_value = Math.round(radius * Math.sin(angle) * 100) / 100 + radius + stroke_width;
+    let y_value = Math.round(radius * Math.cos(angle) * 100) * -1 / 100 + radius + stroke_width;
+    if (progress == 100) {
+        x_value -= 0.001
+    }
+    var arc = 0;
+    var reverse = 0;
+    if (progress > 50) {
+        arc = 1;
+        reverse = 1;
+    } else {
+        arc = 0;
+        reverse = 1;
+    }
+    
+    
+    
+    var centerElem = '<image href="./IMG/list.bullet.clipboard.png" x="' + (width/2 - width/4) + '" y="' + (heigth/2 - heigth/4) + '" height="' + (heigth/2) + '"/>'
+    var content = '<svg height="' + heigth + '" width="' + width + '"><path fill="none" stroke="' + strokeColor + '" stroke-width="' + stroke_width + '" d="M' + (width/2) + ',' + stroke_width + ' A' + radius + ',' + radius + ' 0 ' + arc + ',' + reverse + ' ' + x_value + ',' + y_value + '" /><g stroke="blue" stroke-width="0" fill="' + strokeColor + '"><circle cx="' + (width/2) + '" cy="' + stroke_width + '" r="' + (stroke_width/2) + '" /><circle cx="' + x_value + '" cy="' + y_value + '" r="' + (stroke_width/2) + '" /></g>' + centerElem + '</svg>'
+    document.getElementById('CircCheck').innerHTML += '<div class="circ-elem">' + content + '<p style="color: ' + strokeColor + '">' + text + ' solved</p></div>'
+
+}
+
+// loadOverviewChecklist(40);
