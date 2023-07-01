@@ -11,94 +11,113 @@ body {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(100px,80%,1200px);
+    width: clamp(100px, 80%, 1200px);
     margin: auto;
     /* background-color: aquamarine; */
 }
+
 .qMain {
     filter: opacity(1);
     height: 270px;
-    
+
 }
+
 .qMChild {
     position: relative;
     width: 100%;
     transition: filter 0.3s, transform 0.4s;
 }
+
 .qMHead {
     font-size: 30px;
     font-weight: 500;
     margin: 0 0 0 0;
 }
+
 .qM-TopPart {
     display: flex;
     justify-content: space-between;
 }
-.qM-TopPart > img {
+
+.qM-TopPart>img {
     width: 100px;
     border-radius: 50px;
     height: 100px;
-    object-fit:cover;
+    object-fit: cover;
 }
+
 .qM-Navigation {
     display: flex;
     gap: 5px;
     align-items: flex-start;
 }
+
 .qMN-Back {
-   border: solid 1px var(--main-color); 
-   border-radius: 5px;
-   padding: 5px 12px;
-   color: var(--main-color);
-   cursor: pointer;
+    border: solid 1px var(--main-color);
+    border-radius: 5px;
+    padding: 5px 12px;
+    color: var(--main-color);
+    cursor: pointer;
 }
+
 .qMN-Next {
-   border: solid 1px var(--main-color); 
-   border-radius: 5px;
-   padding: 5px 12px;
-   background-color: var(--main-color);
-   color: var(--white-text);
-   cursor: pointer;
+    border: solid 1px var(--main-color);
+    border-radius: 5px;
+    padding: 5px 12px;
+    background-color: var(--main-color);
+    color: var(--white-text);
+    cursor: pointer;
 }
+
 .qMDecision {
     margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
 }
+
 .qMD-Element {
     box-shadow: 3px 3px 8px #c1c1c1;
     padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
-    text-align: center;
     background-color: #fff;
     border: 2px solid #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .selected {
     border-color: var(--main-color);
     /* color: var(--white-text); */
 }
+
 .deactivate {
     background-color: var(--grey);
     border-color: var(--grey);
     cursor: default;
 }
+
 .trans-right {
     transform: translateX(100%);
     filter: opacity(0);
 }
+
 .trans-left {
     filter: opacity(0);
     /* transition: filter 0.6s, transform 1.5s; */
     transform: translateX(-100%);
 }
+
 .qMInputHous {
     display: flex;
     align-items: center;
     gap: 5px;
     margin-top: 15px;
 }
+
 .qMInput {
     text-decoration: none;
     appearance: none;
@@ -112,11 +131,13 @@ body {
     width: 80px;
     text-align: center;
 }
+
 .qMSliderHous {
     display: flex;
     align-items: center;
     gap: 5px;
 }
+
 input[type="range"] {
     /* removing default appearance */
     -webkit-appearance: none;
@@ -197,24 +218,30 @@ input[type="range"]:focus::-moz-range-thumb {
     margin: 0;
     margin-top: 40px;
 }
+
 .qS-Text {
     font-size: 16px;
     font-weight: 400;
     margin: 0;
 }
+
 .qS-Left {
     width: 30%;
 }
+
 .qS-Right {
     width: 70%;
 }
+
 .qS-Bar {
     width: 100%;
     margin-top: 5px;
     background-color: black;
     position: relative;
 }
-.qS-BarBar, .qS-Track {
+
+.qS-BarBar,
+.qS-Track {
     width: 100%;
     height: 4px;
     background-color: var(--secondary-back);
@@ -222,11 +249,13 @@ input[type="range"]:focus::-moz-range-thumb {
     top: 0;
     border-radius: 2px;
 }
+
 .qS-BarBar {
     width: 0%;
     background-color: var(--main-color);
     transition: width 0.4s;
 }
+
 .qS-TimeLeft {
     position: absolute;
     color: var(--secondary-text);
@@ -248,4 +277,24 @@ input[type="range"]:focus::-moz-range-thumb {
         padding: 100px 0;
         font-size: 26px;
     }
+}
+
+/* chat login area*/
+input {
+    height: 20px;
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    margin: 20px 0;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+}
+
+.qMlogin {
+    margin-top: 20px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
 }

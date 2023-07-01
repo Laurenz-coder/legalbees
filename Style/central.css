@@ -10,6 +10,21 @@ h3{
     font-size: 1rem;
 }
 
+
+
+
+.mST-element-divider{
+    margin: 15px 0;
+    padding: 0 20px;
+    font-size: 18px;
+  }
+
+.mST-element-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .mSideMenu {
     background-color: var(--MenuSidebar);
     position: fixed;
@@ -22,7 +37,7 @@ h3{
     overflow: hidden;
     z-index: 200;
 }
-.mS-tabsList, .mS-bottomList {
+.mS-tabsList{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -36,25 +51,63 @@ h3{
     align-items: center;
     gap: 10px;
     border-radius: 6px;
-    padding: 6px;
+    padding: 4px 15px;
     transition: background-color 0.2s;
-    width: 188px;
+    width: 80%;
     cursor: pointer;
+    height: 50px;
+    width: 200px;
 }
+.mST-element > p, .mSB-element > p {
+    margin: 0;
+    font-size: 20px;
+    color: #707070;
+}
+.mST-home::before{
+    content: "Home";
+}
+.mST-directives::before{
+    content: "Directive";
+
+}
+.mST-laws::before{
+    content: "Laws";
+
+}
+.mST-recommendations::before{
+    content: "Recommendations";
+
+}
+
+
+
+.mS-tabsList.close .mST-element-divider::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 18px;
+    border-radius: 12px;
+    background: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 .mST-element-active {
     background-color: var(--main-color);
+}
+
+.mST-element-active > p{
     color: var(--white-text);
 }
+
 .mST-element-active > img {
     filter: invert(99%) sepia(100%) saturate(0%) hue-rotate(86deg) brightness(108%) contrast(100%);
 }
 .mST-element:hover, .mSB-element:hover {
     background-color: var(--MenuSidebar-hover);
 }
-.mST-element > p, .mSB-element > p {
-    margin: 0;
-    font-size: 20px;
-}
+
 .mST-element > img, .mSB-element > img {
     width: 25px;
     height: 25px;
@@ -393,22 +446,21 @@ h3{
 @media (max-width: 1200px) {
     .mST-element > p, .mSB-element > p {
         display: none;
-        width: 0px;
-        white-space: nowrap;
+        width: auto;
         
     }
     .mST-element {
         justify-content: center;
-        width: 40px;
-        padding: 5px 1px;
+        width: 50px;
+        height: 50px;
+        padding: 1px 1px;
         gap: 0;
 
     }
-    .mSB-element {
-        width: 40px;
-    }
+    
+ 
     .mS-tabsList, .mS-bottomList {
-        margin-left: 18px;
+        
         /* align-items: center; */
         gap: 22px;
         transition: margin-left 0.2s;
@@ -439,9 +491,13 @@ h3{
     .mSideMenu:hover .mST-element,  .mSideMenu:hover .mSB-element {
         align-items: start;
         justify-content: start;
-        width: 188px;
+        width: 200px;
         padding: 6px;
         gap: 5px;
         transition: width 0.4s;
+        
+    }
+    .mSideMenu:hover .mST-element p{
+        overflow-wrap: break-word;
     }
 }

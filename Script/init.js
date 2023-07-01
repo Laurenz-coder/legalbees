@@ -2,6 +2,7 @@ class Question {
     option;
     custom_answer = [];
     rating = ['Very much','much','More or less','less','not at all', "can't say"];
+    industry = ['Manufacturing','Information Technology','Financial Services','Healthcare and Pharmaceuticals','Consumer Goods', "Energy and Utilities"];
     min;
     max;
     constructor(type, question,topic,id) {
@@ -12,7 +13,7 @@ class Question {
     }
 
     getHTML() {
-        var str = '<div class="qMChild"><div class="qM-TopPart"><img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="" srcset=""><div class="qM-Navigation"><div class="qMN-Back" onclick="clickBack(this)">Back</div><div class="qMN-Next deactivate" onclick="clickNext(this)">Next</div></div></div><p class="qMHead">' + this.question + '</p>'
+        var str = '<div class="qMChild"><div class="qM-TopPart"><img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="" srcset=""><div class="qM-Navigation"><div class="qMN-Back" onclick="clickBack(this)">Back</div><div class="qMN-Next" onclick="clickNext(this)">Next</div></div></div><p class="qMHead">' + this.question + '</p>'
 
         if (this.type == 'rating') {
             str += '<div class="qMDecision">'
@@ -21,6 +22,16 @@ class Question {
                     str += '<div class="qMD-Element selected" onclick="selectAnswer(' + i + ', this)">' + this.rating[i] + '</div>'
                 } else {
                     str += '<div class="qMD-Element" onclick="selectAnswer(' + i + ', this)">' + this.rating[i] + '</div>'
+                }
+            }
+            str += '</div>'
+        }else if (this.type == 'selection') {
+            str += '<div class="qMDecision">'
+            for (var i=0; i<this.rating.length;i++) {
+                if (this.option == i) {
+                    str += '<div class="qMD-Element selected" onclick="selectAnswer(' + i + ', this)">' + this.industry[i] + '</div>'
+                } else {
+                    str += '<div class="qMD-Element" onclick="selectAnswer(' + i + ', this)">' + this.industry[i] + '</div>'
                 }
             }
             str += '</div>'
@@ -42,19 +53,23 @@ class Question {
             } else {
                 str += '<div class="qMInputHous"><input type="text" class="qMInput"><p>in mio €</p></div><div class="qMSliderHous"><p>' + this.min + ' €</p><input type="range" min="' + this.min + '" max="' + this.max + '" value="0" class="qMSlider"><p>' + this.max + ' mio €</p></div>'
             }
+            
+        }else if (this.type == 'info') {
+            str += '<div class="qMlogin">'
+            str+='<input type="text" name="txt" placeholder="Company name" required=""><input type="email" name="email" placeholder="Email" required=""><input type="password" name="pswd" placeholder="Password" required="">'
+            str += '</div>'
         }
 
         str += '</div>';
         return str
     }
 }
-
-let q1 = new Question('rating','Are you interested in ESG?','general','q1');
-let q2 = new Question('rating','Hello?','general','q2');
-let q3 = new Question('rating','Hello?C','company','q3');
-let q4 = new Question('custom','How many employees do you have in germany?','company','q4');
+let q1 = new Question('info',"Insert your new account details",'general','q1');
+let q2 = new Question('selection',"What Industry is your company operating in",'general','q1');
+let q3 = new Question('rating','Are you interested in ESG?','general','q2');
+let q4 = new Question('custom','How many employees do you have in germany?','company','q5');
 q4.custom_answer = ['10-25','25-100','100-250','250-1000','>1000'];
-let q5 = new Question('slider','What is your yearly turnover?','company','q5');
+let q5 = new Question('slider','What is your yearly turnover?','company','q6');
 q5.min = 0;
 q5.max = 500;
 
@@ -217,3 +232,4 @@ function prepareProgressBar() {
 prepareProgressBar();
 
 // activateSlider();
+

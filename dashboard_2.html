@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="/Style/light_colors.css">
     <link rel="stylesheet" href="/Style/central.css">
     <link rel="stylesheet" href="/Style/pillar.css">
-
     <link rel="stylesheet" href="/Style/dashboard_2.css">
 
 </head>
@@ -28,41 +27,84 @@
     </div>
     <div class="mSideMenu">
         <div class="mS-tabsList">
-            <div class="mST-element mST-element-active">
-                <img src="/IMG/dashboard.png" alt="">
-                <p>Dashboard</p>
+            <!--Home-->
+            <div class="mST-element-group">
+                <h3 class="mST-element-divider mST-home"></h3>
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        grid_view
+                    </span>
+                    <p>Dashboard</p>
+                </div>
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
+                    <p>Notifications</p>
+                </div>
             </div>
-            <div class="mST-element">
-                <img src="/IMG/leaf.png" alt="">
-                <p>Environment</p>
+            <!--Directives-->
+            <div class="mST-element-group">
+                <h3 class="mST-element-divider mST-directives"></h3>
+
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        gavel
+                    </span>
+                    <p>CSRD</p>
+                </div>
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        app_registration
+                    </span>
+                    <p>EU Taxonomy</p>
+                </div>
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        flag
+                    </span>
+                    <p>CSDDD</p>
+                </div>
             </div>
-            <div class="mST-element">
-                <img src="/IMG/megaphone.png" alt="">
-                <p>Social</p>
+
+            <!--Laws-->
+            <div class="mST-element-group">
+                <h3 class="mST-element-divider mST-laws"></h3>
+
+                <div class="mST-element-active mST-element ">
+                    <span class="material-symbols-outlined">
+                        sports
+                    </span>
+                    <p>Whistleblower Act</p>
+                </div>
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        keyboard
+                    </span>
+                    <p>DSGVO</p>
+                </div>
             </div>
-            <div class="mST-element">
-                <img src="/IMG/newspaper.png" alt="">
-                <p>News</p>
+
+            <!--Recommendations-->
+            <div class="mST-element-group">
+                <h3 class="mST-element-divider mST-recommendations"></h3>
+
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        bolt
+                    </span>
+                    <p>Energy Standards</p>
+                </div>
+                <div class="mST-element">
+                    <span class="material-symbols-outlined">
+                        view_agenda
+                    </span>
+                    <p>Guidelines</p>
+                </div>
             </div>
-            <div class="mST-element">
-                <img src="/IMG/bell.png" alt="">
-                <p>Notifications</p>
-            </div>
-            <div class="mST-element">
-                <img src="/IMG/building.png" alt="">
-                <p>Your Company</p>
-            </div>
+
         </div>
-        <div class="mS-bottomList">
-            <div class="mSB-element">
-                <img src="/IMG/gear.png" alt="">
-                <p>Settings</p>
-            </div>
-            <div class="mSB-element">
-                <img src="/IMG/person.png" alt="">
-                <p>Max Mustermann</p>
-            </div>
-        </div>
+
     </div>
 
     <!-------------BEGINNING OF MAIN CONTENT AREA------------->
@@ -79,7 +121,7 @@
                         <span class="material-symbols-outlined">mail</span>
                         <span class="icon-button__badge">2+</span>
                     </button>
-                    <div class="vertical"></div>
+                    <div class="ve rtical"></div>
                     <div class="user-login">
                         <span class="user-login">Hans Entertainment</span>
                         <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt=""
@@ -95,16 +137,127 @@
 
                 <div class="mCS-left-container  box-layout">
 
-                    <div class="chart-container">
+                    
                         <canvas id="doughnut-chart"></canvas>
-                    </div>
+                    
                 </div>
                 <div class="mCS-middle-container box-layout">
                     <div class="mCS-improvment-suggestions mCS-child">test</div>
-                                   
+
                 </div>
                 <div class="mCS-right-container box-layout">
-                    <div class="mCS-comparison-area mCS-child">test</div>
+                    <div class="mCS-comparison-area mCS-child">
+
+                        <!-- inspired by http://colorhunt.co/c/8184 and 
+                          https://dribbble.com/shots/2407357-Calendar%60 -->
+                      
+                          <div class="container">
+                            <div class="calendar">
+                              <div class="front">
+                                
+                      
+                                <div class="current-month">
+                                  <ul class="week-days">
+                                    <li>MON</li>
+                                    <li>TUE</li>
+                                    <li>WED</li>
+                                    <li>THU</li>
+                                    <li>FRI</li>
+                                    <li>SAT</li>
+                                    <li>SUN</li>
+                                  </ul>
+                      
+                                  <div class="weeks">
+                                    <div class="first">
+                                      <span class="last-month">28</span>
+                                      <span class="last-month">29</span>
+                                      <span class="last-month">30</span>
+                                      <span class="last-month">31</span>
+                                      <span>01</span>
+                                      <span>02</span>
+                                      <span>03</span>
+                                    </div>
+                      
+                                    <div class="second">
+                                      <span>04</span>
+                                      <span>05</span>
+                                      <span class="event">06</span>
+                                      <span>07</span>
+                                      <span>08</span>
+                                      <span>09</span>
+                                      <span>10</span>
+                                    </div>
+                      
+                                    <div class="third">
+                                      <span>11</span>
+                                      <span>12</span>
+                                      <span>13</span>
+                                      <span>14</span>
+                                      <span class="active">15</span>
+                                      <span>16</span>
+                                      <span>17</span>
+                                    </div>
+                      
+                                    <div class="fourth">
+                                      <span>18</span>
+                                      <span>19</span>
+                                      <span>20</span>
+                                      <span>21</span>
+                                      <span>22</span>
+                                      <span>23</span>
+                                      <span>24</span>
+                                    </div>
+                      
+                                    <div class="fifth">
+                                      <span>25</span>
+                                      <span>26</span>
+                                      <span>27</span>
+                                      <span>28</span>
+                                      <span>29</span>
+                                      <span>30</span>
+                                      <span>31</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                      
+                              <div class="back">
+                                <input placeholder="What's the event?">
+                                <div class="info">
+                                  <div class="date">
+                                    <p class="info-date">
+                                    Date: <span>Jan 15th, 2016</span>
+                                    </p>
+                                    <p class="info-time">
+                                      Time: <span>6:35 PM</span>
+                                    </p>
+                                  </div>
+                                  <div class="address">
+                                    <p>
+                                      Address: <span>129 W 81st St, New York, NY</span>
+                                    </p>
+                                  </div>
+                                  <div class="observations">
+                                    <p>
+                                      Observations: <span>Be there 15 minutes earlier</span>
+                                    </p>
+                                  </div>
+                                </div>
+                      
+                                <div class="actions">
+                                  <button class="save">
+                                    Save <i class="ion-checkmark"></i>
+                                  </button>
+                                  <button class="dismiss">
+                                    Dismiss <i class="ion-android-close"></i>
+                                  </button>
+                                </div>
+                              </div>
+                      
+                            </div>
+                          </div>
+                      
+                      </div>
                 </div>
 
             </div>
@@ -112,9 +265,9 @@
                 <h2> Overview</h2>
                 <div class="mM-insights-pillars">
 
-                    <!--BEGINNING OF ENVIROMENTAL PILLAR-->
+                    <!--BEGINNING OF EU Taxonomy PILLAR-->
 
-                    <div class="mMI-enviroment box-layout">
+                    <div id="active" class="mMI-taxonomy box-layout pillar">
                         <span class="material-symbols-outlined">
                             eco
                         </span>
@@ -134,12 +287,95 @@
 
                             </div>
                         </div>
+                        
+                    </div>
+                    <!--END OF EU Taxonomy PILLAR-->
 
+                    <!--BEGINNING OF csrd PILLAR-->
+                    <div class="mMI-csrd box-layout pillar">
+                        <div class="ribbon">
+                            <span class="rib-span">Soon</span>
+                        </div>
+                        <span class="material-symbols-outlined">
+                            gavel
+                        </span>
+
+                        <div class="mMIG-content-area">
+                            <div class="mMIGC-text-area">
+                                <h3>Corporate sustainability reporting (CSRD)</h3>
+                                <h1>- / -</h1>
+                            </div>
+                            <div class="mMIGC-progress-chart progress-chart">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36">
+
+                                    </circle>
+                                    <div class="mMIEGP-number">
+                                        <p>80%</p>
+                                    </div>
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--END OF csrd PILLAR-->
+
+                    <!--BEGINNING OF csddd PILLAR-->
+                    <div class="mMI-csddd box-layout pillar">
+                        <div class="ribbon">
+                            <span class="rib-span">Soon</span>
+                        </div>
+                        <span class="material-symbols-outlined">
+                            handshake
+                        </span>
+
+                        <div class="mMIS-content-area">
+                            <div class="mMISC-text-area">
+                                <h3>CSDDD</h3>
+                                <h1>- / -</h1>
+                            </div>
+                            <div class="mMISC-progress-chart progress-chart">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36">
+
+                                    </circle>
+                                    <div class="mMISCP-number">
+                                        <p>80%</p>
+                                    </div>
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!--BEGINNING OF Sub Pillars-->
+                    <div class="mMI-enviroment box-layout sub-pillar inactive">
+                        <span class="material-symbols-outlined">
+                            eco
+                        </span>
+
+                        <div class="mMIE-content-area">
+                            <div class="mMIEC-text-area">
+                                <h3>EU Taxonomy</h3>
+                                <h1>24 / 30</h1>
+                            </div>
+                            <div class="mMIEC-progress-chart progress-chart">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="mMIEC-progress-number">
+                                    <p> 80%</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        
                     </div>
                     <!--END OF ENVIROMENTAL PILLAR-->
 
                     <!--BEGINNING OF GOVERNANCE PILLAR-->
-                    <div class="mMI-governance box-layout">
+                    <div class="mMI-governance box-layout sub-pillar inactive">
                         <span class="material-symbols-outlined">
                             gavel
                         </span>
@@ -165,7 +401,7 @@
                     <!--END OF GOVERNANCE PILLAR-->
 
                     <!--BEGINNING OF SOCIAL PILLAR-->
-                    <div class="mMI-social box-layout">
+                    <div class="mMI-social box-layout sub-pillar inactive">
                         <span class="material-symbols-outlined">
                             handshake
                         </span>
@@ -188,7 +424,7 @@
                         </div>
 
                     </div>
-                    
+
 
                 </div>
 
@@ -263,7 +499,10 @@
 
 </body>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/Script/dashboard.js"></script>
+<script src="/Script/calender.js"></script>
+<script src="/Script/sidebarHandling.js"></script>
 
 
 </html>

@@ -20,9 +20,13 @@ warningTags.forEach((tag) => {
 const col = [
   
   
-  "#CE5959",
-  "#ffbb55",
-  "#7D9177"];
+  getComputedStyle(document.documentElement)
+    .getPropertyValue('--red-color'),
+    getComputedStyle(document.documentElement)
+    .getPropertyValue('--warning-color'),
+  getComputedStyle(document.documentElement)
+    .getPropertyValue('--main-color')
+  ];
 
 
 const data = {
@@ -35,7 +39,7 @@ const data = {
     circumference: 180,
     rotation: 270,
     cutout: "85%",
-    needleValue: 0,
+    needleValue: 75,
     borderRadius: 30
   }]
 };
@@ -151,3 +155,26 @@ const myChart = new Chart(
   config
 );
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  expandPillar();
+});
+
+
+function expandPillar() {
+  var gridContainer = document.getElementById("active");
+  var targetElements = Array.from(document.getElementsByClassName("sub-pillar"));
+  console.log("test;");
+  gridContainer.addEventListener('click', () => {
+    targetElements.forEach(element => {
+      element.classList.toggle("inactive");
+      
+    });
+  });
+
+
+
+    
+  
+  
+}
