@@ -69,8 +69,8 @@
                 <h2>Lieferketten Gesetz</h2>
                 <div class="rTH-LinkList">
                     <p class="rTH-element rTH-element-active" onclick="selectTab('rOverview', this)">Overview</p>
-                    <p class="rTH-element">Deep dive</p>
-                    <p class="rTH-element">Risk analysis</p>
+                    <p class="rTH-element" onclick="selectTab('rDeepDive', this)">Deep dive</p>
+                    <p class="rTH-element" onclick="selectTab('rRiskAssesment', this)">Risk analysis</p>
                     <p class="rTH-element" onclick="selectTab('rChecklist', this)">Checklist</p>
                     <p class="rTH-element" onclick="selectTab('rUpdates', this)">Updates</p>
                     <p class="rTH-element" onclick="selectTab('rForum', this)">Forum</p>
@@ -94,7 +94,7 @@
                     <div class="tooltip">Deadline: 31.06.2023</div>
                 </div>
                 <div class="rRQ-element rRQE-risk">
-                    <img src="/IMG/exclamationmark.triangle.png" alt="">
+                    <img src="/IMG/exclamationmark.triangle.black.png" alt="">
                     <div class="tooltip">High risk</div>
                 </div>
                 <div class="rRQ-element rRQE-voluntary">
@@ -109,13 +109,16 @@
                     </div>
                     <h2>Overview</h2>
                 </div>
-                <p>The EU Whistleblower Directive was adopted to strengthen legal protections for whistleblowers across the European
+                <div id="OverviewText">
+                    The EU Whistleblower Directive was adopted to strengthen legal protections for whistleblowers across the European
                     Union.
                     It is designed to protect those who report breaches of EU law in a work-related context from retaliation. The
                     directive
                     covers a wide range of areas, including public procurement, financial services, money laundering, product and
                     transport
-                    safety, nuclear safety, public health, consumer and data protection, and more.</p>
+                    safety, nuclear safety, public health, consumer and data protection, and more.
+                </div>
+                <p></p>
             </div>
             <div class="rElement">
                 <div class="rE-Head">
@@ -124,51 +127,9 @@
                     </div>
                     <h2>Updates</h2>
                 </div>
-                <div class="uTimelineSpace">
-                    <div class="uT-updates">
-                        <div class="uTU-element">
-                            <div class="uTUE-date">
-                                <div>23 Jun</div>
-                                <div>2023</div>
-                            </div>
-                            <div class="uTUE-line"></div>
-                            <div class="uTUE-dot"></div>
-                            <div class="uTUE-contentBack">
-                                <div class="uTUE-content">
-                                    <p>Tightening</p>
-                                    <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                                    <div>more info</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uT-updates">
-                        <div class="uTU-element">
-                            <div class="uTUE-date">
-                                <div>23 Jun</div>
-                                <div>2023</div>
-                            </div>
-                            <div class="uTUE-line"></div>
-                            <div class="uTUE-dot"></div>
-                            <div class="uTUE-contentBack">
-                                <div class="uTUE-content">
-                                    <p>Tightening</p>
-                                    <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="uTimelineSpace" id="OverviewTimeLine">
+                    <div>There are no updates</div>
                 
-                </div>
-                <div class="rE-Update" style="display: none;">
-                    <div class="rEU-Element">
-                        <div>31.05.2023</div>
-                        <p>From 2024 onwards this regulation does also effect companies with 1000 employes</p>
-                    </div>
-                    <div class="rEU-Element">
-                        <div>31.05.2023</div>
-                        <p>From 2024 onwards this regulation does also effect companies with 1000 employes</p>
-                    </div>
                 </div>
             </div>
             <div class="rElement">
@@ -178,42 +139,13 @@
                     </div>
                     <h2>Checklist</h2>
                 </div>
-                <div class="cList" onclick="checkCheckBox('Internal')">
-                    <div class="cL-element">
-                        <div class="cLE-checkbox">
-                            <input type="checkbox" name="Internal" id="Itm1">
-                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                            <div class="cLEC-cover"></div>
-                            <label for="Itm1"></label>
-                        </div>
-                        <label class="cLE-label" for="Itm1">Check Suppliers</label>
+                <div class="checklistInOverview">
+
+                    <div class="circCheck" id="CircCheck">
+    
                     </div>
-                    <div class="cL-element">
-                        <div class="cLE-checkbox">
-                            <input type="checkbox" name="Internal" id="Itm2">
-                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                            <div class="cLEC-cover"></div>
-                            <label for="Itm2"></label>
-                        </div>
-                        <label class="cLE-label" for="Itm2">Check Suppliers</label>
-                    </div>
-                    <div class="cL-element">
-                        <div class="cLE-checkbox">
-                            <input type="checkbox" name="Internal" id="Itm3">
-                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                            <div class="cLEC-cover"></div>
-                            <label for="Itm3"></label>
-                        </div>
-                        <label class="cLE-label" for="Itm3">Check Suppliers</label>
-                    </div>
-                    <div class="cL-element">
-                        <div class="cLE-checkbox">
-                            <input type="checkbox" name="Internal" id="Itm4">
-                            <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                            <div class="cLEC-cover"></div>
-                            <label for="Itm4"></label>
-                        </div>
-                        <label class="cLE-label" for="Itm4">Check Suppliers</label>
+                    <div class="cList" name="OverviewChecklist" style="margin-top: 0;">
+                        
                     </div>
                 </div>
             </div>
@@ -230,68 +162,8 @@
                         <div>Create thread</div>
                     </div>
                 </div>
-                <div class="rF-Thread" onclick="openThread('LieferkettenThread')">
-                    <div class="rFT-Left">
-                        <div class="rFTL-AnsweredNot">
-                            
-                            <p>9 answers</p>
-                        </div>
-                        <div class="rFTL-Stat">
-                            <img src="/IMG/person.2.fill.png" alt="">
-                            <p>10 members</p>
-                        </div>
-                        <div class="rFTL-Stat">
-                            <img src="/IMG/heart.fill.png" alt="">
-                            <p>100 likes</p>
-                        </div>
-                    </div>
-                    <div class="rFT-right">
-                        <h2>How do I implement the Lieferketten Gesetz</h2>
-                        <p>I am wondering how to implement it in this industry..</p>
-                        <div>
-                            <div class="rFTR-subleft">
-                                <div>Industry</div>
-                            </div>
-                            <div class="rFTR-subright">
-                                <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="">
-                                <div>Leo <strong>from</strong> Littlefoot AG</div>
-                                <p>asked Jun 4, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rF-Thread">
-                    <div class="rFT-Left">
-                        <div class="rFTL-Answered">
-                            <img src="/IMG/checkmark.png" alt="">
-                            <p>2 answers</p>
-                        </div>
-                        <div class="rFTL-Stat">
-                            <img src="/IMG/person.2.fill.png" alt="">
-                            <p>15 members</p>
-                        </div>
-                        <div class="rFTL-Stat">
-                            <img src="/IMG/heart.fill.png" alt="">
-                            <p>69 likes</p>
-                        </div>
-                    </div>
-                    <div class="rFT-right">
-                        <h2>How do I implement the Lieferketten Gesetz</h2>
-                        <p>I am wondering how to implement it in this industry..</p>
-                        <div>
-                            <div class="rFTR-subleft">
-                                <div>Industry</div>
-                            </div>
-                            <div class="rFTR-subright">
-                                <img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="">
-                                <div>Leo <strong>from</strong> Littlefoot AG</div>
-                                <p>asked Jun 4, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="rF-tab tab-to-right" name="LieferkettenThread" style="display: none;">
+            <div class="rF-tab tab-to-right" name="LieferkettenThread" style="display: none; height: auto;">
                 <div class="rF-ForumHead">
                     <div class="rFF-back">
                         <img src="/IMG/arrow.left.png" alt="" onclick="leaveThread('LieferkettenThread')">
@@ -348,8 +220,7 @@
                 </div>
                 <div class="thread-message-spacer" style="flex: 1;"></div>
                 <div class="thread-Message-Bottom">
-                    <div class="cBB-Input" contenteditable="true" id="ChatInput" onblur="clearPlaceholder('lost', this)"
-                        onfocus="clearPlaceholder('active', this)">Ask us anything..</div>
+                    <div class="cBB-Input" contenteditable="true" onfocus="clearPlaceholder('active', this)">Type...</div>
                     <div class="cBB-Send" onclick="sendMessage()">
                         <img src="/IMG/paperplane.png" alt="">
                     </div>
@@ -358,187 +229,29 @@
         </div>
         <div class="rBack rUpdates ">
             <div class="uHeader">Recent Updates</div>
-            <div class="uTimelineSpace">
-                <div class="uT-updates">
-                    <div class="uTU-element">
-                        <div class="uTUE-date">
-                            <div>23 Jun</div>
-                            <div>2023</div>
-                        </div>
-                        <div class="uTUE-line"></div>
-                        <div class="uTUE-dot"></div>
-                        <div class="uTUE-contentBack">
-                            <div class="uTUE-content">
-                                <p>Tightening</p>
-                                <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                                <div>more info</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="uT-updates">
-                    <div class="uTU-element">
-                        <div class="uTUE-date">
-                            <div>23 Jun</div>
-                            <div>2023</div>
-                        </div>
-                        <div class="uTUE-line"></div>
-                        <div class="uTUE-dot"></div>
-                        <div class="uTUE-contentBack">
-                            <div class="uTUE-content">
-                                <p>Tightening</p>
-                                <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="uHeader" style="margin-top: 60px;">Other Updates</div>
-            <div class="uTimelineSpace">
-                <div class="uT-updates">
-                    <div class="uTU-element">
-                        <div class="uTUE-date">
-                            <div>23 Jun</div>
-                            <div>2022</div>
-                        </div>
-                        <div class="uTUE-line"></div>
-                        <div class="uTUE-dot"></div>
-                        <div class="uTUE-contentBack">
-                            <div class="uTUE-content">
-                                <p>Loosening</p>
-                                <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                                <div>more info</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="uT-updates">
-                    <div class="uTU-element">
-                        <div class="uTUE-date">
-                            <div>23 Jun</div>
-                            <div style="color: #957592;">2021</div>
-                        </div>
-                        <div class="uTUE-line"></div>
-                        <div class="uTUE-dot" style="background-color: #957592;"></div>
-                        <div class="uTUE-contentBack">
-                            <div class="uTUE-content">
-                                <p style="color: #957592;">Tightening</p>
-                                <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="uT-updates">
-                    <div class="uTU-element">
-                        <div class="uTUE-date">
-                            <div>23 Jun</div>
-                            <div style="color: #9d809a;">2021</div>
-                        </div>
-                        <div class="uTUE-line"></div>
-                        <div class="uTUE-dot" style="background-color: #9d809a;"></div>
-                        <div class="uTUE-contentBack">
-                            <div class="uTUE-content">
-                                <p style="color: #9d809a;">Tightening</p>
-                                <div>oinwec oweinfw oiwc peifgnv apoidmc fiv wpeimw oinvfoinws pweorw.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="uTimelineSpace" id="MainTimeLine">
+                <div>There are no updates</div>
                 
             </div>
         </div>
         <div class="rBack rChecklist ">
-            <div class="cHeader">
-                <p>Internal</p>
-                <div class="cProgress">
-                    <div class="cP-track"></div>
-                    <div class="cP-bar" id="CheckInternalBar"></div>
+        </div>
+        <div class="rBack rDeepDive">
+        </div>
+        <div class="rBack rRiskAssesment">
+        </div>
+        <div class="rBack rLoading tabActive">
+            <div class="lBox">
+                <div class="container">
+                    <div class="dash uno"></div>
+                    <div class="dash dos"></div>
+                    <div class="dash tres"></div>
+                    <div class="dash cuatro"></div>
                 </div>
-                <div class="cProgressNumber" id="CheckInternalNumber">0%</div>
-            </div>
-            <div class="cList" onclick="checkCheckBox('Internal')">
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Internal" id="GItm1">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="GItm1"></label>
-                    </div>
-                    <label class="cLE-label" for="GItm1">Check Suppliers</label>
-                </div>
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Internal" id="GItm2">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="GItm2"></label>
-                    </div>
-                    <label class="cLE-label" for="GItm2">Check Suppliers</label>
-                </div>
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Internal" id="GItm3">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="GItm3"></label>
-                    </div>
-                    <label class="cLE-label" for="GItm3">Check Suppliers</label>
-                </div>
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Internal" id="GItm4">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="GItm4"></label>
-                    </div>
-                    <label class="cLE-label" for="GItm4">Check Suppliers</label>
-                </div>
-            </div>
-            <div class="cHeader">
-                <p>Suppliers</p>
-                <div class="cProgress">
-                    <div class="cP-track"></div>
-                    <div class="cP-bar" id="CheckSuplierBar"></div>
-                </div>
-                <div class="cProgressNumber" id="CheckSuplierNumber">0%</div>
-            </div>
-            <div class="cList" onclick="checkCheckBox('Suplier')">
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Suplier" id="SItm1">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="SItm1"></label>
-                    </div>
-                    <label class="cLE-label" for="SItm1">Check Suppliers</label>
-                </div>
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Suplier" id="SItm2">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="SItm2"></label>
-                    </div>
-                    <label class="cLE-label" for="SItm2">Check Suppliers</label>
-                </div>
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Suplier" id="SItm3">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="SItm3"></label>
-                    </div>
-                    <label class="cLE-label" for="SItm3">Check Suppliers</label>
-                </div>
-                <div class="cL-element">
-                    <div class="cLE-checkbox">
-                        <input type="checkbox" name="Suplier" id="SItm4">
-                        <img src="/IMG/checkmark.png" alt="" class="cLEC-img">
-                        <div class="cLEC-cover"></div>
-                        <label for="SItm4"></label>
-                    </div>
-                    <label class="cLE-label" for="SItm4">Check Suppliers</label>
+                <div class="lB-header">Loading Directive</div>
+                <div class="lb-loadingbar">
+                    <div class="lbl-track"></div>
+                    <div class="lbl-bar" id="LoadingBar"></div>
                 </div>
             </div>
         </div>
