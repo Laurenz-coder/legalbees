@@ -123,11 +123,11 @@ let month = ["Jan","Feb","Mar","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 let allelements = 9;
 var loaded = 0;
 
-function loadThreads() {
+function loadThreads(directive) {
 
     var message = [{
         "role": "user",
-        "content": 'You are asking five different forum thread questions regarding CSRD. Provide the answer in a JSON array. It should include a question and a short summary of the question. Use a maximum of six words for the summary. The question should be two sentences. The questions should address implementation and risks. Do not ask simple questions. Do not use single quotes or apostrophes'
+        "content": 'You are asking five different forum thread questions regarding ' + directive + '. Provide the answer in a JSON array. It should include a question and a short summary of the question. Use a maximum of six words for the summary. The question should be two sentences. The questions should address implementation and risks. Do not ask simple questions. Do not use single quotes or apostrophes'
     }]
 
 
@@ -189,7 +189,7 @@ function loadThreads() {
         }
         console.log(JSON.parse(res));
         loaded++;
-        updatedLoader();
+        updatedLoader(directive);
         // messagehist.push(result.choices[0].message);
     })
 
@@ -198,11 +198,11 @@ function loadThreads() {
 // number of elements in checklist checked
 var numtotal = 0;
 var numchecked = 0;
-function loadChecklist(secondtime) {
+function loadChecklist(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'Can you create a checklist for the CSRD and provide the answer in a structured JSON array? It should have the variable category and list. Every list should contain an array of 5 elements. Each element is a string which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories. the JSON object must be complete'
+        "content": 'Can you create a checklist for the ' + directive + ' ESG directive and provide the answer in a structured JSON array? It should have the variable category and list. Every list should contain an array of 5 elements. Each element is a string which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories. the JSON object must be complete'
     }]
 
 
@@ -281,15 +281,15 @@ function loadChecklist(secondtime) {
             console.log(JSON.parse(res));
             loaded++;
             loadOverviewChecklist(Math.round(numchecked/numtotal*100));
-            updatedLoader();
+            updatedLoader(directive);
         } catch (error) {
             console.log(error)
             if (secondtime != undefined) {
-                loadChecklist(true);
+                loadChecklist(directive, true);
             } else {
                 console.log('second time failed with checklist')
                 loaded++;
-                updatedLoader();
+                updatedLoader(directive);
             }
             return;
         }
@@ -297,11 +297,11 @@ function loadChecklist(secondtime) {
     })
 
 }
-function loadUpdates() {
+function loadUpdates(directive) {
 
     var message = [{
         "role": "user",
-        "content": 'give a list of recent changes the directive CSRD in a JSON array. it should contain the variable date in the format DD:MM:YYYY. It should also contain the variable message. This should describe the update in 1 to 3 words. It should also contain the variable update which describes the actual updates in two sentences.'
+        "content": 'give a list of recent changes the directive ' + directive + ' in a JSON array. it should contain the variable date in the format DD:MM:YYYY. It should also contain the variable message. This should describe the update in 1 to 3 words. It should also contain the variable update which describes the actual updates in two sentences.'
     }]
 
 
@@ -370,17 +370,17 @@ function loadUpdates() {
             count++;
         }
         loaded++;
-        updatedLoader();
+        updatedLoader(directive);
         console.log(resobj);
         // messagehist.push(result.choices[0].message);
     })
 
 }
-function loadRisks(secondtime) {
+function loadRisks(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'Can you create a list of potential risks for the CSRD and provide the answer in a structured JSON format? The list of potential risks should be structured in the following way: It should have as many sections as there are potential risks in total, but it should have at least 4 different risks. Every section should be structured in the following way: It should include a brief description with one sentence, a quantification of the financial sanctions/fees if a company does not comply with the CSRD, and a short title with 1 - 3 words? Please provide the information in a JSON format, where the short title with 1 - 3 words follows the variable "title:", the brief description follows the variable "brief description:" and the quantification of the financial risks that follow after the variable "financial risk:" and estimate the monetary amount for each risk.'
+        "content": 'Can you create a list of potential risks for the ' + directive + ' directive and provide the answer in a structured JSON format? The list of potential risks should be structured in the following way: It should have as many sections as there are potential risks in total, but it should have at least 4 different risks. Every section should be structured in the following way: It should include a brief description with one sentence, a quantification of the financial sanctions/fees if a company does not comply with the CSRD, and a short title with 1 - 3 words? Please provide the information in a JSON format, where the short title with 1 - 3 words follows the variable "title:", the brief description follows the variable "brief description:" and the quantification of the financial risks that follow after the variable "financial risk:" and estimate the monetary amount for each risk.'
     }]
 
 
@@ -439,7 +439,7 @@ function loadRisks(secondtime) {
     
             }
             loaded++;
-            updatedLoader();
+            updatedLoader(directive);
             
         } catch (error) {
             console.log(error)
@@ -456,11 +456,11 @@ function loadRisks(secondtime) {
     })
 
 }
-function loadDeepDive(secondtime) {
+function loadDeepDive(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'give a deep dive for CSRD.'
+        "content": 'give a deep dive for the ' + directive + ' directive.'
     }]
 
     var functions = [
@@ -654,16 +654,16 @@ function loadDeepDive(secondtime) {
                     elem.innerHTML += "not implemented get timeline";
                 }
                 loaded++;
-                updatedLoader();
+                updatedLoader(directive);
                 
             } catch (error) {
                 console.log(error)
                 if (secondtime != undefined) {
-                    loadDeepDive(true);
+                    loadDeepDive(directive, true);
                 } else {
                     console.log('second time failed with deepdive')
                     loaded++;
-                    updatedLoader();
+                    updatedLoader(directive);
                 }
                 return;
             }
@@ -672,11 +672,11 @@ function loadDeepDive(secondtime) {
 
 
 }
-function loadDeadline(secondtime) {
+function loadDeadline(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'give details for CSRD.'
+        "content": 'give details for the ' + directive +' directive.'
     }]
 
     var functions = [
@@ -763,16 +763,16 @@ function loadDeadline(secondtime) {
                     break;
             }
             loaded++;
-            updatedLoader();
+            updatedLoader(directive);
             
         } catch (error) {
             console.log(error)
             if (secondtime != undefined) {
-                loadDeadline(true);
+                loadDeadline(directive,true);
             } else {
                 console.log('second time failed with deadline')
                 loaded++;
-                updatedLoader();
+                updatedLoader(directive);
             }
             return;
         }
@@ -860,26 +860,26 @@ async function loadForum(summary, question) {
 
 }
 
-function loadAll() {
+function loadAll(directive) {
     var fromstorage = JSON.parse(localStorage.getItem('loadedsites'));
     if (fromstorage != undefined) {
         loadedsites = fromstorage;
         for (let el of loadedsites) {
-            if (el.directive == 'CSRD') {
+            if (el.directive == directive) {
                 document.getElementsByClassName('mMainContent')[0].innerHTML = el.site;
                 numchecked = el.numchecked;
                 numtotal = el.numtotal;
+                console.log("%cDirective has already been loaded", "color: #7D9177; font-size: 20px;");
+                return;
             }
         }
-        console.log("%cDirective has already been loaded", "color: #7D9177; font-size: 20px;");
-        return;
     }
-    loadThreads();
-    loadUpdates();
-    loadChecklist();
-    loadDeadline();
-    loadDeepDive();
-    loadRisks();
+    loadThreads(directive);
+    loadUpdates(directive);
+    loadChecklist(directive);
+    loadDeadline(directive);
+    loadDeepDive(directive);
+    loadRisks(directive);
 }
 
 function updatedLoader() {

@@ -49,16 +49,22 @@ class Question {
     }
 }
 
-let q1 = new Question('rating','Are you interested in ESG?','general','q1');
-let q2 = new Question('rating','Hello?','general','q2');
-let q3 = new Question('rating','Hello?C','company','q3');
-let q4 = new Question('custom','How many employees do you have in germany?','company','q4');
-q4.custom_answer = ['10-25','25-100','100-250','250-1000','>1000'];
-let q5 = new Question('slider','What is your yearly turnover?','company','q5');
-q5.min = 0;
-q5.max = 500;
+let q1 = new Question('custom','Where is your copmany based?','general','q1');
+q1.custom_answer = ['European Union','Outside of the European Union'];
+let q2 = new Question('slider','What is your yearly turnover in the EU?','general','q2');
+q2.min = 0; q2.max = 1000;
+let q3 = new Question('custom','Do you offer financial products in the EU?','general','q2');
+q3.custom_answer = ['Yes','No'];
+let q4 = new Question('custom','Do you have a subsidary based in the EU with a yearly turnover of more than 40 million €?','general','q3');
+q4.custom_answer = ['Yes','No'];
+let q5 = new Question('custom','How many employees do you have?','company','q4');
+q5.custom_answer = ['<250','251-500','501-3000','>3000'];
+let q6 = new Question('slider','What is your yearly turnover?','company','q5');
+q6.min = 0; q6.max = 1000;
+let q7 = new Question('slider','How large is your balance sheet?','company','q6');
+q7.min = 0; q7.max = 1000;
 
-let questions = [q1,q2,q3,q4,q5];
+let questions = [q1,q2,q3,q4,q5,q6,q7];
 
 var currentpage = 0;
 var numGeneral = 0;
@@ -109,6 +115,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+var directives = [];
 /**
  * click on button next to get next question
  * @param {HTMLElement} elem reference to itself
@@ -119,7 +126,45 @@ async function clickNext(elem) {
     if (elem.getAttribute('class').includes('deactivate')) {
         return
     }
-    if (currentpage == questions.length-1) return
+    console.log(questions[currentpage].option);
+    if (questions[currentpage].option == 0) currentpage++;
+    if (currentpage == questions.length-1) {
+        //check directives that apply
+        //CSRD
+        var sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if ((questions[0].option == 0 && sufficiance > 1) || (questions[0].option == 1 && (Number(questions[1].option) >= 150 || questions[3].option == 0))) directives.push('CSRD');
+        //CSDD
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) directives.push('Corporate Sustainability Due Diligence Directive');
+        //ESRS
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) directives.push('European Sustainability Reporting Standards');
+        //Supply chain act
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) directives.push('Supply Chain Act');
+        //EU Taxonomy
+        if ((questions[0].option == 0 && questions[4].option > 1) || (questions[0].option == 1 && questions[2].option == 0)) directives.push('Supply Chain Act');
+        //EU Taxonomy Future
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) directives.push('EU Taxonomy Future');
+
+        console.log(directives)
+        return
+    }
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
     await sleep(400);
     document.getElementById('QMain').innerHTML = '';
@@ -156,6 +201,9 @@ async function clickBack() {
     await sleep(400);
     document.getElementById('QMain').innerHTML = '';
     currentpage--;
+    if (currentpage != 0) {
+        if (questions[currentpage-1].option == 0) currentpage--;
+    }
     console.log(currentpage)
     console.log(numGeneral)
     // decreases progress bar
@@ -170,6 +218,9 @@ async function clickBack() {
         document.getElementById('QS-Bar2').style.width = ((currentpage - numGeneral)/numCompany * 100) + '%'
     }
     document.getElementById('QMain').innerHTML = questions[currentpage].getHTML();
+    if (questions[currentpage].type == 'slider') {
+        activateSlider();
+    }
     checkNextButton();
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
     await sleep(10);
@@ -183,7 +234,7 @@ async function clickBack() {
 function activateSlider() {
     document.getElementsByClassName('qMSlider')[0].oninput = function() {
         document.getElementsByClassName('qMInput')[0].value = document.getElementsByClassName('qMSlider')[0].value;
-        questions[currentpage].option = document.getElementsByClassName('qMSlider')[0].value + ' mio €';
+        questions[currentpage].option = document.getElementsByClassName('qMSlider')[0].value;
         const tempSliderValue = document.getElementsByClassName('qMSlider')[0].value; 
         const progress = (tempSliderValue / document.getElementsByClassName('qMSlider')[0].max) * 100;
         document.getElementsByClassName('qMSlider')[0].style.background = `linear-gradient(to right, #7AA874 ${progress}%, #ccc ${progress}%)`;
@@ -191,7 +242,7 @@ function activateSlider() {
     }
     document.getElementsByClassName('qMInput')[0].oninput = function() {
         document.getElementsByClassName('qMSlider')[0].value = document.getElementsByClassName('qMInput')[0].value;
-        questions[currentpage].option = document.getElementsByClassName('qMInput')[0].value + ' mio €';
+        questions[currentpage].option = document.getElementsByClassName('qMInput')[0].value;
         const tempSliderValue = document.getElementsByClassName('qMInput')[0].value; 
         const progress = (tempSliderValue / document.getElementsByClassName('qMSlider')[0].max) * 100;
         document.getElementsByClassName('qMSlider')[0].style.background = `linear-gradient(to right, #7AA874 ${progress}%, #ccc ${progress}%)`;
