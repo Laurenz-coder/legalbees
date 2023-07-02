@@ -15,3 +15,8 @@ var loadedsites = [{
     numtotal: 30, //all checklist items
     site: "string" // irrelevant
     }];
+
+/**
+ * directives that apply for a company
+ */
+var directives = ['Corporate Sustainability Due Diligence Directive','CSRD','European Sustainability Reporting Standards','Supply Chain Act','EU Taxonomy'];

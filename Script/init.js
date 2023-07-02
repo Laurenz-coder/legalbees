@@ -115,7 +115,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var directives = [];
+
 /**
  * click on button next to get next question
  * @param {HTMLElement} elem reference to itself
