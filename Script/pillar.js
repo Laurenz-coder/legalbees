@@ -6,7 +6,7 @@ function getScrollProgress() {
     const winHeight = document.getElementById("ScrollContainer").scrollHeight - document.getElementById("ScrollContainer").clientHeight;
     const scrolled = (winScroll / winHeight) * 100;
     document.getElementById("ScrollIndicator").style.height = scrolled + "%";
-  }
+}
 
 //  document.getElementById("ScrollContainer").onscroll = function() {getScrollProgress()};
 
@@ -118,7 +118,7 @@ var issuer =  [
     },
 ]
 
-let month = ["Jan","Feb","Mar","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+let month = ["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 let allelements = 9;
 var loaded = 0;
@@ -242,6 +242,7 @@ function loadChecklist(directive, secondtime) {
             res = res.split(",\n   }").join('}');
             res = res.split('"\n      "').join('","');
             res = res.split('Checklist').join('checklist');
+            res = res.split('categories').join('checklist');
             res = res.split('Checkpoint').join('checkpoint');
             res = res.split("```").join('');
             res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
@@ -342,9 +343,12 @@ function loadUpdates(directive) {
         res = res.split('link :').join('"link" :');
         res = res.split('link:').join('"link" :');
         res = res.split('update:').join('"update" :');
-        res = res.split('-').join(':');
+        res = res.split(/(\d+-\d+)/g).join(':');
         res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
         res = res.split("```").join('');
+        res = res.split('[')[1];
+        res = res.split(']')[0];
+        res = '[' + res + ']';
         console.log(res);
         var resobj = JSON.parse(res);
         if (resobj.changes != undefined) {
@@ -651,7 +655,7 @@ function loadDeepDive(directive, secondtime) {
                     str += '</div>'
                     elem.innerHTML += str;
                 } else {
-                    elem.innerHTML += "not implemented get timeline";
+                    //elem.innerHTML += "not implemented get timeline";
                 }
                 loaded++;
                 updatedLoader(directive);
@@ -672,7 +676,7 @@ function loadDeepDive(directive, secondtime) {
 
 
 }
-function loadDeadline(directive, secondtime) {
+function loadDeadline(directive, future, secondtime) {
 
     var message = [{
         "role": "user",
@@ -740,6 +744,9 @@ function loadDeadline(directive, secondtime) {
             var answer = JSON.parse(result.choices[0].message.function_call.arguments);
             document.getElementsByClassName('rQE-deadline')[0].children[1].innerHTML = answer.deadline;
             document.getElementsByClassName('rQE-deadline')[0].children[2].innerHTML = 'Deadline: ' + answer.deadline;
+            if (!future) {
+                document.getElementsByClassName('rRQ-Info')[0].style.display = 'none';
+            }
             if (!answer.voluntary) {
                 document.getElementsByClassName('rRQE-voluntary')[0].style.display = 'none';
     
@@ -768,7 +775,7 @@ function loadDeadline(directive, secondtime) {
         } catch (error) {
             console.log(error)
             if (secondtime != undefined) {
-                loadDeadline(directive,true);
+                loadDeadline(directive, future,true);
             } else {
                 console.log('second time failed with deadline')
                 loaded++;
@@ -860,12 +867,12 @@ async function loadForum(summary, question) {
 
 }
 
-function loadAll(directive) {
+function loadAll(directive, future) {
     var fromstorage = JSON.parse(localStorage.getItem('loadedsites'));
     if (fromstorage != undefined) {
         loadedsites = fromstorage;
         for (let el of loadedsites) {
-            if (el.directive == directive) {
+            if ((el.directive.toLowerCase() == directive.toLowerCase() || el.directive.toLowerCase() == directive.toLowerCase() + ' future') && el.site != "string") {
                 document.getElementsByClassName('mMainContent')[0].innerHTML = el.site;
                 numchecked = el.numchecked;
                 numtotal = el.numtotal;
@@ -877,23 +884,26 @@ function loadAll(directive) {
     loadThreads(directive);
     loadUpdates(directive);
     loadChecklist(directive);
-    loadDeadline(directive);
+    loadDeadline(directive, future);
     loadDeepDive(directive);
     loadRisks(directive);
 }
 
-function updatedLoader() {
+function updatedLoader(directive) {
     document.getElementById('LoadingBar').style.width = Math.round(loaded/allelements * 100) + '%';
     if (loaded/allelements == 1) {
         console.log("%cLoaded all", "color: blue; font-size: 20px;");
         document.getElementsByClassName('rLoading')[0].classList.toggle('tabActive', false);
-        loadedsites.push({
-            directive: "CSRD",
-            numchecked: numchecked,
-            numtotal: numtotal,
-            site: document.getElementsByClassName('mMainContent')[0].innerHTML
-        })
-        localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
+        for (var i=0; i<loadedsites.length;i++) {
+            console.log(directive)
+            console.log(loadedsites[i].directive)
+            if (loadedsites[i].directive.toLowerCase() == directive.toLowerCase() || loadedsites[i].directive.toLowerCase() == directive.toLowerCase() + ' future') {
+                loadedsites[i].site = document.getElementsByClassName('mMainContent')[0].innerHTML;
+                localStorage.setItem('loadedsites', JSON.stringify(loadedsites));
+                break;
+            }
+        }
+        
     }
 }
 
@@ -928,5 +938,42 @@ function loadOverviewChecklist(progress) {
     document.getElementById('CircCheck').innerHTML += '<div class="circ-elem">' + content + '<p style="color: ' + strokeColor + '">' + text + ' solved</p></div>'
 
 }
+
+dict = {
+    "Corporate Sustainability Due Diligence Directive": "CSDDD",
+    "Csrd": "CSRD",
+    "European Sustainability Reporting Standards": "ESRS",
+    "Supply Chain Act": "Supply Chain Act",
+    "Eu Taxonomy": "EU Taxonomy"
+}
+function startSite() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var directive = urlParams.get('directive').split('_');
+    for (var i = 0; i < directive.length; i++) {
+    directive[i] = directive[i].charAt(0).toUpperCase() + directive[i].slice(1);
+    }
+    directive = directive.join(' ');
+    var future;
+    if (directive.includes('Future')) {
+        directive = directive.split(' Future')[0]
+        future = true
+    } else {
+        future = false
+    }
+    document.getElementsByTagName('h2')[0].innerHTML = directive;
+    if (directive == "Eu Taxonomy") document.getElementsByTagName('h2')[0].innerHTML = dict[directive];
+    if (directive == "Csrd") document.getElementsByTagName('h2')[0].innerHTML = "Corporate Social Responsibility Directive";
+    var elem = document.getElementsByClassName('mST-element');
+    for (let el of elem) {
+        if (el.children[1].innerHTML.toLowerCase() == dict[directive].toLowerCase()) {
+            el.classList.toggle("mST-element-active", true);
+        }
+    }
+    loadAll(directive, future);
+    console.log(directive);
+}
+
+startSite();
 
 // loadOverviewChecklist(40);

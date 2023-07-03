@@ -122,6 +122,7 @@ function sleep(ms) {
  * @returns 
  */
 async function clickNext(elem) {
+    loadedsites = [];
     // returns if user has not selected an element yet
     if (elem.getAttribute('class').includes('deactivate')) {
         return
@@ -135,34 +136,87 @@ async function clickNext(elem) {
         if (questions[4].option > 0) sufficiance++;
         if (Number(questions[5].option) >= 40) sufficiance++;
         if (Number(questions[6].option) >= 20) sufficiance++;
-        if ((questions[0].option == 0 && sufficiance > 1) || (questions[0].option == 1 && (Number(questions[1].option) >= 150 || questions[3].option == 0))) directives.push('CSRD');
+        if ((questions[0].option == 0 && sufficiance > 1) || (questions[0].option == 1 && (Number(questions[1].option) >= 150 || questions[3].option == 0))) loadedsites.push(
+            {
+                directive: "CSRD",
+                shortname: "CSRD",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/leaf.png" // irrelevant
+            });
         //CSDD
         sufficiance = 0;
         if (questions[4].option > 0) sufficiance++;
         if (Number(questions[5].option) >= 40) sufficiance++;
-        if (questions[0].option == 0 && sufficiance > 1) directives.push('Corporate Sustainability Due Diligence Directive');
+        if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+            {
+                directive: "Corporate Sustainability Due Diligence Directive",
+                shortname: "CSDDD",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/csddd.png" // irrelevant
+            });
         //ESRS
         sufficiance = 0;
         if (questions[4].option > 0) sufficiance++;
         if (Number(questions[5].option) >= 40) sufficiance++;
         if (Number(questions[6].option) >= 20) sufficiance++;
-        if (questions[0].option == 0 && sufficiance > 1) directives.push('European Sustainability Reporting Standards');
+        if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+            {
+                directive: "European Sustainability Reporting Standards",
+                shortname: "ESRS",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/eurosign.png" // irrelevant
+            });
         //Supply chain act
         sufficiance = 0;
         if (questions[4].option > 0) sufficiance++;
         if (Number(questions[5].option) >= 40) sufficiance++;
         if (Number(questions[6].option) >= 20) sufficiance++;
-        if (questions[0].option == 0 && sufficiance > 1) directives.push('Supply Chain Act');
+        if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+            {
+                directive: "Supply Chain Act",
+                shortname: "Supply Chain Act",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/shippingbox.png" // irrelevant
+            });
         //EU Taxonomy
-        if ((questions[0].option == 0 && questions[4].option > 1) || (questions[0].option == 1 && questions[2].option == 0)) directives.push('Supply Chain Act');
-        //EU Taxonomy Future
-        sufficiance = 0;
-        if (questions[4].option > 0) sufficiance++;
-        if (Number(questions[5].option) >= 40) sufficiance++;
-        if (Number(questions[6].option) >= 20) sufficiance++;
-        if (questions[0].option == 0 && sufficiance > 1) directives.push('EU Taxonomy Future');
+        if ((questions[0].option == 0 && questions[4].option > 1) || (questions[0].option == 1 && questions[2].option == 0)) {
+            loadedsites.push(
+            {
+                directive: "EU Taxonomy",
+                shortname: "EU Taxonomy",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "",
+                img: "/IMG/basket.png" // irrelevant
+            });
+        } else {
+            //EU Taxonomy Future
+            sufficiance = 0;
+            if (questions[4].option > 0) sufficiance++;
+            if (Number(questions[5].option) >= 40) sufficiance++;
+            if (Number(questions[6].option) >= 20) sufficiance++;
+            if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+                {
+                    directive: "EU Taxonomy Future",
+                    shortname: "EU Taxonomy",
+                    numchecked: 0, // number of checklist items solved
+                    numtotal: 30, //all checklist items
+                    site: "string",
+                    img: "/IMG/basket.png" // irrelevant
+                });
+        }
 
-        console.log(directives)
+        console.log(loadedsites)
+        localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
+        window.open('http://127.0.0.1:5500/pillarnew.html', '_self');
         return
     }
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
