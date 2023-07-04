@@ -788,7 +788,7 @@ function loadDeadline(directive, future, secondtime) {
 
 }
 async function loadForum(summary, question) {
-    document.getElementsByClassName('mMainContent')[0].innerHTML += '<div id="LoadingView"><div class="loadingView"><p>Loading...</p></div></div>'
+    document.getElementsByClassName('mMainContent')[0].innerHTML += '<div id="LoadingView"><div class="loadingView"><span class="loader"></span><p>Loading...</p></div></div>'
     document.getElementsByClassName('rFFH-Top')[0].innerHTML = '<p>' + summary + '</p><div>Thread</div>';
     var messageArea = document.getElementsByClassName('rF-MessageArea')[0];
     messageArea.innerHTML = '<div class="rFM-Message messageOwn"><img src="/IMG/Profile/profile3.jpg" alt=""><div class="rFMM-Content"><div class="rFMMC-Info"><div>Leo</div><p>11:24 Uhr</p></div><div class="rFMMC-text">' + summary + '</div><div class="rFMMC-text">' + question + '</div></div></div>';
@@ -974,6 +974,6 @@ function startSite() {
     console.log(directive);
 }
 
-startSite();
+// startSite();
 
 // loadOverviewChecklist(40);
