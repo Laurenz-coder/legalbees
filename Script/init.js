@@ -25,16 +25,6 @@ class Question {
                 }
             }
             str += '</div>'
-        }else if (this.type == 'selection') {
-            str += '<div class="qMDecision">'
-            for (var i=0; i<this.rating.length;i++) {
-                if (this.option == i) {
-                    str += '<div class="qMD-Element selected" onclick="selectAnswer(' + i + ', this)">' + this.industry[i] + '</div>'
-                } else {
-                    str += '<div class="qMD-Element" onclick="selectAnswer(' + i + ', this)">' + this.industry[i] + '</div>'
-                }
-            }
-            str += '</div>'
         } else if (this.type == 'custom') {
             str += '<div class="qMDecision">'
             for (var i=0; i<this.custom_answer.length;i++) {
@@ -73,7 +63,22 @@ let q5 = new Question('slider','What is your yearly turnover?','company','q6');
 q5.min = 0;
 q5.max = 500;
 
-let questions = [q1,q2,q3,q4,q5];
+let q1 = new Question('custom','Where is your company based?','general','q1');
+q1.custom_answer = ['European Union','Outside of the European Union'];
+let q2 = new Question('slider','What is your yearly turnover in the EU?','general','q2');
+q2.min = 0; q2.max = 1000;
+let q3 = new Question('custom','Do you offer financial products in the EU?','general','q2');
+q3.custom_answer = ['Yes','No'];
+let q4 = new Question('custom','Do you have a subsidary based in the EU with a yearly turnover of more than 40 million €?','general','q3');
+q4.custom_answer = ['Yes','No'];
+let q5 = new Question('custom','How many employees do you have?','company','q4');
+q5.custom_answer = ['<250','251-500','501-3000','>3000'];
+let q6 = new Question('slider','What is your yearly turnover?','company','q5');
+q6.min = 0; q6.max = 1000;
+let q7 = new Question('slider','How large is your balance sheet?','company','q6');
+q7.min = 0; q7.max = 1000;
+
+let questions = [q1,q2,q3,q4,q5,q6,q7];
 
 var currentpage = 0;
 var numGeneral = 0;
@@ -134,7 +139,98 @@ async function clickNext(elem) {
     if (elem.getAttribute('class').includes('deactivate')) {
         return
     }
-    if (currentpage == questions.length-1) return
+    console.log(questions[currentpage].option);
+    if (questions[currentpage].option == 0) currentpage++;
+    if (currentpage == questions.length-1) {
+        //check directives that apply
+        //CSRD
+        var sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if ((questions[0].option == 0 && sufficiance > 1) || (questions[0].option == 1 && (Number(questions[1].option) >= 150 || questions[3].option == 0))) loadedsites.push(
+            {
+                directive: "CSRD",
+                shortname: "CSRD",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/leaf.png" // irrelevant
+            });
+        //CSDD
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+            {
+                directive: "Corporate Sustainability Due Diligence Directive",
+                shortname: "CSDDD",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/csddd.png" // irrelevant
+            });
+        //ESRS
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+            {
+                directive: "European Sustainability Reporting Standards",
+                shortname: "ESRS",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/eurosign.png" // irrelevant
+            });
+        //Supply chain act
+        sufficiance = 0;
+        if (questions[4].option > 0) sufficiance++;
+        if (Number(questions[5].option) >= 40) sufficiance++;
+        if (Number(questions[6].option) >= 20) sufficiance++;
+        if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+            {
+                directive: "Supply Chain Act",
+                shortname: "Supply Chain Act",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "string",
+                img: "/IMG/shippingbox.png" // irrelevant
+            });
+        //EU Taxonomy
+        if ((questions[0].option == 0 && questions[4].option > 1) || (questions[0].option == 1 && questions[2].option == 0)) {
+            loadedsites.push(
+            {
+                directive: "EU Taxonomy",
+                shortname: "EU Taxonomy",
+                numchecked: 0, // number of checklist items solved
+                numtotal: 30, //all checklist items
+                site: "",
+                img: "/IMG/basket.png" // irrelevant
+            });
+        } else {
+            //EU Taxonomy Future
+            sufficiance = 0;
+            if (questions[4].option > 0) sufficiance++;
+            if (Number(questions[5].option) >= 40) sufficiance++;
+            if (Number(questions[6].option) >= 20) sufficiance++;
+            if (questions[0].option == 0 && sufficiance > 1) loadedsites.push(
+                {
+                    directive: "EU Taxonomy Future",
+                    shortname: "EU Taxonomy",
+                    numchecked: 0, // number of checklist items solved
+                    numtotal: 30, //all checklist items
+                    site: "string",
+                    img: "/IMG/basket.png" // irrelevant
+                });
+        }
+
+        console.log(loadedsites)
+        localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
+        window.open('http://esjungle.com/pillarnew.html', '_self');
+        return
+    }
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
     await sleep(400);
     document.getElementById('QMain').innerHTML = '';

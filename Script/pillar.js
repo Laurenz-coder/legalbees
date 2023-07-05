@@ -929,4 +929,41 @@ function loadOverviewChecklist(progress) {
 
 }
 
+dict = {
+    "Corporate Sustainability Due Diligence Directive": "CSDDD",
+    "Csrd": "CSRD",
+    "European Sustainability Reporting Standards": "ESRS",
+    "Supply Chain Act": "Supply Chain Act",
+    "Eu Taxonomy": "EU Taxonomy"
+}
+function startSite() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var directive = urlParams.get('directive').split('_');
+    for (var i = 0; i < directive.length; i++) {
+    directive[i] = directive[i].charAt(0).toUpperCase() + directive[i].slice(1);
+    }
+    directive = directive.join(' ');
+    var future;
+    if (directive.includes('Future')) {
+        directive = directive.split(' Future')[0]
+        future = true
+    } else {
+        future = false
+    }
+    document.getElementsByTagName('h2')[0].innerHTML = directive;
+    if (directive == "Eu Taxonomy") document.getElementsByTagName('h2')[0].innerHTML = dict[directive];
+    if (directive == "Csrd") document.getElementsByTagName('h2')[0].innerHTML = "Corporate Social Responsibility Directive";
+    var elem = document.getElementsByClassName('mST-element');
+    for (let el of elem) {
+        if (el.children[1].innerHTML.toLowerCase() == dict[directive].toLowerCase()) {
+            el.classList.toggle("mST-element-active", true);
+        }
+    }
+    loadAll(directive, future);
+    console.log(directive);
+}
+
+ startSite();
+
 // loadOverviewChecklist(40);
