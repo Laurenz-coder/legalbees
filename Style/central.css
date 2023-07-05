@@ -74,19 +74,6 @@ body {
 }
 
 
-
-.mS-tabsList.close .mST-element-divider::before {
-    content: "";
-    position: absolute;
-    height: 2px;
-    width: 18px;
-    border-radius: 12px;
-    background: var(--main-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
 .mST-element-active {
     background-color: var(--main-color);
 }
