@@ -77,6 +77,8 @@ h3{
 .mST-recommendations::before{
     content: "Recommendations";
 
+    text-decoration: none;
+    color: black;
 }
 
 
@@ -183,7 +185,7 @@ h3{
     width: 25px;
     height: 25px;
     object-fit: contain;
-    filter: invert(61%) sepia(10%) saturate(1148%) hue-rotate(66deg) brightness(99%) contrast(88%);
+    filter: var(--main-color-filter);
 }
 .cBB-Input {
     width: 340px;
