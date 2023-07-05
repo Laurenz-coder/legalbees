@@ -966,6 +966,8 @@ function startSite() {
     if (directive == "Csrd") document.getElementsByTagName('h2')[0].innerHTML = "Corporate Social Responsibility Directive";
     var elem = document.getElementsByClassName('mST-element');
     for (let el of elem) {
+        console.log(el.children[1].innerHTML.toLowerCase())
+        console.log(dict[directive].toLowerCase())
         if (el.children[1].innerHTML.toLowerCase() == dict[directive].toLowerCase()) {
             el.classList.toggle("mST-element-active", true);
         }
@@ -974,6 +976,6 @@ function startSite() {
     console.log(directive);
 }
 
- startSite();
+startSite();
 
 // loadOverviewChecklist(40);
