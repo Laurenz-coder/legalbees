@@ -2,28 +2,6 @@ body {
     font-family: 'Inter';
 }
 
-h2{
-    font-size: 1.5rem;
-}
-
-h3{
-    font-size: 1rem;
-}
-
-
-
-
-.mST-element-divider{
-    margin: 15px 0;
-    padding: 0 20px;
-    font-size: 18px;
-  }
-
-.mST-element-group{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
 .mSideMenu {
     background-color: var(--MenuSidebar);
@@ -37,7 +15,7 @@ h3{
     overflow: hidden;
     z-index: 200;
 }
-.mS-tabsList{
+.mS-tabsList, .mS-bottomList {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -51,17 +29,31 @@ h3{
     align-items: center;
     gap: 10px;
     border-radius: 6px;
-    padding: 4px 15px;
+    padding: 6px;
     transition: background-color 0.2s;
-    width: 80%;
+    width: 188px;
     cursor: pointer;
-    height: 50px;
-    width: 200px;
+    text-decoration: none;
+    color: black;
+}
+.mST-element-active {
+    background-color: var(--main-color);
+    color: var(--white-text);
+}
+.mST-element-active > img {
+    filter: invert(99%) sepia(100%) saturate(0%) hue-rotate(86deg) brightness(108%) contrast(100%);
+}
+.mST-element:hover, .mSB-element:hover {
+    background-color: var(--MenuSidebar-hover);
 }
 .mST-element > p, .mSB-element > p {
     margin: 0;
     font-size: 20px;
-    color: #707070;
+}
+.mST-element > img, .mSB-element > img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
 }
 .mST-home::before{
     content: "Home";
