@@ -2,7 +2,6 @@ class Question {
     option;
     custom_answer = [];
     rating = ['Very much','much','More or less','less','not at all', "can't say"];
-    industry = ['Manufacturing','Information Technology','Financial Services','Healthcare and Pharmaceuticals','Consumer Goods', "Energy and Utilities"];
     min;
     max;
     constructor(type, question,topic,id) {
@@ -13,7 +12,7 @@ class Question {
     }
 
     getHTML() {
-        var str = '<div class="qMChild"><div class="qM-TopPart"><img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="" srcset=""><div class="qM-Navigation"><div class="qMN-Back" onclick="clickBack(this)">Back</div><div class="qMN-Next" onclick="clickNext(this)">Next</div></div></div><p class="qMHead">' + this.question + '</p>'
+        var str = '<div class="qMChild"><div class="qM-TopPart"><img src="/IMG/F64AF5D5-370A-430B-B05E-BCD5B3832555_1_105_c.jpeg" alt="" srcset=""><div class="qM-Navigation"><div class="qMN-Back" onclick="clickBack(this)">Back</div><div class="qMN-Next deactivate" onclick="clickNext(this)">Next</div></div></div><p class="qMHead">' + this.question + '</p>'
 
         if (this.type == 'rating') {
             str += '<div class="qMDecision">'
@@ -43,25 +42,12 @@ class Question {
             } else {
                 str += '<div class="qMInputHous"><input type="text" class="qMInput"><p>in mio €</p></div><div class="qMSliderHous"><p>' + this.min + ' €</p><input type="range" min="' + this.min + '" max="' + this.max + '" value="0" class="qMSlider"><p>' + this.max + ' mio €</p></div>'
             }
-            
-        }else if (this.type == 'info') {
-            str += '<div class="qMlogin">'
-            str+='<input type="text" name="txt" placeholder="Company name" required=""><input type="email" name="email" placeholder="Email" required=""><input type="password" name="pswd" placeholder="Password" required="">'
-            str += '</div>'
         }
 
         str += '</div>';
         return str
     }
 }
-let q1 = new Question('info',"Insert your new account details",'general','q1');
-let q2 = new Question('selection',"What Industry is your company operating in",'general','q1');
-let q3 = new Question('rating','Are you interested in ESG?','general','q2');
-let q4 = new Question('custom','How many employees do you have in germany?','company','q5');
-q4.custom_answer = ['10-25','25-100','100-250','250-1000','>1000'];
-let q5 = new Question('slider','What is your yearly turnover?','company','q6');
-q5.min = 0;
-q5.max = 500;
 
 let q1 = new Question('custom','Where is your company based?','general','q1');
 q1.custom_answer = ['European Union','Outside of the European Union'];
@@ -129,12 +115,14 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+
 /**
  * click on button next to get next question
  * @param {HTMLElement} elem reference to itself
  * @returns 
  */
 async function clickNext(elem) {
+    loadedsites = [];
     // returns if user has not selected an element yet
     if (elem.getAttribute('class').includes('deactivate')) {
         return
@@ -267,6 +255,9 @@ async function clickBack() {
     await sleep(400);
     document.getElementById('QMain').innerHTML = '';
     currentpage--;
+    if (currentpage != 0) {
+        if (questions[currentpage-1].option == 0) currentpage--;
+    }
     console.log(currentpage)
     console.log(numGeneral)
     // decreases progress bar
@@ -281,6 +272,9 @@ async function clickBack() {
         document.getElementById('QS-Bar2').style.width = ((currentpage - numGeneral)/numCompany * 100) + '%'
     }
     document.getElementById('QMain').innerHTML = questions[currentpage].getHTML();
+    if (questions[currentpage].type == 'slider') {
+        activateSlider();
+    }
     checkNextButton();
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
     await sleep(10);
@@ -294,7 +288,7 @@ async function clickBack() {
 function activateSlider() {
     document.getElementsByClassName('qMSlider')[0].oninput = function() {
         document.getElementsByClassName('qMInput')[0].value = document.getElementsByClassName('qMSlider')[0].value;
-        questions[currentpage].option = document.getElementsByClassName('qMSlider')[0].value + ' mio €';
+        questions[currentpage].option = document.getElementsByClassName('qMSlider')[0].value;
         const tempSliderValue = document.getElementsByClassName('qMSlider')[0].value; 
         const progress = (tempSliderValue / document.getElementsByClassName('qMSlider')[0].max) * 100;
         document.getElementsByClassName('qMSlider')[0].style.background = `linear-gradient(to right, #7AA874 ${progress}%, #ccc ${progress}%)`;
@@ -302,7 +296,7 @@ function activateSlider() {
     }
     document.getElementsByClassName('qMInput')[0].oninput = function() {
         document.getElementsByClassName('qMSlider')[0].value = document.getElementsByClassName('qMInput')[0].value;
-        questions[currentpage].option = document.getElementsByClassName('qMInput')[0].value + ' mio €';
+        questions[currentpage].option = document.getElementsByClassName('qMInput')[0].value;
         const tempSliderValue = document.getElementsByClassName('qMInput')[0].value; 
         const progress = (tempSliderValue / document.getElementsByClassName('qMSlider')[0].max) * 100;
         document.getElementsByClassName('qMSlider')[0].style.background = `linear-gradient(to right, #7AA874 ${progress}%, #ccc ${progress}%)`;
@@ -328,4 +322,3 @@ function prepareProgressBar() {
 prepareProgressBar();
 
 // activateSlider();
-

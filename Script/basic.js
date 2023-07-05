@@ -133,3 +133,19 @@ async function clearPlaceholder(focus, elem) {
 function toggleChatBox() {
     document.getElementsByClassName('chatBoxHous')[0].classList.toggle('chatClosed')
 }
+
+function setSidebar() {
+    var parent = document.getElementsByClassName('mS-tabsList')[0];
+    parent.innerHTML = '<a class="mST-element" href="/dashboard.html"><img src="/IMG/dashboard.png" alt=""><p>Dashboard</p></a>';
+    if (localStorage.getItem('loadedsites') != undefined) {
+        loadedsites = JSON.parse(localStorage.getItem('loadedsites'))
+        console.log('hey')
+    }
+    for (let el of loadedsites) {
+        var dir = el.directive.split(' ').join('_').toLowerCase();
+        parent.innerHTML += '<a class="mST-element" href="/pillarnew.html?directive=' + dir + '"><img src="' + el.img + '" alt=""><p>' + el.shortname + '</p></a>'
+    }
+    parent.innerHTML += '<div class="mST-element"><img src="/IMG/bell.png" alt=""><p>Notifications</p></div>'
+}
+
+setSidebar()

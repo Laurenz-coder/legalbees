@@ -6,7 +6,7 @@ function getScrollProgress() {
     const winHeight = document.getElementById("ScrollContainer").scrollHeight - document.getElementById("ScrollContainer").clientHeight;
     const scrolled = (winScroll / winHeight) * 100;
     document.getElementById("ScrollIndicator").style.height = scrolled + "%";
-  }
+}
 
 //  document.getElementById("ScrollContainer").onscroll = function() {getScrollProgress()};
 
@@ -118,16 +118,16 @@ var issuer =  [
     },
 ]
 
-let month = ["Jan","Feb","Mar","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+let month = ["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 let allelements = 9;
 var loaded = 0;
 
-function loadThreads() {
+function loadThreads(directive) {
 
     var message = [{
         "role": "user",
-        "content": 'You are asking five different forum thread questions regarding CSRD. Provide the answer in a JSON array. It should include a question and a short summary of the question. Use a maximum of six words for the summary. The question should be two sentences. The questions should address implementation and risks. Do not ask simple questions. Do not use single quotes or apostrophes'
+        "content": 'You are asking five different forum thread questions regarding ' + directive + '. Provide the answer in a JSON array. It should include a question and a short summary of the question. Use a maximum of six words for the summary. The question should be two sentences. The questions should address implementation and risks. Do not ask simple questions. Do not use single quotes or apostrophes'
     }]
 
 
@@ -189,7 +189,7 @@ function loadThreads() {
         }
         console.log(JSON.parse(res));
         loaded++;
-        updatedLoader();
+        updatedLoader(directive);
         // messagehist.push(result.choices[0].message);
     })
 
@@ -198,11 +198,11 @@ function loadThreads() {
 // number of elements in checklist checked
 var numtotal = 0;
 var numchecked = 0;
-function loadChecklist(secondtime) {
+function loadChecklist(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'Can you create a checklist for the CSRD and provide the answer in a structured JSON array? It should have the variable category and list. Every list should contain an array of 5 elements. Each element is a string which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories. the JSON object must be complete'
+        "content": 'Can you create a checklist for the ' + directive + ' ESG directive and provide the answer in a structured JSON array? It should have the variable category and list. Every list should contain an array of 5 elements. Each element is a string which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories. the JSON object must be complete'
     }]
 
 
@@ -242,6 +242,7 @@ function loadChecklist(secondtime) {
             res = res.split(",\n   }").join('}');
             res = res.split('"\n      "').join('","');
             res = res.split('Checklist').join('checklist');
+            res = res.split('categories').join('checklist');
             res = res.split('Checkpoint').join('checkpoint');
             res = res.split("```").join('');
             res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
@@ -281,15 +282,15 @@ function loadChecklist(secondtime) {
             console.log(JSON.parse(res));
             loaded++;
             loadOverviewChecklist(Math.round(numchecked/numtotal*100));
-            updatedLoader();
+            updatedLoader(directive);
         } catch (error) {
             console.log(error)
             if (secondtime != undefined) {
-                loadChecklist(true);
+                loadChecklist(directive, true);
             } else {
                 console.log('second time failed with checklist')
                 loaded++;
-                updatedLoader();
+                updatedLoader(directive);
             }
             return;
         }
@@ -297,11 +298,11 @@ function loadChecklist(secondtime) {
     })
 
 }
-function loadUpdates() {
+function loadUpdates(directive) {
 
     var message = [{
         "role": "user",
-        "content": 'give a list of recent changes the directive CSRD in a JSON array. it should contain the variable date in the format DD:MM:YYYY. It should also contain the variable message. This should describe the update in 1 to 3 words. It should also contain the variable update which describes the actual updates in two sentences.'
+        "content": 'give a list of recent changes the directive ' + directive + ' in a JSON array. it should contain the variable date in the format DD:MM:YYYY. It should also contain the variable message. This should describe the update in 1 to 3 words. It should also contain the variable update which describes the actual updates in two sentences.'
     }]
 
 
@@ -342,9 +343,12 @@ function loadUpdates() {
         res = res.split('link :').join('"link" :');
         res = res.split('link:').join('"link" :');
         res = res.split('update:').join('"update" :');
-        res = res.split('-').join(':');
+        res = res.split(/(\d+-\d+)/g).join(':');
         res = res.split(/(?<=[a-zA-Z\.])'(?![a-zA-Z\.])|(?<![a-zA-Z\.])'(?=[a-zA-Z\.])/g).join('"');
         res = res.split("```").join('');
+        res = res.split('[')[1];
+        res = res.split(']')[0];
+        res = '[' + res + ']';
         console.log(res);
         var resobj = JSON.parse(res);
         if (resobj.changes != undefined) {
@@ -370,17 +374,17 @@ function loadUpdates() {
             count++;
         }
         loaded++;
-        updatedLoader();
+        updatedLoader(directive);
         console.log(resobj);
         // messagehist.push(result.choices[0].message);
     })
 
 }
-function loadRisks(secondtime) {
+function loadRisks(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'Can you create a list of potential risks for the CSRD and provide the answer in a structured JSON format? The list of potential risks should be structured in the following way: It should have as many sections as there are potential risks in total, but it should have at least 4 different risks. Every section should be structured in the following way: It should include a brief description with one sentence, a quantification of the financial sanctions/fees if a company does not comply with the CSRD, and a short title with 1 - 3 words? Please provide the information in a JSON format, where the short title with 1 - 3 words follows the variable "title:", the brief description follows the variable "brief description:" and the quantification of the financial risks that follow after the variable "financial risk:" and estimate the monetary amount for each risk.'
+        "content": 'Can you create a list of potential risks for the ' + directive + ' directive and provide the answer in a structured JSON format? The list of potential risks should be structured in the following way: It should have as many sections as there are potential risks in total, but it should have at least 4 different risks. Every section should be structured in the following way: It should include a brief description with one sentence, a quantification of the financial sanctions/fees if a company does not comply with the CSRD, and a short title with 1 - 3 words? Please provide the information in a JSON format, where the short title with 1 - 3 words follows the variable "title:", the brief description follows the variable "brief description:" and the quantification of the financial risks that follow after the variable "financial risk:" and estimate the monetary amount for each risk.'
     }]
 
 
@@ -439,7 +443,7 @@ function loadRisks(secondtime) {
     
             }
             loaded++;
-            updatedLoader();
+            updatedLoader(directive);
             
         } catch (error) {
             console.log(error)
@@ -456,11 +460,11 @@ function loadRisks(secondtime) {
     })
 
 }
-function loadDeepDive(secondtime) {
+function loadDeepDive(directive, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'give a deep dive for CSRD.'
+        "content": 'give a deep dive for the ' + directive + ' directive.'
     }]
 
     var functions = [
@@ -651,19 +655,19 @@ function loadDeepDive(secondtime) {
                     str += '</div>'
                     elem.innerHTML += str;
                 } else {
-                    elem.innerHTML += "not implemented get timeline";
+                    //elem.innerHTML += "not implemented get timeline";
                 }
                 loaded++;
-                updatedLoader();
+                updatedLoader(directive);
                 
             } catch (error) {
                 console.log(error)
                 if (secondtime != undefined) {
-                    loadDeepDive(true);
+                    loadDeepDive(directive, true);
                 } else {
                     console.log('second time failed with deepdive')
                     loaded++;
-                    updatedLoader();
+                    updatedLoader(directive);
                 }
                 return;
             }
@@ -672,11 +676,11 @@ function loadDeepDive(secondtime) {
 
 
 }
-function loadDeadline(secondtime) {
+function loadDeadline(directive, future, secondtime) {
 
     var message = [{
         "role": "user",
-        "content": 'give details for CSRD.'
+        "content": 'give details for the ' + directive +' directive.'
     }]
 
     var functions = [
@@ -740,6 +744,9 @@ function loadDeadline(secondtime) {
             var answer = JSON.parse(result.choices[0].message.function_call.arguments);
             document.getElementsByClassName('rQE-deadline')[0].children[1].innerHTML = answer.deadline;
             document.getElementsByClassName('rQE-deadline')[0].children[2].innerHTML = 'Deadline: ' + answer.deadline;
+            if (!future) {
+                document.getElementsByClassName('rRQ-Info')[0].style.display = 'none';
+            }
             if (!answer.voluntary) {
                 document.getElementsByClassName('rRQE-voluntary')[0].style.display = 'none';
     
@@ -763,16 +770,16 @@ function loadDeadline(secondtime) {
                     break;
             }
             loaded++;
-            updatedLoader();
+            updatedLoader(directive);
             
         } catch (error) {
             console.log(error)
             if (secondtime != undefined) {
-                loadDeadline(true);
+                loadDeadline(directive, future,true);
             } else {
                 console.log('second time failed with deadline')
                 loaded++;
-                updatedLoader();
+                updatedLoader(directive);
             }
             return;
         }
@@ -781,7 +788,7 @@ function loadDeadline(secondtime) {
 
 }
 async function loadForum(summary, question) {
-    document.getElementsByClassName('mMainContent')[0].innerHTML += '<div id="LoadingView"><div class="loadingView"><p>Loading...</p></div></div>'
+    document.getElementsByClassName('mMainContent')[0].innerHTML += '<div id="LoadingView"><div class="loadingView"><span class="loader"></span><p>Loading...</p></div></div>'
     document.getElementsByClassName('rFFH-Top')[0].innerHTML = '<p>' + summary + '</p><div>Thread</div>';
     var messageArea = document.getElementsByClassName('rF-MessageArea')[0];
     messageArea.innerHTML = '<div class="rFM-Message messageOwn"><img src="/IMG/Profile/profile3.jpg" alt=""><div class="rFMM-Content"><div class="rFMMC-Info"><div>Leo</div><p>11:24 Uhr</p></div><div class="rFMMC-text">' + summary + '</div><div class="rFMMC-text">' + question + '</div></div></div>';
@@ -860,40 +867,43 @@ async function loadForum(summary, question) {
 
 }
 
-function loadAll() {
+function loadAll(directive, future) {
     var fromstorage = JSON.parse(localStorage.getItem('loadedsites'));
     if (fromstorage != undefined) {
         loadedsites = fromstorage;
         for (let el of loadedsites) {
-            if (el.directive == 'CSRD') {
+            if ((el.directive.toLowerCase() == directive.toLowerCase() || el.directive.toLowerCase() == directive.toLowerCase() + ' future') && el.site != "string") {
                 document.getElementsByClassName('mMainContent')[0].innerHTML = el.site;
                 numchecked = el.numchecked;
                 numtotal = el.numtotal;
+                console.log("%cDirective has already been loaded", "color: #7D9177; font-size: 20px;");
+                return;
             }
         }
-        console.log("%cDirective has already been loaded", "color: #7D9177; font-size: 20px;");
-        return;
     }
-    loadThreads();
-    loadUpdates();
-    loadChecklist();
-    loadDeadline();
-    loadDeepDive();
-    loadRisks();
+    loadThreads(directive);
+    loadUpdates(directive);
+    loadChecklist(directive);
+    loadDeadline(directive, future);
+    loadDeepDive(directive);
+    loadRisks(directive);
 }
 
-function updatedLoader() {
+function updatedLoader(directive) {
     document.getElementById('LoadingBar').style.width = Math.round(loaded/allelements * 100) + '%';
     if (loaded/allelements == 1) {
         console.log("%cLoaded all", "color: blue; font-size: 20px;");
         document.getElementsByClassName('rLoading')[0].classList.toggle('tabActive', false);
-        loadedsites.push({
-            directive: "CSRD",
-            numchecked: numchecked,
-            numtotal: numtotal,
-            site: document.getElementsByClassName('mMainContent')[0].innerHTML
-        })
-        localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
+        for (var i=0; i<loadedsites.length;i++) {
+            console.log(directive)
+            console.log(loadedsites[i].directive)
+            if (loadedsites[i].directive.toLowerCase() == directive.toLowerCase() || loadedsites[i].directive.toLowerCase() == directive.toLowerCase() + ' future') {
+                loadedsites[i].site = document.getElementsByClassName('mMainContent')[0].innerHTML;
+                localStorage.setItem('loadedsites', JSON.stringify(loadedsites));
+                break;
+            }
+        }
+        
     }
 }
 
