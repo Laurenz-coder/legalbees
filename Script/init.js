@@ -49,7 +49,7 @@ class Question {
     }
 }
 
-let q1 = new Question('custom','Where is your copmany based?','general','q1');
+let q1 = new Question('custom','Where is your company based?','general','q1');
 q1.custom_answer = ['European Union','Outside of the European Union'];
 let q2 = new Question('slider','What is your yearly turnover in the EU?','general','q2');
 q2.min = 0; q2.max = 1000;
