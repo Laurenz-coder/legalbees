@@ -1,5 +1,5 @@
 
-import { loadedsites } from "./variables.js";
+// import { loadedsites } from "./variables.js";
 
 // Get all the <td> elements with the class "mMR-warning-tag"
 const warningTags = document.querySelectorAll('.mMR-warning-tag');
