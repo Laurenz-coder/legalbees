@@ -216,7 +216,7 @@ async function clickNext(elem) {
 
         console.log(loadedsites)
         localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
-        window.open('http://127.0.0.1:5500/pillarnew.html', '_self');
+        window.open('http://esjungle.com/pillarnew.html', '_self');
         return
     }
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);

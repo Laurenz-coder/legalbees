@@ -974,6 +974,6 @@ function startSite() {
     console.log(directive);
 }
 
-// startSite();
+ startSite();
 
 // loadOverviewChecklist(40);
