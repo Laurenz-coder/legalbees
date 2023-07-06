@@ -835,6 +835,9 @@ async function loadForum(summary, question) {
         res = res.split("```").join('');
         console.log(res);
         var resobj = JSON.parse(res);
+        if (resobj.forum_conversation != undefined) {
+            resobj = resobj.forum_conversation;
+        }
         var elem = document.getElementsByName('ThreadList')[0];
         var count = 0;
         for (let obj of resobj) {
