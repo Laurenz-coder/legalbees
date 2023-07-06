@@ -12,7 +12,7 @@ class Question {
     }
 
     getHTML() {
-        var str = '<div class="qMChild"><div class="qM-TopPart"><img src="/IMG/Profile/profile3.jpeg" alt="" srcset=""><div class="qM-Navigation"><div class="qMN-Back" onclick="clickBack(this)">Back</div><div class="qMN-Next deactivate" onclick="clickNext(this)">Next</div></div></div><p class="qMHead">' + this.question + '</p>'
+        var str = '<div class="qMChild"><div class="qM-TopPart"><img src="/IMG/Profile/profile3.jpg" alt="" srcset=""><div class="qM-Navigation"><div class="qMN-Back" onclick="clickBack(this)">Back</div><div class="qMN-Next deactivate" onclick="clickNext(this)">Next</div></div></div><p class="qMHead">' + this.question + '</p>'
 
         if (this.type == 'rating') {
             str += '<div class="qMDecision">'
