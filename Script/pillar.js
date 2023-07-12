@@ -199,7 +199,8 @@ function loadThreads(directive) {
 var numtotal = 0;
 var numchecked = 0;
 function loadChecklist(directive, secondtime) {
-
+    numtotal = 0;
+    numchecked = 0;
     var message = [{
         "role": "user",
         "content": 'Can you create a checklist for the ' + directive + ' ESG directive and provide the answer in a structured JSON array? It should have the variable category and list. Every list should contain an array of 5 elements. Each element is a string which includes the measures a company must take to comply with the requirements of the CSRD. Give at least 3 categories. the JSON object must be complete'
@@ -902,6 +903,8 @@ function updatedLoader(directive) {
             console.log(loadedsites[i].directive)
             if (loadedsites[i].directive.toLowerCase() == directive.toLowerCase() || loadedsites[i].directive.toLowerCase() == directive.toLowerCase() + ' future') {
                 loadedsites[i].site = document.getElementsByClassName('mMainContent')[0].innerHTML;
+                loadedsites[i].numchecked = numchecked;
+                loadedsites[i].numtotal = numtotal;
                 localStorage.setItem('loadedsites', JSON.stringify(loadedsites));
                 break;
             }
