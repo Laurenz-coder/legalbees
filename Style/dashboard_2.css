@@ -395,7 +395,7 @@ tr:not(thead tr):hover {
     /* Automatically adjust row height based on content */
     gap: 3rem;
     /* Add gap between grid items */
-    margin: 40px 20px 0 20px;
+    margin: 0 20px 0 20px;
     max-width: 2000px;
 }
 
@@ -545,7 +545,20 @@ li:first-child {
     background: var(--main-color);
 }
 
-
+.headline{
+    display: grid;
+    position: relative;
+    /* Additional styles for mRightSidebar */
+    height: max-content;
+    grid-template-columns: 1fr 0.75fr;
+    /* Create three equal-width columns */
+    grid-template-rows: auto;
+    /* Automatically adjust row height based on content */
+    gap: 3rem;
+    /* Add gap between grid items */
+    margin: 0 20px 0 20px;
+    max-width: 2000px;
+}
 
 /* ========================== graph ==================== */
 
