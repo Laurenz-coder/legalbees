@@ -307,11 +307,8 @@ function fillSubPillar() {
     h1.textContent = `${dir.numchecked} / ${dir.numtotal}`;
 
     // Add appropriate symbol based on directive
-    if (dir.directive === "CSRD") {
-      span.textContent = "spa";
-    } else {
+  
       span.textContent = "filter_list";
-    }
 
     // Append the elements in the required hierarchy
     mMIECTextArea.appendChild(h3);
