@@ -395,7 +395,7 @@ tr:not(thead tr):hover {
     /* Automatically adjust row height based on content */
     gap: 3rem;
     /* Add gap between grid items */
-    margin: 0 20px 0 20px;
+    margin: 40px 20px 0 20px;
     max-width: 2000px;
 }
 
@@ -629,7 +629,7 @@ li:first-child {
     border-bottom: 1px solid rgba(73, 114, 133, .6);
     display: flex;
     justify-content: space-between;
-    padding: 30px 40px;
+    padding: 30px 30px;
 }
 
 .current-date h1 {
@@ -652,6 +652,11 @@ li:first-child {
     justify-content: space-between;
 }
 
+li::marker {
+    
+    font-size: 1.2em;
+}
+
 .weeks {
     color: #fff;
     display: flex;
@@ -664,7 +669,7 @@ li:first-child {
     font-size: 1.2em;
     font-weight: 300;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     width: 100%;
 }
 
