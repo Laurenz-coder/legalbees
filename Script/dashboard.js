@@ -301,7 +301,7 @@ function fillSubPillar() {
     mMIECTextArea.classList.add("mMIEC-text-area");
 
     let h3 = document.createElement("h3");
-    h3.textContent = dir.directive;
+    h3.textContent = dir.shortname;
 
     let h1 = document.createElement("h1");
     h1.textContent = `${dir.numchecked} / ${dir.numtotal}`;
