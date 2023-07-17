@@ -136,7 +136,12 @@ function toggleChatBox() {
 
 function setSidebar() {
     var parent = document.getElementsByClassName('mS-tabsList')[0];
-    parent.innerHTML = '<a class="mST-element" href="/dashboard.html"><img src="/IMG/dashboard.png" alt=""><p>Dashboard</p></a>';
+    if (window.location.href.includes("dashboard")) {
+        console.log("dashboard")
+        parent.innerHTML = '<a class="mST-element mST-element-active" href="/dashboard.html"><img src="/IMG/dashboard.png" alt=""><p>Dashboard</p></a>';
+    } else {
+        parent.innerHTML = '<a class="mST-element" href="/dashboard.html"><img src="/IMG/dashboard.png" alt=""><p>Dashboard</p></a>';
+    }
     if (localStorage.getItem('loadedsites') != undefined) {
         loadedsites = JSON.parse(localStorage.getItem('loadedsites'))
         console.log('hey')
