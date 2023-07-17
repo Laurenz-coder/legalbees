@@ -220,7 +220,7 @@ async function clickNext(elem) {
         } else {
             console.log("no new load")
         }
-        window.open('http://esjungle.com/pillarnew.html', '_self');
+        window.open('http://esjungle.com/dashboard.html', '_self');
         return
     }
     document.getElementById('QMain').children[0].classList.toggle('trans-left', true);
