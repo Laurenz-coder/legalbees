@@ -215,7 +215,11 @@ async function clickNext(elem) {
         }
 
         console.log(loadedsites)
-        localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
+        if (localStorage.getItem('reload') == undefined) {
+            localStorage.setItem('loadedsites', JSON.stringify(loadedsites))
+        } else {
+            console.log("no new load")
+        }
         window.open('http://esjungle.com/pillarnew.html', '_self');
         return
     }
