@@ -132,7 +132,7 @@ function loadThreads(directive) {
 
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -208,7 +208,7 @@ function loadChecklist(directive, secondtime) {
 
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -308,7 +308,7 @@ function loadUpdates(directive) {
 
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer "); // no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -390,7 +390,7 @@ function loadRisks(directive, secondtime) {
 
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -595,7 +595,7 @@ function loadDeepDive(directive, secondtime) {
         
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var listOfFunction = ['get_goals_and_requirements']
@@ -716,7 +716,7 @@ function loadDeadline(directive, future, secondtime) {
         
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -801,7 +801,7 @@ async function loadForum(summary, question) {
 
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
