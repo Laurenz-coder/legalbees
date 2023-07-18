@@ -60,7 +60,7 @@ async function sendMessage() {
     answer.classList.toggle('answerSent', false);
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", "Bearer ");// no API key since repository is public. OpenAI Key is needed
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
